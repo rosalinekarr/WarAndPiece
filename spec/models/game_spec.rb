@@ -1,5 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Game, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "should populate the board with pieces when started" do
+    game = FactoryGirl.create(:game)
+    expect(game.pieces.count).to eq 32
+  end
 end
