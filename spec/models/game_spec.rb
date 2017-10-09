@@ -5,4 +5,6 @@ RSpec.describe Game, type: :model do
     game = FactoryGirl.create(:game)
     expect(game.pieces.count).to eq 32
   end
+  
+  
 end
