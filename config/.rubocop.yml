@@ -1,0 +1,13 @@
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
+  
+Metrics/LineLength:
+  Max: 100
+
+Layout/SpaceInsideBrackets:
+  Description: 'No spaces after [ or before ].'
+  StyleGuide: '#no-spaces-braces'
+  Enabled: false
