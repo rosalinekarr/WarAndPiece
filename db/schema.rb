@@ -12,6 +12,7 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20171008173127) do
 =======
 ActiveRecord::Schema.define(version: 0) do
@@ -25,6 +26,12 @@ ActiveRecord::Schema.define(version: 20171009125354) do
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+ActiveRecord::Schema.define(version: 20171009125354) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+>>>>>>> 1eb9c228c96cb51639d4ccd6844afa8c2ebb3eea
   create_table "games", force: :cascade do |t|
     t.integer "white_player_id"
     t.integer "black_player_id"
@@ -34,9 +41,12 @@ ActiveRecord::Schema.define(version: 20171009125354) do
     t.datetime "updated_at", null: false
   end
 
+<<<<<<< HEAD
 =======
 >>>>>>> master
 =======
+=======
+>>>>>>> 1eb9c228c96cb51639d4ccd6844afa8c2ebb3eea
   create_table "moves", force: :cascade do |t|
     t.integer "game_id"
     t.integer "piece_id"
@@ -45,5 +55,8 @@ ActiveRecord::Schema.define(version: 20171009125354) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+<<<<<<< HEAD
 >>>>>>> 726de587eda3fcafdb3d97aaae5466bee7cbf7ac
+=======
+>>>>>>> 1eb9c228c96cb51639d4ccd6844afa8c2ebb3eea
 end

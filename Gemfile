@@ -40,10 +40,14 @@ group :development, :test do
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
 <<<<<<< HEAD
+<<<<<<< HEAD
   gem 'factory_girl_rails', '~>4.0'
 =======
   gem "factory_girl_rails", "~> 4.0"
 >>>>>>> 726de587eda3fcafdb3d97aaae5466bee7cbf7ac
+=======
+  gem "factory_girl_rails", "~> 4.0"
+>>>>>>> 1eb9c228c96cb51639d4ccd6844afa8c2ebb3eea
 end
 
 group :development do
@@ -71,6 +75,10 @@ source 'https://rails-assets.org' do
 end
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 gem 'devise'
 >>>>>>> master
+=======
+gem 'devise'
+>>>>>>> 1eb9c228c96cb51639d4ccd6844afa8c2ebb3eea

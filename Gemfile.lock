@@ -80,10 +80,14 @@ GEM
     erubi (1.6.1)
     execjs (2.7.0)
 <<<<<<< HEAD
+<<<<<<< HEAD
     factory_girl (4.8.1)
 =======
     factory_girl (4.8.0)
 >>>>>>> 726de587eda3fcafdb3d97aaae5466bee7cbf7ac
+=======
+    factory_girl (4.8.1)
+>>>>>>> 1eb9c228c96cb51639d4ccd6844afa8c2ebb3eea
       activesupport (>= 3.0.0)
     factory_girl_rails (4.8.0)
       factory_girl (~> 4.8.0)
@@ -252,12 +256,16 @@ DEPENDENCIES
 <<<<<<< HEAD
 <<<<<<< HEAD
   factory_girl_rails (~> 4.0)
+<<<<<<< HEAD
 =======
 =======
   factory_girl_rails (~> 4.0)
 >>>>>>> 726de587eda3fcafdb3d97aaae5466bee7cbf7ac
   devise
 >>>>>>> master
+=======
+  devise
+>>>>>>> 1eb9c228c96cb51639d4ccd6844afa8c2ebb3eea
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)
