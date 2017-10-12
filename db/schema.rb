@@ -10,11 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20171008173127) do
+=======
+ActiveRecord::Schema.define(version: 0) do
+>>>>>>> master
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+<<<<<<< HEAD
   create_table "games", force: :cascade do |t|
     t.integer "white_player_id"
     t.integer "black_player_id"
@@ -24,4 +29,6 @@ ActiveRecord::Schema.define(version: 20171008173127) do
     t.datetime "updated_at", null: false
   end
 
+=======
+>>>>>>> master
 end
