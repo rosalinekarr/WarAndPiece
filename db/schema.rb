@@ -25,9 +25,12 @@ ActiveRecord::Schema.define(version: 20171012032720) do
   end
 
   create_table "pieces", force: :cascade do |t|
-    t.string "name"
+    t.string "type"
+    t.integer "game_id"
     t.integer "white_player_id"
     t.integer "black_player_id"
+    t.integer "rank"
+    t.string "file"
     t.integer "move_id"
     t.boolean "is_captured", default: false
     t.datetime "created_at", null: false
