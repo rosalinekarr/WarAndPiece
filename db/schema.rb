@@ -11,14 +11,19 @@
 # It's strongly recommended that you check this file into your version control system.
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20171008173127) do
 =======
 ActiveRecord::Schema.define(version: 0) do
 >>>>>>> master
+=======
+ActiveRecord::Schema.define(version: 20171009125354) do
+>>>>>>> 726de587eda3fcafdb3d97aaae5466bee7cbf7ac
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   create_table "games", force: :cascade do |t|
     t.integer "white_player_id"
@@ -31,4 +36,14 @@ ActiveRecord::Schema.define(version: 0) do
 
 =======
 >>>>>>> master
+=======
+  create_table "moves", force: :cascade do |t|
+    t.integer "game_id"
+    t.integer "piece_id"
+    t.integer "rank"
+    t.integer "file"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+>>>>>>> 726de587eda3fcafdb3d97aaae5466bee7cbf7ac
 end

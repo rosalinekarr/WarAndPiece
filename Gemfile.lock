@@ -79,7 +79,11 @@ GEM
     diff-lcs (1.3)
     erubi (1.6.1)
     execjs (2.7.0)
+<<<<<<< HEAD
     factory_girl (4.8.1)
+=======
+    factory_girl (4.8.0)
+>>>>>>> 726de587eda3fcafdb3d97aaae5466bee7cbf7ac
       activesupport (>= 3.0.0)
     factory_girl_rails (4.8.0)
       factory_girl (~> 4.8.0)
@@ -246,8 +250,12 @@ DEPENDENCIES
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
 <<<<<<< HEAD
+<<<<<<< HEAD
   factory_girl_rails (~> 4.0)
 =======
+=======
+  factory_girl_rails (~> 4.0)
+>>>>>>> 726de587eda3fcafdb3d97aaae5466bee7cbf7ac
   devise
 >>>>>>> master
   jbuilder (~> 2.5)
