@@ -11,11 +11,11 @@ class GamesController < ApplicationController
   
   def create
     @game = Game.create(game_params)
+    redirect_to root_path
   end
   
-  def private
+ private
     def game_params 
-      params.require(:game).permit(:game_state)
+      params.require(:game).permit(:game_id, :game_state)
     end
-  end
 end
