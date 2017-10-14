@@ -13,6 +13,6 @@ class GamesController < ApplicationController
   private
 
   def game_params
-    params.require(:game).permit(xxxx)
+    params.require(:game).permit(@game.white_player_id = current_user.id)
   end
 end
