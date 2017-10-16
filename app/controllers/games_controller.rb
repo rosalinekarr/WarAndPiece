@@ -9,7 +9,13 @@ class GamesController < ApplicationController
     @game.update_attributes(game_params)
     redirect_to_root_path
   end
-
+  
+  def destroy
+  end
+    @game = Game.find(params[:id])
+      return not_found(:forbidden) if @game.user != current_user
+    @game.destroy
+    redirect_to_root_path
   private
 
   def game_params
