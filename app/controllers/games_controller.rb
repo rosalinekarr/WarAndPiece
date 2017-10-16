@@ -11,11 +11,12 @@ class GamesController < ApplicationController
   end
   
   def destroy
-  end
     @game = Game.find(params[:id])
       return not_found(:forbidden) if @game.user != current_user
     @game.destroy
     redirect_to_root_path
+  end  
+  
   private
 
   def game_params
