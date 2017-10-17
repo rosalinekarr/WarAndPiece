@@ -1,7 +1,6 @@
 class GamesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :show, :update]
   def index
-    #will the index show all games or just the current game? - RRS
     @games = Game.all
   end
   
