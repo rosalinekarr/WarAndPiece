@@ -36,14 +36,14 @@ ActiveRecord::Schema.define(version: 20171015173056) do
   create_table "pieces", force: :cascade do |t|
     t.string "type"
     t.integer "game_id"
-    t.integer "white_player_id"
-    t.integer "black_player_id"
     t.integer "rank"
     t.string "file"
     t.integer "move_id"
     t.boolean "is_captured", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_pieces_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
