@@ -8,10 +8,9 @@ class Piece < ApplicationRecord
     Piece.game.pieces each do |p|
       if p.rank == row && p.file == col
         return true
-      else
-        false
       end
     end
+    false
   end
 
 end
