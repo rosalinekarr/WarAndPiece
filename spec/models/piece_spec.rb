@@ -145,5 +145,3 @@ end
 
   #   expect(piece).to_not be_valid
   # end
-end
->>>>>>> origin/master
