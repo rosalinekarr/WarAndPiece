@@ -4,8 +4,7 @@ class Piece < ApplicationRecord
   belongs_to :user
 
   def is_obstructed(row, col)    ## rank and file of the square we want to move to
-    current_game = @game  ## AS DEFINED IN CONTROLLER#???  or s.t. like Game.find(id)
-    current_game.pieces each do |p|
+    game.pieces.each do |p|     ## AS DEFINED IN CONTROLLER#???  or s.t. like Game.find(id)
       if p.rank == row && p.file == col
         return true
       end

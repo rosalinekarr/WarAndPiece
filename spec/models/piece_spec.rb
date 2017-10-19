@@ -3,27 +3,29 @@ require 'rails_helper'
 RSpec.describe Piece, type: :model do
 
   describe "piece#is_obstructed checks if there is an obstruction between two squares" do
+
+    it "checks if there is no obstruction" do
+      current_square = Piece.create(rank: 4, file: 4)
+      obstruction = Piece.create(rank: 6, file: 6)
+      expect(current_square.is_obstructed(5, 5)).to be false
+    end
+
     it "checks if there is an obstruction horizontally" do
-      current_square = Piece.create(rank: 2, file: 2)
-      previous_column_square = Piece.create(rank: 2, file: 1)
-      # next_column_square = Piece.create(rank: 2, file: 3)
-      expect(current_square.is_obstructed(2, 1)).to be true
+      current_square = Piece.create(rank: 4, file: 4)
+      obstruction = Piece.create(rank: 4, file: 3)
+      expect(current_square.is_obstructed(4, 1)).to be true
     end
 
     it "checks if there is an obstruction vertically" do
-      current_square = Piece.create(rank: 2, file: 2)
-      previous_row_square = Piece.create(rank: 1, file: 2)
-      # next_row_square = Piece.create(rank: 3, file: 2)
-      expect(current_square.is_obstructed(1, 2)).to be true
+      current_square = Piece.create(rank: 4, file: 4)
+      obstruction = Piece.create(rank: 5, file: 4)
+      expect(current_square.is_obstructed(7, 4)).to be true
     end
 
     it "checks if there is an obstruction diagonally" do
-      current_square = Piece.create(rank: 2, file: 2)
-      top_left_square = Piece.create(rank: 3, file: 1)
-      # top_right_square = Piece.create(rank: 3, file: 3)
-      # bottom_right_square = Piece.create(rank: 1, file: 3)
-      # bottom_left_square = Piece.create(rank: 1, file: 1)
-      expect(current_square.is_obstructed(3, 1)).to be true
+      current_square = Piece.create(rank: 4, file: 4)
+      obstruction = Piece.create(rank: 5, file: 3)
+      expect(current_square.is_obstructed(6, 2)).to be true
     end
   end
 
