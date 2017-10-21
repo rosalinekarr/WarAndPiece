@@ -22,7 +22,7 @@ class GamesController < ApplicationController
   def join
     @game = Game.find(params[:game_id])
     @game.update_attributes(black_player_id: current_user.id)
-    redirect_to game_join_path
+    redirect_to game_path(@game)
   end
 
   def update
