@@ -1,7 +1,9 @@
 class GamesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :show, :update, :join]
+
   def index
     @games = Game.all
+    @pending_games = Game.available
   end
 
   def new
@@ -18,9 +20,9 @@ class GamesController < ApplicationController
   end
 
   def join
-    @game = Game.find(params[:id]).available
-    @game.update_attributes(@game.black_player_id = current_user.id)
-    redirect_to join_games_path
+    @game = Game.find(params[:game_id])
+    @game.update_attributes(black_player_id: current_user.id)
+    redirect_to game_join_path
   end
 
   def update
