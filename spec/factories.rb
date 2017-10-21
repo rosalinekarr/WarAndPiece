@@ -8,6 +8,8 @@ FactoryGirl.define do
   end
   
   factory :game do
+    association :white_player, factory: :user
+    association :black_player, factory: :user
   end
   
   factory :move do |f|
