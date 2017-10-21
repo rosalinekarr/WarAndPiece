@@ -68,3 +68,5 @@ source 'https://rails-assets.org' do
 end
 
 gem 'devise'
+
+gem 'omniauth-facebook'
