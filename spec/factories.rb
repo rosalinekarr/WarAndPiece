@@ -8,7 +8,6 @@ FactoryGirl.define do
   end
   
   factory :game do
-    game_state "new"
     association :white_player, factory: :user
     association :black_player, factory: :user
   end
