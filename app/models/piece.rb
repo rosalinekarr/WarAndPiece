@@ -39,12 +39,8 @@ class Piece < ApplicationRecord
         files = (current_col+1..col-1).map { |n| n = n }
       end
     end
-    # puts ranks.inspect
-    # puts files.inspect
-    # puts game.inspect
-    # puts game.pieces.inspect
-    game.pieces.each do |p|        ## MAKE THIS WORK! WHY ARE THERE NO PIECES TO LOOP THROUGH?
-      # puts p.inspect
+    game = self.game
+    game.pieces.each do |p|
       if ranks.include?(p.rank) && files.include?(p.file)
         return true
       end
