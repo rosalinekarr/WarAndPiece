@@ -18,10 +18,10 @@ FactoryGirl.define do
   end
 
   factory :piece do     
-#    user
-#    game
-#    type     ["pawn","rook","knight","bishop","king","queen"].sample
-#    rank     (1..8).to_a.sample
-#    file     ('a'..'f').to_a.sample
+    type "Pawn"
+    rank 4
+    file 4
+    association :user, strategy: :build  ## To not save the associated object
+    association :game, strategy: :build
   end
 end
