@@ -15,10 +15,12 @@ class GamesController < ApplicationController
     @game.white_player.id = current_user.id
     @game.save
     redirect_to root_path
+
   end
 
   def show
-    @game = Game.find(params[:id])
+    @game = Game.find_by_id(params[:id])
+    render plain: 'Not Found', status: :not_found if @game.blank?
   end
 
   def join
@@ -41,6 +43,10 @@ class GamesController < ApplicationController
   end
 
   private
+  
+  def not_found
+    render plain: 'Not Found', status: :not_found
+  end
 
   def game_params
     params.require(:game).permit(:white_player_id, :black_player_id, :game_state)
