@@ -6,47 +6,47 @@ RSpec.describe Piece, type: :model do
 
     before(:each) do
       @game = FactoryGirl.build(:game)
-      @current_square = FactoryGirl.create(:piece, rank: 4, file: 4, game: @game)    
+      @current_square = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)    
     end
     
     it "checks if there is no obstruction" do
-      obstruction = FactoryGirl.create(:piece, rank: 6, file: 6, game: @game)
+      obstruction = FactoryGirl.create(:piece, file: 6, rank: 6, game: @game)
       expect(@current_square.is_obstructed?(5, 5)).to be false
     end
 
     it "checks if there is an obstruction horizontally to the right" do
-      obstruction = FactoryGirl.create(:piece, rank: 4, file: 5, game: @game)
-      expect(@current_square.is_obstructed?(4, 6)).to be true
-    end
-    it "checks if there is an obstruction horizontally to the left" do
-      obstruction = FactoryGirl.create(:piece, rank: 4, file: 3, game: @game)
-      expect(@current_square.is_obstructed?(4, 2)).to be true
-    end
-
-    it "checks if there is an obstruction vertically above" do
-      obstruction = FactoryGirl.create(:piece, rank: 5, file: 4, game: @game)
+      obstruction = FactoryGirl.create(:piece, file: 5, rank: 4, game: @game)
       expect(@current_square.is_obstructed?(6, 4)).to be true
     end
-    it "checks if there is an obstruction vertically below" do
-      obstruction = FactoryGirl.create(:piece, rank: 3, file: 4, game: @game)
+    it "checks if there is an obstruction horizontally to the left" do
+      obstruction = FactoryGirl.create(:piece, file: 3, rank: 4, game: @game)
       expect(@current_square.is_obstructed?(2, 4)).to be true
     end
 
+    it "checks if there is an obstruction vertically above" do
+      obstruction = FactoryGirl.create(:piece, file: 4, rank: 5, game: @game)
+      expect(@current_square.is_obstructed?(4, 6)).to be true
+    end
+    it "checks if there is an obstruction vertically below" do
+      obstruction = FactoryGirl.create(:piece, file: 4, rank: 3, game: @game)
+      expect(@current_square.is_obstructed?(4, 2)).to be true
+    end
+
     it "checks if there is an obstruction diagonally top-right" do
-      obstruction = FactoryGirl.create(:piece, rank: 5, file: 5, game: @game)
+      obstruction = FactoryGirl.create(:piece, file: 5, rank: 5, game: @game)
       expect(@current_square.is_obstructed?(6, 6)).to be true
     end
     it "checks if there is an obstruction diagonally bottom-right" do
-      obstruction = FactoryGirl.create(:piece, rank: 3, file: 5, game: @game)
-      expect(@current_square.is_obstructed?(2, 6)).to be true
+      obstruction = FactoryGirl.create(:piece, file: 5, rank: 3, game: @game)
+      expect(@current_square.is_obstructed?(6, 2)).to be true
     end
     it "checks if there is an obstruction diagonally bottom-left" do
-      obstruction = FactoryGirl.create(:piece, rank: 3, file: 3, game: @game)
+      obstruction = FactoryGirl.create(:piece, file: 3, rank: 3, game: @game)
       expect(@current_square.is_obstructed?(2, 2)).to be true
     end
     it "checks if there is an obstruction diagonally top-left" do
-      obstruction = FactoryGirl.create(:piece, rank: 5, file: 3, game: @game)
-      expect(@current_square.is_obstructed?(6, 2)).to be true
+      obstruction = FactoryGirl.create(:piece, file: 3, rank: 5, game: @game)
+      expect(@current_square.is_obstructed?(2, 6)).to be true
     end
   end
 
