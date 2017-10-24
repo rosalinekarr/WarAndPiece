@@ -1,1 +1,8 @@
 @import "bootstrap";
+
+.chessboard {
+  background: image_url('chessboard.jpg');
+  background-size: cover;
+  width: 500px;
+  height: 500px;
+}
