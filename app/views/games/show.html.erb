@@ -15,15 +15,15 @@
     <% rank = 0 %>
 
     <% 8.times do %>
-      <% file = file + 1 %>
+      <% rank = rank + 1 %>
       <% 8.times do %>
-        <% rank = rank + 1 %>
+        <% file = file + 1 %>
         <div class="square">
-          <p><%= "#{rank}, #{file}" %></p>
+          <p><%= "#{file}, #{rank}" %></p>
         </div>
       <% end %>
       <br />
-      <% rank = 0 %>
+      <% file = 0 %>
     <% end %>
   </div>
 
