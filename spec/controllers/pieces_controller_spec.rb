@@ -3,8 +3,9 @@ require 'rails_helper'
 RSpec.describe PiecesController, type: :controller do
   describe "pieces#show" do
     it "should successfully reload the board when clicking on a square" do
-      game = FactoryGirl.build(:game)
-      get :show, params: { id: game.id }
+      piece = FactoryGirl.build(:piece)
+      ## define click action??
+      get :show, params: { id: piece.id }
       expect(response).to have_http_status(:success)
     end
   end

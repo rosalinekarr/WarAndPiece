@@ -19,7 +19,10 @@ FactoryGirl.define do
 #     f.file "1"
   end
 
-  factory :piece do     
+  factory :piece do
+    sequence :id do |n|
+      n
+    end  
     type "Pawn"
     rank 4
     file 4
