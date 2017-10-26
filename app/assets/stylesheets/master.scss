@@ -1,1 +1,17 @@
 @import "bootstrap";
+
+.chessboard {
+  background: image_url('chessboard.jpg');
+  background-size: cover;
+  width: 500px;
+  height: 500px;
+}
+
+.square {
+  display: inline-block;
+  width: 62.5px;
+  height: 62.5px;
+  margin-right: -4px;
+  color: grey;
+  text-align: center;
+}
