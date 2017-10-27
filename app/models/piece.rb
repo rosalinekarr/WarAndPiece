@@ -30,7 +30,7 @@ class Piece < ApplicationRecord
       end
     else (row + col) == (current_row + current_col)
       if row > current_row                                ## top-left
-        files = (col+1..current_col-1).map { |n| n = n }        
+        files = (col+1..current_col-1).map { |n| n = n }
         ranks = (current_row+1..row-1).map { |n| n = n }
       else                                                ## bottom-right
         files = (current_col+1..col-1).map { |n| n = n }
@@ -45,4 +45,15 @@ class Piece < ApplicationRecord
     false
   end
 
+  def move_to!(new_col, new_row) # pass in coordinates of the square we want to move to
+    current_col = self.file      # file of the Piece we're applying the method to
+    current_row = self.rank      # rank of the Piece we're applying the method to
+      if Piece.exist?(new_col, new_row) # if there is a piece in the square it's moving to
+        if Piece.(current_col, current_row).id == black_player_id && Piece.(new_col, new_row).id == white_player_id || Piece.(current_col, current_row).id == white_player_id && Piece.(new_col, new_row).id == black_player_id  # if it's the opposite color
+          Piece.(new_col, new_row) xxxxxx # change status from onboard to captured
+          Piece.(current_col, current_row).update_attributes(new_col, new_row)# call update_attributes on the piece and change the piece's x/y position
+        else
+        return render plain: 'Unauthorized', status: :unauthorized # move should fail - either raise error message or do nothing
+      end
+  end
 end

@@ -6,9 +6,9 @@ RSpec.describe Piece, type: :model do
 
     before(:each) do
       @game = FactoryGirl.build(:game)
-      @current_square = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)    
+      @current_square = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)
     end
-    
+
     it "checks if there is no obstruction" do
       obstruction = FactoryGirl.create(:piece, file: 6, rank: 6, game: @game)
       expect(@current_square.is_obstructed?(5, 5)).to be false
@@ -50,6 +50,32 @@ RSpec.describe Piece, type: :model do
     end
   end
 
+  describe "piece#move_to! captures piece in new square if piece is the opposite color" do
+
+    before(:each) do
+      @game = FactoryGirl.build(:game)
+      @current_square = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)
+      @next_square = FactoryGirl.create(:piece, file: 5, rank: 5, game: @game)
+    end
+
+    it "checks if there is a piece in the new square"
+      expect(@next_square.empty?).to be false
+    end
+    it "checks if the piece is the opposite color"
+      expect(@next_square.Piece.color
+    end
+    it "raises an error message if the piece is the same color"
+    end
+    it "changes the status to 'captured'"
+    end
+    it "should call update_attributes on the piece and change its x/y position"
+  end
+
+end
+
+it "checks if there is no obstruction" do
+  obstruction = FactoryGirl.create(:piece, file: 6, rank: 6, game: @game)
+  expect(@current_square.is_obstructed?(5, 5)).to be false
 end
 
   # it "is valid with valid attributes" do
@@ -72,13 +98,13 @@ end
 
   # it "is not valid if it is an invalid type" do
   #   piece = FactoryGirl.create(:piece, type: "invalid_type")
-  
+
   #   expect(piece).to_not be_valid
   # end
 
   # it "is valid with a user" do
-  #   piece = FactoryGirl.create(:piece, user: User.create( email:"test@email.com", 
-  #                                                         password:"secret", 
+  #   piece = FactoryGirl.create(:piece, user: User.create( email:"test@email.com",
+  #                                                         password:"secret",
   #                                                         password_confirmation: "secret"))
   #   expect(piece).to be_valid
   # end
