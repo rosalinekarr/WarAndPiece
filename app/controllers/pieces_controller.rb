@@ -9,7 +9,7 @@ class PiecesController < ApplicationController
     # return render_not_found(:forbidden) if @piece.user != current_user
     @piece.update_attributes(piece_params)
     if @piece.valid?
-      redirect_to 
+      redirect_to game_path
     else
       return render :edit, status: :unprocessable_entity
     end

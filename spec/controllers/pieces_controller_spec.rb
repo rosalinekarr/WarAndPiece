@@ -13,7 +13,8 @@ RSpec.describe PiecesController, type: :controller do
   describe "pieces#update" do
     it "should update the file and rank of the chess piece when moved" do
       piece = FactoryGirl.create(:piece, file: 2, rank: 1)
-      patch :update, params: { id: piece.id, file: 3, rank: 3}
+      patch :update, params: { id: piece.id, piece: { file: 3, rank: 3}}
+      piece.reload
       expect(piece.file).to eq 3
       expect(piece.rank).to eq 3
     end
