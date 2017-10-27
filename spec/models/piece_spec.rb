@@ -58,25 +58,26 @@ RSpec.describe Piece, type: :model do
       @next_square = FactoryGirl.create(:piece, file: 5, rank: 5, game: @game)
     end
 
-    it "checks if there is a piece in the new square"
+    it "checks that there is a piece in the new square"
       expect(@next_square.empty?).to be false
     end
-    it "checks if the piece is the opposite color"
-      expect(@next_square.Piece.color
+    it "checks that the piece is the opposite color"
+      expect(@next_square.Piece.color == @current_square.Piece.color).to be false
     end
     it "raises an error message if the piece is the same color"
+      Piece.where(@next_square.Piece.color == @current_square.Piece.color)
+      expect(response).to have_http_status(:unauthorized)
     end
-    it "changes the status to 'captured'"
+    it "changes the status to 'captured' if the piece is not the same color"
+      Piece.where(@next_square.Piece.color != @current_square.Piece.color)
+      expect(Piece.status :captured).to be true
     end
     it "should call update_attributes on the piece and change its x/y position"
+      Piece.where(@next_square.Piece.color != @current_square.Piece.color)
+      expect(Piece.update_attributes(@next_square.file, @next_square.rank))
   end
-
 end
 
-it "checks if there is no obstruction" do
-  obstruction = FactoryGirl.create(:piece, file: 6, rank: 6, game: @game)
-  expect(@current_square.is_obstructed?(5, 5)).to be false
-end
 
   # it "is valid with valid attributes" do
   #   piece = FactoryGirl.create(:piece)
