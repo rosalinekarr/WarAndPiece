@@ -1,3 +1,5 @@
+<h1>Pieces show page goes here</h1>
+
 <div class="chessboard">
 
   <div class="pieces">
@@ -8,11 +10,22 @@
       <% rank = rank - 1 %>
       <% 8.times do %>
         <% file = file + 1 %>
-          <div class="square" id="<%= [file, rank] %>">
-            <%= link_to '#' do %>     <!-- piece_path(DEFINE PATH TO CURRENT PIECE) -->
-              <p><%= "#{file}, #{rank}" %></p>
-            <% end %>
-          </div>
+          <ul class="square">
+            <li id="<%= [file, rank] %>">
+              <% if @piece_coord == [file, rank] %><!-- WILL NEED TO CHECK HERE if 
+                                   `[file, rank]` returns the expected format -->
+                <div class="highlight">
+                  <p><%= "#{file}, #{rank}" %></p>
+                </div>
+              <% else %>
+                <div>
+                  <%= link_to piece_path(@current_piece), method: :patch do %>
+                    <p><%= "#{file}, #{rank}" %></p>
+                  <% end %>
+                </div>
+              <% end %>
+            </li>
+          </ul>
         <% end %>
       <br />
       <% file = 0 %>
@@ -20,12 +33,3 @@
   </div>
 
 </div>
-
-<!-- <script>
-
-Define here a function to highlight current square: 
-$( document ).click(function() {
-  $( 'some-square-id' ).toggle( "highlight" );
-});
-
-</script> -->

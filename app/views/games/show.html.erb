@@ -19,7 +19,9 @@
       <% 8.times do %>
         <% file = file + 1 %>
         <div class="square">
-          <p><%= "#{file}, #{rank}" %></p>
+          <%= link_to piece_path('#') do %><!-- DEFINE PATH TO CURRENT PIECE in GAMES CONTROLLER ?? -->
+            <p><%= "#{file}, #{rank}" %></p>
+          <% end %>
         </div>
       <% end %>
       <br />
