@@ -59,7 +59,7 @@ RSpec.describe Piece, type: :model do
     end
 
     it "checks that there is a piece in the new square" do
-      expect(@next_square.empty?).to be false
+      expect(@next_square.blank?).to be false
     end
     it "checks that the piece is the opposite color" do
       expect(@next_square.Piece.color == @current_piece.Piece.color).to be false
