@@ -58,21 +58,20 @@ RSpec.describe Piece, type: :model do
       @next_square = FactoryGirl.create(:piece, file: 5, rank: 5, game: @game)
     end
 
-    it "checks that there is a piece in the new square"
+    it "checks that there is a piece in the new square" do
       expect(@next_square.empty?).to be false
     end
-    it "checks that the piece is the opposite color"
       expect(@next_square.Piece.color == @current_piece.Piece.color).to be false
     end
-    it "raises an error message if the piece is the same color"
+    it "raises an error message if the piece is the same color" do
       Piece.where(@next_square.Piece.color == @current_piece.Piece.color)
       expect(response).to have_http_status(:unauthorized)
     end
-    it "successfully captures a piece"
+    it "successfully captures a piece" do
       Piece.where(@next_square.Piece.color != @current_piece.Piece.color)
       expect(Piece.status :captured).to be true
     end
-    it "it successfully updates the piece's coordinates"
+    it "it successfully updates the piece's coordinates" do
       Piece.where(@next_square.Piece.color != @current_piece.Piece.color)
       expect(current_piece.file).to eq 5
       expect(current_piece.rank).to eq 5
