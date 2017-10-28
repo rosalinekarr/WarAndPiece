@@ -10,22 +10,21 @@
       <% rank = rank - 1 %>
       <% 8.times do %>
         <% file = file + 1 %>
-          <ul class="square">
-            <li id="<%= [file, rank] %>">
-              <% if @piece_coord == [file, rank] %><!-- WILL NEED TO CHECK HERE if 
-                                   `[file, rank]` returns the expected format -->
-                <div class="highlight">
+          <div class="square" id="<%= [file, rank] %>">
+            <% if @piece_coord == [file, rank] %><!-- WILL NEED TO CHECK HERE if 
+                                 `[file, rank]` returns the expected format; or 
+                                  how about something like `this.id` in JS -->
+              <div class="highlight">
+                <p><%= "#{file}, #{rank}" %></p>
+              </div>
+            <% else %>
+              <div>
+                <%= link_to piece_path(@current_piece), method: :patch do %>
                   <p><%= "#{file}, #{rank}" %></p>
-                </div>
-              <% else %>
-                <div>
-                  <%= link_to piece_path(@current_piece), method: :patch do %>
-                    <p><%= "#{file}, #{rank}" %></p>
-                  <% end %>
-                </div>
-              <% end %>
-            </li>
-          </ul>
+                <% end %>
+              </div>
+            <% end %>
+          </div>
         <% end %>
       <br />
       <% file = 0 %>
@@ -33,3 +32,14 @@
   </div>
 
 </div>
+
+<script>
+
+$(function() {
+  $('.square').click(function() {
+  let square_id = this.id;
+  console.log(square_id);
+  });
+});
+
+</script>
