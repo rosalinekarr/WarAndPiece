@@ -54,7 +54,7 @@ RSpec.describe Piece, type: :model do
 
     before(:each) do
       @game = FactoryGirl.build(:game)
-      @current_square = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)
+      @current_piece = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)
       @next_square = FactoryGirl.create(:piece, file: 5, rank: 5, game: @game)
     end
 
@@ -62,19 +62,20 @@ RSpec.describe Piece, type: :model do
       expect(@next_square.empty?).to be false
     end
     it "checks that the piece is the opposite color"
-      expect(@next_square.Piece.color == @current_square.Piece.color).to be false
+      expect(@next_square.Piece.color == @current_piece.Piece.color).to be false
     end
     it "raises an error message if the piece is the same color"
-      Piece.where(@next_square.Piece.color == @current_square.Piece.color)
+      Piece.where(@next_square.Piece.color == @current_piece.Piece.color)
       expect(response).to have_http_status(:unauthorized)
     end
-    it "changes the status to 'captured' if the piece is not the same color"
-      Piece.where(@next_square.Piece.color != @current_square.Piece.color)
+    it "successfully captures a piece"
+      Piece.where(@next_square.Piece.color != @current_piece.Piece.color)
       expect(Piece.status :captured).to be true
     end
-    it "should call update_attributes on the piece and change its x/y position"
-      Piece.where(@next_square.Piece.color != @current_square.Piece.color)
-      expect(Piece.update_attributes(@next_square.file, @next_square.rank))
+    it "it successfully updates the piece's coordinates"
+      Piece.where(@next_square.Piece.color != @current_piece.Piece.color)
+      expect(current_piece.file).to eq 5
+      expect(current_piece.rank).to eq 5
   end
 end
 
