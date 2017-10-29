@@ -12,7 +12,7 @@ class GamesController < ApplicationController
 
   def create
     @game = Game.new(game_params)
-    @game.white_player.id = current_user.id
+    @game.white_player_id = current_user.id
     @game.save
     redirect_to root_path
   end
