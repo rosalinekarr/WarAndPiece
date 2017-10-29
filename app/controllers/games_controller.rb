@@ -14,11 +14,16 @@ class GamesController < ApplicationController
     @game = Game.new(game_params)
     @game.white_player.id = current_user.id
     @game.save
-    redirect_to root_path
+    if @game.valid?
+      redirect_to root_path
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def show
-    @game = Game.find(params[:id])
+    @game = Game.find_by_id(params[:id])
+    return render_not_found if @game.blank?
   end
 
   def join
@@ -29,13 +34,20 @@ class GamesController < ApplicationController
 
   def update
     @game = Game.find(params[:id])
+    return render_not_found if @game.blank?
+    return render_not_found(:forbidden) if @game.user != current_user
     @game.update_attributes(game_params)
-    redirect_to root_path
+    if @game.valid?
+      redirect_to root_path
+    else
+      return render :edit, status: :unprocessable_entity
+    end  
   end
 
   def destroy
-    @game = Game.find(params[:id])
-      return not_found(:forbidden) if @game.user != current_user
+    @game = Game.find_by_id(params[:id])
+    return render_not_found if @game.blank?
+    return render_not_found(:forbidden) if @game.user != current_user    
     @game.destroy
     redirect_to root_path
   end
