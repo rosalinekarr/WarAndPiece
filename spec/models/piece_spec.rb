@@ -70,7 +70,7 @@ RSpec.describe Piece, type: :model do
     end
     it "successfully captures a piece" do
       Piece.where(@next_square.Piece.color != @current_piece.Piece.color)
-      expect(Piece.status :captured).to be true
+      expect(Piece.status :is_captured).to be true
     end
     it "it successfully updates the piece's coordinates" do
       Piece.where(@next_square.Piece.color != @current_piece.Piece.color)
