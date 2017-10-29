@@ -4,4 +4,5 @@ class Game < ApplicationRecord
   has_many :pieces
 
   scope :available, -> { where(black_player_id: nil)  }
+  scope :inprogress, -> { where.not(black_player_id: nil) }
 end
