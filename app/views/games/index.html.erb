@@ -1,5 +1,7 @@
 <div class="col-10 offset-1">
-  <h1>Here's the games#index view</h1>
+  <h1>Games</h1>
+
+  <%= link_to 'New Game', games_path( { game: { white_player: current_user, game_state: "pending" } } ), class: 'btn btn-primary btn-large', method: :post %>
 
   <% @pending_games.each do |game| %>
     <div class="row">
