@@ -4,7 +4,7 @@ RSpec.describe Piece, type: :model do
   # describe "piece#move_on_the_board?" do
   #  before(:each) do
   #    @game = FactoryGirl.build(:game)
-  #    @piece = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)   
+  #    @piece = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)
   #  end
   #  it "should return true if piece is on the board" do
   #    @piece = FactoryGirl.create(:piece, file: 1, rank: 2, game: @game)
