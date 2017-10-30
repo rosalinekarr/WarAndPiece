@@ -29,14 +29,14 @@ before_action :authenticate_user!, only: :update
   private
 
   def piece_params
-    # xy = request.original_url
-    # puts xy.inspect
-    uri = Addressable::URI.parse("request.original_url")
-    # puts uri.inspect
-    file = uri.query_values#.first  ## https://stackoverflow.com/a/945343/8035833
-    rank = uri.query_values#.last
-    # puts file.inspect
-    # puts rank.inspect
+    uri = Addressable::URI.parse(request.original_url)
+    puts uri.inspect
+    xy = uri.query_values   ## https://stackoverflow.com/a/945343/8035833
+    puts xy.inspect
+    file = uri.query_values.first
+    rank = uri.query_values.last
+    puts file.inspect
+    puts rank.inspect
     params.require(:piece).permit({:file => file, :rank => rank})
   end
 
