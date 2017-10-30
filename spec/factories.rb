@@ -26,4 +26,8 @@ FactoryGirl.define do
     association :user, strategy: :build  ## To not save the associated object
     association :game, strategy: :build
   end
+  
+  factory :king, parent: :piece, class: King do
+    type "King"
+  end
 end
