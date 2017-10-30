@@ -70,3 +70,5 @@ end
 gem 'devise'
 
 gem 'faker'
+
+gem 'addressable', '~> 2.5', '>= 2.5.2'

@@ -19,7 +19,7 @@
               </div>
             <% else %>
               <div>
-                <%= link_to piece_path(@current_piece), method: :patch do %>
+                <%= link_to piece_path(@current_piece, file: file, rank: rank), method: :patch do %>
                   <p><%= "#{file}, #{rank}" %></p>
                 <% end %>
               </div>
@@ -39,6 +39,9 @@ $(function() {
   $('.square').click(function() {
   let square_id = this.id;
   console.log(square_id);
+  };
+  update: function(e, ui) {
+    alert(ui.item.index());
   });
 });
 

@@ -1,3 +1,6 @@
+require "addressable/uri"
+require "addressable/template"
+
 class PiecesController < ApplicationController
 before_action :authenticate_user!, only: :update
 
@@ -26,7 +29,15 @@ before_action :authenticate_user!, only: :update
   private
 
   def piece_params
-    params.require(:piece).permit(:file, :rank)
+    # xy = request.original_url
+    # puts xy.inspect
+    uri = Addressable::URI.parse("request.original_url")
+    # puts uri.inspect
+    file = uri.query_values#.first  ## https://stackoverflow.com/a/945343/8035833
+    rank = uri.query_values#.last
+    # puts file.inspect
+    # puts rank.inspect
+    params.require(:piece).permit({:file => file, :rank => rank})
   end
 
   helper_method :current_piece
