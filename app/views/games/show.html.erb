@@ -19,7 +19,13 @@
       <% 8.times do %>
         <% file = file + 1 %>
         <div class="square">
-          <p><%= "#{file}, #{rank}" %></p>
+          <div class=<%= "file#{file}rank#{rank}" %>>
+            <% current_game.pieces.each do |piece| %>
+              <% if piece.rank == rank && piece.file == file %>
+                <%= "#{piece.color} #{piece.subclasses}" %>
+              <% end %>
+            <% end %>
+          </div>
         </div>
       <% end %>
       <br />
