@@ -19,7 +19,8 @@
       <% 8.times do %>
         <% file = file + 1 %>
         <div class="square">
-          <%= link_to piece_path('#') do %><!-- DEFINE PATH TO CURRENT PIECE in GAMES CONTROLLER ?? -->
+          <%= link_to "/pieces/" + "#{@game.pieces.where(
+            {file: file, rank: rank}).ids.join('')}" do %>
             <p><%= "#{file}, #{rank}" %></p>
           <% end %>
         </div>
