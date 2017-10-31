@@ -3,6 +3,9 @@ class Piece < ApplicationRecord
   belongs_to :game
   belongs_to :user
 
+  validates :rank, presence: true, numericality: (1..8)
+  validates :file, presence: true, numericality: (1..8)
+
   def is_obstructed?(col, row)     ## pass in rank and file of the square we want to move to
     current_col = self.file     ## file of the Piece we're applying the method to
     current_row = self.rank     ## rank of the Piece we're applying the method to

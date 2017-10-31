@@ -19,7 +19,7 @@ before_action :authenticate_user!, only: :update
     if current_piece.valid?
       redirect_to game_path(current_piece.game.id)
     else
-      return render :edit, status: :unprocessable_entity
+      return render plain: 'Not Valid', status: :unprocessable_entity
     end
   end
 
