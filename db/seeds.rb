@@ -15,5 +15,6 @@ p1 = User.create!(email:"p1@test.com", password:"secret", password_confirmation:
   Game.create!(white_player_id: random_user.id, black_player_id: nil, game_state:"pending")
 
   # create five games in progress
-  Game.create!(white_player_id: p1.id, black_player_id: random_user.id, game_state:"inprogress" )
+  inprogress_game = Game.create!(white_player_id: p1.id, black_player_id: random_user.id, game_state:"inprogress")
+  inprogress_game.populate_board
 end
