@@ -37,7 +37,7 @@ RSpec.describe Game, type: :model do
         'Bishop': 2,
         'Queen': 1,
         'King': 1,
-        "Pawn": 8
+        'Pawn': 8
       }
 
       @game.populate_board
