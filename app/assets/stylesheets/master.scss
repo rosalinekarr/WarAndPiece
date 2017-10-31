@@ -8,12 +8,11 @@
 }
 
 .square {
-  display: inline-block;
-  width: 62.5px;
-  height: 62.5px;
-  margin-right: -4px;
+  width: 12.5%;
+  height: 12.5%;
   color: grey;
   text-align: center;
+  float: left;
 }
 
 .grid {
