@@ -1,6 +1,3 @@
-require "addressable/uri"
-require "addressable/template"
-
 class PiecesController < ApplicationController
 before_action :authenticate_user!, only: :update
 
@@ -13,14 +10,14 @@ before_action :authenticate_user!, only: :update
   end
 
   def update
+    # puts params.inspect
     return render_not_found if current_piece.blank?
     if current_piece.user != current_user
       return render plain: 'Forbidden :(', status: :forbidden
     end
-    current_piece.update_attributes(piece_params) ## HOW are we sucking in the file & rank
-                                                  ## from the square id's clicked on?
+    current_piece.update_attributes(piece_params)
     if current_piece.valid?
-      redirect_to game_path
+      redirect_to game_path(current_piece.game.id)
     else
       return render :edit, status: :unprocessable_entity
     end
@@ -29,15 +26,7 @@ before_action :authenticate_user!, only: :update
   private
 
   def piece_params
-    uri = Addressable::URI.parse(request.original_url)
-    puts uri.inspect
-    xy = uri.query_values   ## https://stackoverflow.com/a/945343/8035833
-    puts xy.inspect
-    file = uri.query_values.first
-    rank = uri.query_values.last
-    puts file.inspect
-    puts rank.inspect
-    params.require(:piece).permit({:file => file, :rank => rank})
+    params.require(:piece).permit(:rank, :file)
   end
 
   helper_method :current_piece

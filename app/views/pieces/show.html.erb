@@ -11,15 +11,13 @@
       <% 8.times do %>
         <% file = file + 1 %>
           <div class="square" id="<%= [file, rank] %>">
-            <% if @piece_coord == [file, rank] %><!-- WILL NEED TO CHECK HERE if 
-                                 `[file, rank]` returns the expected format; or 
-                                  how about something like `this.id` in JS -->
+            <% if @piece_coord == [file, rank] %>
               <div class="highlight">
                 <p><%= "#{file}, #{rank}" %></p>
               </div>
             <% else %>
               <div>
-                <%= link_to piece_path(@current_piece, file: file, rank: rank), method: :patch do %>
+                <%= link_to piece_path( {piece: { id: @current_piece.id, file: file, rank: rank} }), method: :patch do %>
                   <p><%= "#{file}, #{rank}" %></p>
                 <% end %>
               </div>
