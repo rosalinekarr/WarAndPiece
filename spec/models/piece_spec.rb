@@ -68,28 +68,30 @@ RSpec.describe Piece, type: :model do
 
     before(:each) do
       @game = FactoryGirl.build(:game)
-      @current_piece = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)
-      @next_square = FactoryGirl.create(:piece, file: 5, rank: 5, game: @game)
+      @current_piece = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game, color: :black_player_id)
+      @next_square = FactoryGirl.create(:piece, file: 5, rank: 5, game: @game, color: :white_player_id)
     end
 
     it "checks that there is a piece in the new square" do
       expect(@next_square.blank?).to be false
     end
+    it "checks that the piece in the new square belongs to the current game" do
+      expect(@next_square.game == @game).to be true
+    end
+    it "checks that the piece in the new square has not already been captured" do
+      expect(@next_square[:is_captured]).to be false
+    end
     it "checks that the piece is the opposite color" do
-      expect(@next_square.Piece.color == @current_piece.Piece.color).to be false
+      expect(@next_square.color == @current_piece.color).to be false
     end
-    it "raises an error message if the piece is the same color" do
-      Piece.where(@next_square.Piece.color == @current_piece.Piece.color)
-      expect(response).to have_http_status(:unauthorized)
+    it "captures a piece" do
+      @next_square.update(is_captured: true)
+      expect(@next_square[:is_captured]).to be true
     end
-    it "successfully captures a piece" do
-      Piece.where(@next_square.Piece.color != @current_piece.Piece.color)
-      expect(Piece.status :is_captured).to be true
-    end
-    it "it successfully updates the piece's coordinates" do
-      Piece.where(@next_square.Piece.color != @current_piece.Piece.color)
-      expect(current_piece.file).to eq 5
-      expect(current_piece.rank).to eq 5
+    it "updates the coordinates of the piece that did the capturing" do
+      @current_piece.update(file: 5, rank: 5)
+      expect(@current_piece.file).to eq 5
+      expect(@current_piece.rank).to eq 5
     end
   end
 end

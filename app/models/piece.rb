@@ -48,14 +48,11 @@ class Piece < ApplicationRecord
   def move_to!(new_col, new_row)
     current_col = self.file
     current_row = self.rank
-    pieces = Piece.where(file: new_col, rank: new_row, game: game, status: :onboard) # :onboard does not exist - consider if status necessary here, as :is_captured default is false 
-      captured_piece = pieces.first # exists returns
+    pieces = Piece.where(file: new_col, rank: new_row, game: game, is_captured: false)
+      captured_piece = pieces.first
       if self.color != captured_piece.color
-        captured_piece.update(status: :is_captured)
+        captured_piece.update(is_captured: true)
         self.update(file: new_col, rank: new_row)
-      else
-      return 'Invalid move'
       end
-    end
   end
 end
