@@ -1,5 +1,16 @@
 <h1>Pieces show page goes here</h1>
-
+<!-- <script>
+  function submitPieceMove(id, file, rank) {
+    $.ajax({
+      url: '/pieces' + id,
+      method: 'PATCH',
+      data: {
+        file: file,
+        rank: rank
+      }
+    })
+  }
+</script> -->
 <div class="chessboard">
 
   <div class="pieces">
@@ -17,7 +28,8 @@
               </div>
             <% else %>
               <div>
-                <%= link_to piece_path( {piece: { id: @current_piece.id, file: file, rank: rank} }), method: :patch do %>
+                <!-- <a href='#' onClick="submitPieceMove(#{@current_piece.id, #{file}, #{rank})">"#{file}, #{rank}</a> -->
+                <%= button_to piece_path(@current_piece), method: :patch, params: {piece: {file: file, rank: rank}} do %>
                   <p><%= "#{file}, #{rank}" %></p>
                 <% end %>
               </div>

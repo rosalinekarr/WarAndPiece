@@ -12,8 +12,15 @@ RSpec.describe PiecesController, type: :controller do
 
   describe "pieces#show" do
     it "successfully loads the view if a piece exists" do
+      sign_in @piece.user
       get :show, params: { id: @piece.id }
       expect(response).to have_http_status(:success)
+    end
+    it "does not let a player select a piece of the opposite color" do
+      player = FactoryGirl.create(:user)
+      sign_in player
+      get :show, params: { id: @piece.id }
+      expect(response).to have_http_status(:forbidden)
     end
   end
 
