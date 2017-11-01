@@ -4,5 +4,21 @@ class Game < ApplicationRecord
   has_many :pieces
 
   scope :available, -> { where(black_player_id: nil)  }
+
   scope :inprogress, -> { where.not(black_player_id: nil) }
+
+  def populate_board
+    
+    ['Rook', 'Knight', 'Bishop', 'Queen', 'King', 'Bishop', 'Knight', 'Rook'].each.with_index(1) do |piece, i|
+      pieces.create!( type: piece,   file: i, rank: 1, user_id: white_player.id, color: 'white' )
+      pieces.create!( type: piece,   file: i, rank: 8, user_id: black_player.id, color: 'black' )
+    end
+
+    1.upto(8).each do |column|
+      pieces.create!( type: 'Pawn', file: column, rank: 2, user_id: white_player.id, color: 'white' )
+      pieces.create!( type: 'Pawn', file: column, rank: 7, user_id: black_player.id, color: 'black' )
+    end
+  
+  end
+
 end

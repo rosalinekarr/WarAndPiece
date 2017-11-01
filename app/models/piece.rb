@@ -44,5 +44,4 @@ class Piece < ApplicationRecord
     end
     false
   end
-
 end
