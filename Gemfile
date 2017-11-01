@@ -70,3 +70,4 @@ end
 gem 'devise'
 
 gem 'omniauth-facebook'
+gem 'faker'
