@@ -2,7 +2,7 @@ class GamesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :show, :update, :join]
 
   def index
-    @games = Game.all
+    @inprogress_games = Game.inprogress
     @pending_games = Game.available
   end
 
@@ -12,7 +12,7 @@ class GamesController < ApplicationController
 
   def create
     @game = Game.new(game_params)
-    @game.white_player.id = current_user.id
+    @game.white_player_id = current_user.id
     @game.save
     if @game.valid?
       redirect_to root_path
