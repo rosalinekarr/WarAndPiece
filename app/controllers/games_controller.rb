@@ -55,6 +55,11 @@ class GamesController < ApplicationController
 
   private
 
+  helper_method :current_game
+  def current_game
+    @current_game ||= Game.find(params[:id])
+  end
+
   def game_params
     params.require(:game).permit(:white_player_id, :black_player_id, :game_state)
   end
