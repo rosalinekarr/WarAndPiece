@@ -8,14 +8,27 @@
 }
 
 .square {
-  display: inline-block;
-  width: 62.5px;
-  height: 62.5px;
-  margin-right: -4px;
+  width: 12.5%;
+  height: 12.5%;
   color: grey;
   text-align: center;
+  float: left;
 }
 
 .highlight {
   background-color: #ffdd55
+}
+
+.game-list {
+  padding-top: 50px;
+
+  p {
+    color: red;
+    font-size: 20px;
+  }
+}
+
+.grid {
+  height: 100%;
+  width: 100%;
 }
