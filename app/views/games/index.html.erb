@@ -1,19 +1,38 @@
+<!--Call back for facebook sign in
+Temporarily on this page until we finalize the layout of the app-->
+<%= link_to "Sign in with Facebook", user_facebook_omniauth_authorize_path %><br />
+<%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>    
 
-<!-- Homepage Text -->
+<div class="col-10 offset-1">
+  <h1>Games</h1>
 
-<!-- Homepage Image -->
+  <%= link_to 'New Game', games_path( { game: { white_player: current_user, game_state: "pending" } } ), class: 'btn btn-primary btn-large', method: :post %>
 
-<!-- Challenges Feed -->
-
-<div class="challenge-feed">
-  <% @pending_games.each do |game| %>
-    <div class="row">
-      <div class="col-sm-8 col-12">
-        <%= game %> <!-- display name of user that created the game? -->
+  <div class="game-list" %>
+    <h2>Available Games To Join</h2>
+    <% @pending_games.each do |game| %>
+      <div class="row">
+        <div class="col-sm-8 col-12">
+          <p><%= "Game #{game.id} (#{game.white_player.email} VS ?)" %></p><!-- display name of user that created the game? -->
+        </div>
+        <div class="col-sm-4 col-12 text-center">
+          <%= link_to 'Have at thee!', game_join_path(game), class: 'btn btn-primary btn-large', method: :post %>
+        </div>
       </div>
-      <div class="col-sm-4 col-12 text-center">
-        <%= link_to 'Have at thee!', game_join_path(game), class: 'btn btn-primary btn-large', method: :post %>
+    <% end %>
+  </div>
+
+  <div class="game-list" >
+    <h2>Games In Progress</h2>
+    <% @inprogress_games.each do |game| %>
+      <div class="row">
+        <div class="col-sm-8 col-12">
+          <p><%= "Game #{game.id} ( #{game.white_player.email} VS #{game.black_player.email} )" %></p>
+        </div>
+        <div class="col-sm-4 col-12 text-center">
+          <%= link_to 'View Game', game_path(game), class: 'btn btn-primary btn-large' %>
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
