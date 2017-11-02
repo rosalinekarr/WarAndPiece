@@ -1,16 +1,24 @@
 <h1>Pieces show page goes here</h1>
+
 <!-- <script>
-  function submitPieceMove(id, file, rank) {
-    $.ajax({
-      url: '/pieces' + id,
-      method: 'PATCH',
-      data: {
-        file: file,
-        rank: rank
-      }
-    })
-  }
+
+$(function() {
+  $('.square a').click(
+    function submitPieceMove(id, file, rank) {
+      // console.log(id);         // Error, the id is not passed, results in 
+                                  // wrong routing /pieces/[object%20Object]
+      $.ajax("/pieces/" + id, {
+        method: "PATCH",
+        data: {
+          file: file,
+          rank: rank
+        }
+      });
+  });
+});
+
 </script> -->
+
 <div class="chessboard">
 
   <div class="pieces">
@@ -28,7 +36,7 @@
               </div>
             <% else %>
               <div>
-                <!-- <a href='#' onClick="submitPieceMove(#{@current_piece.id, #{file}, #{rank})">"#{file}, #{rank}</a> -->
+                <!-- <a href='#' onclick="submitPieceMove(@current_piece.id, file, rank)"><%= "#{file}, #{rank}" %></a> -->
                 <%= button_to piece_path(@current_piece), method: :patch, params: {piece: {file: file, rank: rank}} do %>
                   <p><%= "#{file}, #{rank}" %></p>
                 <% end %>
@@ -42,14 +50,3 @@
   </div>
 
 </div>
-
-<script>
-
-$(function() {
-  $('.square').click(function() {
-  let square_id = this.id;
-  console.log(square_id);
-  });
-});
-
-</script>
