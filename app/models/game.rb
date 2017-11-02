@@ -5,6 +5,8 @@ class Game < ApplicationRecord
 
   scope :available, -> { where(black_player_id: nil)  }
 
+  scope :inprogress, -> { where.not(black_player_id: nil) }
+
   def populate_board
     
     ['Rook', 'Knight', 'Bishop', 'Queen', 'King', 'Bishop', 'Knight', 'Rook'].each.with_index(1) do |piece, i|
@@ -18,4 +20,5 @@ class Game < ApplicationRecord
     end
   
   end
+
 end
