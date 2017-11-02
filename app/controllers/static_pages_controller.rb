@@ -5,7 +5,13 @@ class StaticPagesController < ApplicationController
     @pending_games = Game.available
   end
 
-  def start_game
+  def challenge
+  end
+
+  def team
+  end
+
+  def contact
   end
 
 end

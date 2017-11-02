@@ -30,10 +30,11 @@
 }
 
 .navbar-nav {
-  margin-left: auto;
   margin-right: auto;
+  margin-left: auto;
 }
 
-.nav-link {
-  display: inline-block;
+.placeholder {
+  border-style: dashed;
+  border-color: grey;
 }

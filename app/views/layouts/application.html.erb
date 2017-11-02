@@ -10,19 +10,24 @@
 
   <body>
 
-        <!-- Navigation Bar -->
+    <div id="flex-content-container">
+
+    <!-- Banner -->
+
+    <div class="container-fluid text-center">
+      <h1><%= link_to 'War & Piece', root_path %></h1>
+    </div>
+
+    <!-- Navigation Bar -->
         <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
           <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav center">
+            <ul class="navbar-nav">
               <% if user_signed_in? %>
                 <li class="nav-item">
                   <%= link_to 'Home', root_path, class: 'nav-link' %>
                 </li>
                 <li class="nav-item">
-                  <%= link_to 'My Games', '#', class: 'nav-link' %> <!-- 'My Games' should go to the player's most recently loaded game -->
+                  <%= link_to 'My Games', games_path, class: 'nav-link' %> <!-- 'My Games' should go to the player's most recently loaded game -->
                 </li>
                 <li class="nav-item">
                   <%= link_to 'Start A Game', challenge_path, class: 'nav-link' %>
@@ -75,6 +80,15 @@
     <% end %>
 
     <%= yield %>
+  </div>
+
+  <div id="footer">
+    <div class="container">
+      <b>Footer Here</b>
+      <br />
+      <%= link_to 'Link', '#' %>
+    </div>
+  </div>
 
   </body>
 </html>
