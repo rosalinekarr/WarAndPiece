@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   root 'games#index'
+  get 'challenge', to: 'static_pages#challenge'
   resources :games do
     post 'join'
   end

@@ -9,12 +9,50 @@
   </head>
 
   <body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+        <ul class="navbar-nav center">
+          <% if user_signed_in? %>
+            <li class="nav-item">
+              <%= link_to 'Home', root_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'My Games', '#', class: 'nav-link' %> <!-- 'My Games' should go to the player's most recently loaded game -->
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Start A Game', challenge_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'nav-link' %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to 'Home', root_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+             <%= link_to 'Sign in', new_user_session_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+              <%= link_to 'Sign up', new_user_registration_path, class: 'nav-link' %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+
     <% if notice.present? %>
       <p class="alert alert-info"><%= notice %></p>
     <% end %>
     <% if alert.present? %>
       <p class="alert alert-danger"><%= alert %></p>
     <% end %>
+
     <%= yield %>
+
   </body>
 </html>
