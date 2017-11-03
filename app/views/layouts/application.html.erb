@@ -10,8 +10,6 @@
 
   <body>
 
-    <div id="flex-content-container">
-
     <!-- Banner -->
 
     <div class="container-fluid text-center">
@@ -50,37 +48,18 @@
           </div>
         </nav>
 
-    <script>
-      window.fbAsyncInit = function() {
-        FB.init({
-          appId      : '179666202596410',
-          cookie     : true,
-          xfbml      : true,
-          version    : 'v2.10'
-        });
-          
-        FB.AppEvents.logPageView();   
-          
-      };
-    
-      (function(d, s, id){
-         var js, fjs = d.getElementsByTagName(s)[0];
-         if (d.getElementById(id)) {return;}
-         js = d.createElement(s); js.id = id;
-         js.src = "https://connect.facebook.net/en_US/sdk.js";
-         fjs.parentNode.insertBefore(js, fjs);
-       }(document, 'script', 'facebook-jssdk'));
-    </script>
-    
-    <% if notice.present? %>
-      <p class="alert alert-info"><%= notice %></p>
-    <% end %>
-    <% if alert.present? %>
-      <p class="alert alert-danger"><%= alert %></p>
-    <% end %>
+    <div class="container">
 
-    <%= yield %>
-  </div>
+      <% if notice.present? %>
+        <p class="alert alert-info"><%= notice %></p>
+      <% end %>
+      <% if alert.present? %>
+        <p class="alert alert-danger"><%= alert %></p>
+      <% end %>
+
+      <%= yield %>
+
+    </div>
 
   <div id="footer">
     <div class="container">
@@ -89,6 +68,28 @@
       <%= link_to 'Link', '#' %>
     </div>
   </div>
+
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId      : '179666202596410',
+        cookie     : true,
+        xfbml      : true,
+        version    : 'v2.10'
+      });
+        
+      FB.AppEvents.logPageView();   
+        
+    };
+  
+    (function(d, s, id){
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     }(document, 'script', 'facebook-jssdk'));
+  </script>
 
   </body>
 </html>

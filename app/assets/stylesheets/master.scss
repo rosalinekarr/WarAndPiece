@@ -37,4 +37,18 @@
 .placeholder {
   border-style: dashed;
   border-color: grey;
+  min-height: 3em;
+}
+
+.home-image {
+  display: flex;
+  align-items: center;
+}
+
+.nav-item {
+  margin-right: 2em;
+}
+
+.nav-item:last-child {
+  margin-right: 0;
 }
