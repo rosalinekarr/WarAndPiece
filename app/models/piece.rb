@@ -2,6 +2,12 @@ class Piece < ApplicationRecord
   has_many :moves
   belongs_to :game
   belongs_to :user
+  
+  WHITE = 'white'.freeze
+  BLACK = 'black'.freeze
+  
+  color = 'white'
+  color = 'black'
 
   def is_obstructed?(col, row)     ## pass in rank and file of the square we want to move to
     current_col = self.file     ## file of the Piece we're applying the method to
