@@ -85,13 +85,10 @@ RSpec.describe Piece, type: :model do
       expect(@next_square.color == @current_piece.color).to be false
     end
     it "captures a piece" do
-      @next_square.update(is_captured: true)
-      expect(@next_square[:is_captured]).to be true
+      expect(@current_piece.move_to!(5, 5))
     end
     it "updates the coordinates of the piece that did the capturing" do
-      @current_piece.update(file: 5, rank: 5)
-      expect(@current_piece.file).to eq 5
-      expect(@current_piece.rank).to eq 5
+      expect(@current_piece.move_to!(5, 5))
     end
   end
 end
