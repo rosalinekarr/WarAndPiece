@@ -2,6 +2,7 @@ class Piece < ApplicationRecord
   has_many :moves
   belongs_to :game
   belongs_to :user
+
   
   WHITE = 'white'.freeze
   BLACK = 'black'.freeze
@@ -12,6 +13,12 @@ class Piece < ApplicationRecord
   
   def black?
     color == BLACK
+  end
+   
+  # checks to make sure move is on the board
+  def valid_move?(new_file, new_rank)
+    new_file >= 1 && new_file <= 8 && new_rank >= 1 && new_rank <= 8
+
   end
 
   def is_obstructed?(col, row)     ## pass in rank and file of the square we want to move to

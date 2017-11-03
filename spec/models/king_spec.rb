@@ -19,9 +19,9 @@ RSpec.describe King, type: :model do
       @king = FactoryGirl.create(:king, file: 2, rank: 2, game: @game)
       expect(@king.valid_move?(3, 3)).to eq(true)
     end
-  #  it 'should return Not Valid for move off board' do
-  #    @king = FactoryGirl.create(:king, file: 1, rank: 1, game: @game)
-  #    expect(@king.valid_move?(1, 0)).to eq('Not Valid')
-  #  end
+    it 'should return Not Valid for move off board' do
+      @king = FactoryGirl.create(:king, file: 1, rank: 1, game: @game)
+      expect(@king.valid_move?(1, 0)).to eq('Not Valid')
+    end
   end
 end
