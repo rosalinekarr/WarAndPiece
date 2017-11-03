@@ -85,10 +85,10 @@ RSpec.describe Piece, type: :model do
       expect(@next_square.color == @current_piece.color).to be false
     end
     it "captures a piece" do
-      expect(@current_piece.move_to!(5, 5))
+      expect(@current_piece.move_to!(5, 5)).to be true
     end
     it "updates the coordinates of the piece that did the capturing" do
-      expect(@current_piece.move_to!(5, 5))
+      expect(@current_piece.move_to!(5, 5)).to be true
     end
   end
 end
