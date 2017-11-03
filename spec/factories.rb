@@ -31,7 +31,7 @@ FactoryGirl.define do
     type "King"
   end
   
-    factory :pawn, parent: :piece, class: Pawn do
+  factory :pawn, parent: :piece, class: Pawn do
     type "Pawn"
   end
 end

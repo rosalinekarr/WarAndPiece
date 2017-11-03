@@ -6,8 +6,13 @@ class Piece < ApplicationRecord
   WHITE = 'white'.freeze
   BLACK = 'black'.freeze
   
-  color = 'white'
-  color = 'black'
+  def white?
+    color == WHITE
+  end
+  
+  def black?
+    color == BLACK
+  end
 
   def is_obstructed?(col, row)     ## pass in rank and file of the square we want to move to
     current_col = self.file     ## file of the Piece we're applying the method to
