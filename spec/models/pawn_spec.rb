@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Pawn, type: :model do
   
-  describe 'pawn#valid_move? checks if the pawn is mapawn a valid move' do
+  describe 'pawn#valid_move? checks if the pawn is a valid move' do
     before(:each) do
       @game = FactoryGirl.build(:game)
     end
