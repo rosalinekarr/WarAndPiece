@@ -34,4 +34,9 @@ FactoryGirl.define do
   factory :pawn, parent: :piece, class: Pawn do
     type "Pawn"
   end
+
+  factory :queen, parent: :piece, class: Queen do
+    type "Queen"
+  end
+
 end
