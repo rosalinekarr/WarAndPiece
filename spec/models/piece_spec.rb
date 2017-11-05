@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Piece, type: :model do
-   describe "piece#valid_move?" do
+  describe "piece#valid_move?" do
     before(:each) do
       @game = FactoryGirl.build(:game)
       @piece = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)
