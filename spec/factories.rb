@@ -6,12 +6,12 @@ FactoryGirl.define do
     password "secretPassword"
     password_confirmation "secretPassword"
   end
-  
+
   factory :game do
     association :white_player, factory: :user
     association :black_player, factory: :user
   end
-  
+
   factory :move do |f|
 #     f.game_id "1"
 #     f.piece_id "1"
@@ -19,14 +19,14 @@ FactoryGirl.define do
 #     f.file "1"
   end
 
-  factory :piece do     
+  factory :piece do
     type "Pawn"
     rank 4
     file 4
     association :user, strategy: :build  ## To not save the associated object
     association :game, strategy: :build
   end
-  
+
   factory :king, parent: :piece, class: King do
     type "King"
   end
@@ -35,4 +35,7 @@ FactoryGirl.define do
     type "Queen"
   end
 
+  factory :bishop, parent: :piece, class: Bishop do
+    type "Bishop"
+  end
 end
