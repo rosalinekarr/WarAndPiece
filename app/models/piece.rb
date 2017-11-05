@@ -2,14 +2,14 @@ class Piece < ApplicationRecord
   has_many :moves
   belongs_to :game
   belongs_to :user
-  
+
   scope :black, -> { where(color: 'black') }
   scope :white, -> { where(color: 'white') }
-  
+
   def white?
     color == 'white'
   end
-  
+
   def black?
     color == 'black'
   end
