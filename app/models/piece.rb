@@ -2,7 +2,7 @@ class Piece < ApplicationRecord
   has_many :moves
   belongs_to :game
   belongs_to :user
-  
+
   # checks to make sure move is on the board
   def valid_move?(new_file, new_rank)
     new_file >= 1 && new_file <= 8 && new_rank >= 1 && new_rank <= 8
@@ -54,10 +54,10 @@ class Piece < ApplicationRecord
     current_col = self.file
     current_row = self.rank
     pieces = Piece.where(file: new_col, rank: new_row, game: game, is_captured: false)
-      captured_piece = pieces.first
-      if self.color != captured_piece.color
-        captured_piece.update(is_captured: true)
-        self.update(file: new_col, rank: new_row)
-      end
+    captured_piece = pieces.first
+    if self.color != captured_piece.color
+      captured_piece.update(is_captured: true)
+      self.update(file: new_col, rank: new_row)
+    end
   end
 end
