@@ -1,20 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe Piece, type: :model do
-  describe "piece#valid_move?" do
+  describe 'piece#valid_move?' do
     before(:each) do
       @game = FactoryGirl.build(:game)
       @piece = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)
     end
-    it "should return true if piece is on the board" do
+    it 'should return true if piece is on the board' do
       @piece = FactoryGirl.create(:piece, file: 1, rank: 2, game: @game)
-      expect(@piece.valid_move?(1,3)).to eq(true)
+      expect(@piece.valid_move?(1, 3)).to eq(true)
     end
-    it "should return Not Valid if piece is not on the board" do
+    it 'should return Not Valid if piece is not on the board' do
       @piece = FactoryGirl.create(:piece, file: 1, rank: 2, game: @game)
       expect(@piece.valid_move?(1, -1)).to eq(false)
     end
-   end
+  end
 
   describe "piece#is_obstructed? checks if there is an obstruction between two squares" do
 
@@ -63,7 +63,6 @@ RSpec.describe Piece, type: :model do
       expect(@current_square.is_obstructed?(2, 6)).to be true
     end
   end
-
 end
 
   # it "is valid with valid attributes" do

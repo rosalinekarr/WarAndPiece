@@ -7,7 +7,7 @@ RSpec.describe Pawn, type: :model do
     end
 
     it 'should return true for valid forward move' do
-      @pawn = 
+      @pawn =
         FactoryGirl.create(:pawn, file: 1, rank: 2, color: 'white', game: @game)
       expect(@pawn.valid_move?(1, 4)).to eq(true)
     end
