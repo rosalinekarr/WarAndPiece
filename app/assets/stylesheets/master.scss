@@ -38,6 +38,7 @@
   border-style: dashed;
   border-color: grey;
   min-height: 3em;
+  text-align: center;
 }
 
 .home-image {
@@ -51,4 +52,18 @@
 
 .nav-item:last-child {
   margin-right: 0;
+}
+
+.show-button {
+  display: inline-block;
+}
+
+.captured-display {
+  min-height: 150px;
+  min-width: 150px;
+}
+
+.show-image {
+  min-height: 150px;
+  min-width: 150px;
 }
