@@ -16,11 +16,6 @@ RSpec.describe Pawn, type: :model do
         FactoryGirl.create(:pawn, file: 1, rank: 3, color: 'white', game: @game)
       expect(@pawn.valid_move?(1, 5)).to eq(false)
     end
-    it 'should return false for invalid move back' do
-      @pawn =
-        FactoryGirl.create(:pawn, file: 1, rank: 2, color: 'white', game: @game)
-      expect(@pawn.valid_move?(1, 1)).to eq(false)
-    end
     it 'should return true for valid move forward' do
       @pawn =
         FactoryGirl.create(:pawn, file: 2, rank: 7, color: 'black', game: @game)
