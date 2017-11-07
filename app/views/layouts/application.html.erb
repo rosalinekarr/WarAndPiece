@@ -9,86 +9,36 @@
   </head>
 
   <body>
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId      : '179666202596410',
+          cookie     : true,
+          xfbml      : true,
+          version    : 'v2.10'
+        });
+          
+        FB.AppEvents.logPageView();   
+          
+      };
     
-  <script>
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId      : '179666202596410',
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v2.10'
-      });
-        
-      FB.AppEvents.logPageView();   
-        
-    };
-  
-    (function(d, s, id){
-       var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
-       js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/en_US/sdk.js";
-       fjs.parentNode.insertBefore(js, fjs);
-     }(document, 'script', 'facebook-jssdk'));
-  </script>
-
-    <!-- Banner -->
-
-    <div class="container-fluid text-center">
-      <h1><%= link_to 'War & Piece', root_path %></h1>
-    </div>
-
-    <!-- Navigation Bar -->
-        <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-            <ul class="navbar-nav">
-              <% if user_signed_in? %>
-                <li class="nav-item">
-                  <%= link_to 'Home', root_path, class: 'nav-link' %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to 'My Games', games_path, class: 'nav-link' %> <!-- 'My Games' should go to the player's most recently loaded game -->
-                </li>
-                <li class="nav-item">
-                  <%= link_to 'Start A Game', challenge_path, class: 'nav-link' %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'nav-link' %>
-                </li>
-              <% else %>
-                <li class="nav-item">
-                  <%= link_to 'Home', root_path, class: 'nav-link' %>
-                </li>
-                <li class="nav-item">
-                 <%= link_to 'Sign in', new_user_session_path, class: 'nav-link' %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to 'Sign up', new_user_registration_path, class: 'nav-link' %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        </nav>
-
-    <div class="container">
-
-      <% if notice.present? %>
-        <p class="alert alert-info"><%= notice %></p>
-      <% end %>
-      <% if alert.present? %>
-        <p class="alert alert-danger"><%= alert %></p>
-      <% end %>
-
-      <%= yield %>
-
-    </div>
-
-  <div id="footer">
-    <div class="container">
-      <%= link_to 'About Our Team', team_path %>
-      <%= link_to 'Contact Us', contact_path %>
-    </div>
-  </div>
-
+      (function(d, s, id){
+         var js, fjs = d.getElementsByTagName(s)[0];
+         if (d.getElementById(id)) {return;}
+         js = d.createElement(s); js.id = id;
+         js.src = "https://connect.facebook.net/en_US/sdk.js";
+         fjs.parentNode.insertBefore(js, fjs);
+       }(document, 'script', 'facebook-jssdk'));
+    </script>
+    
+    <% if notice.present? %>
+      <p class="alert alert-info"><%= notice %></p>
+    <% end %>
+    <% if alert.present? %>
+      <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
+    
+    
+    <%= yield %>
   </body>
 </html>

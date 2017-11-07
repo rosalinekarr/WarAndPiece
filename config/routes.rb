@@ -1,9 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
-  root 'static_pages#index'
-  get 'team', to: 'static_pages#team'
-  get 'contact', to: 'static_pages#contact'
-  get 'challenge', to: 'static_pages#challenge'
+  root 'games#index'
   resources :games do
     post 'join'
   end

@@ -1,82 +1,73 @@
-<div class="row">
+<h1>Game show page goes here</h1>
 
-  <div class="col-8 placeholder">
+<!-- Game Selection Modal or Drop-down -->
 
-    <!-- Game Selection Modal or Drop-down -->
+<div>
+  
+</div>
 
-    <div class="placeholder">
-      <p>Game Name + Game Selector Drop Down or Modal</p>
-    </div>
+<!-- Game Board -->
 
-    <!-- Game Board -->
+<div class="chessboard">
 
-    <div class="chessboard">
+  <div class="grid">
+    <% file = 0 %>
+    <% rank = 9 %>
 
-      <div class="grid">
-        <% file = 0 %>
-        <% rank = 9 %>
-
-        <% 8.times do %>
-          <% rank = rank - 1 %>
-          <% 8.times do %>
-            <% file = file + 1 %>
-            <div class="square">
-              <div class=<%= "file#{file}rank#{rank}" %>>
-                <% current_game.pieces.each do |piece| %>
-                  <% if piece.rank == rank && piece.file == file %>
-                    <%= "#{piece.color} #{piece.type}" %>
-                  <% end %>
-                <% end %>
-              </div>
-            </div>
-          <% end %>
-          <br />
-          <% file = 0 %>
-        <% end %>
-      </div>
-
-    </div>
-
-    <!-- Challenges Feed -->
-
-    <div class="placeholder">
-      <p>Challenges Feed/Current Games List</p>
-    </div>
+    <% 8.times do %>
+      <% rank = rank - 1 %>
+      <% 8.times do %>
+        <% file = file + 1 %>
+        <div class="square">
+          <div class=<%= "file#{file}rank#{rank}" %>>
+            <% current_game.pieces.each do |piece| %>
+              <% if piece.rank == rank && piece.file == file %>
+                <%= "#{piece.color} #{piece.type}" %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <br />
+      <% file = 0 %>
+    <% end %>
   </div>
 
-  <div class="col-4 placeholder">
+</div>
 
-    <!-- Player Name Display -->
+<!-- Challenges Feed -->
 
-    <div class="placeholder">
-      <h1>White Player</h1> <h3>vs.</h3> <h1>Black Player</h1>
-    </div>
+<div>
+  
+</div>
 
-    <!-- Captured Pieces Display -->
+<!-- Player Name Display -->
 
-    <div class="placeholder captured-display">
-      <p>Captured Pieces Display</p>
-    </div>
+<div>
 
-    <!-- Surrender button and modal -->
+</div>
 
-    <div class="show-button">
-      <button>Surrender</button>
-    </div>
+<!-- Captured Pieces Display -->
 
-    <!-- Truce button and modal -->
+<div>
+  
+</div>
 
-    <div class="show-button">
-      <button>Truce</button>
-    </div>
+<!-- Surrender button and modal -->
 
-    <!-- Cute image and possibly check/checkmate indicator? -->
+<div>
+  
+</div>
 
-    <div class="placeholder show-image">
-      <p>Image</p>
-    </div>
+<!-- Truce button and modal -->
 
-  </div>
+<div>
+  
+</div>
 
+<!-- Cute image and possibly check/checkmate indicator? -->
+
+<div>
+  
 </div>
 
