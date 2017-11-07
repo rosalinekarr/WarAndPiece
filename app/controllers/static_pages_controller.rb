@@ -1,5 +1,6 @@
 class StaticPagesController < ApplicationController
-
+  before_action :authenticate_user!
+  
   def index
     @inprogress_games = Game.inprogress
     @pending_games = Game.available
