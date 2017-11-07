@@ -20,9 +20,9 @@ RSpec.describe Piece, type: :model do
 
     before(:each) do
       @game = FactoryGirl.build(:game)
-      @current_square = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)    
+      @current_square = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)
     end
-    
+
     it "checks if there is no obstruction" do
       FactoryGirl.create(:piece, file: 6, rank: 6, game: @game)
       expect(@current_square.is_obstructed?(5, 5)).to be false
@@ -64,7 +64,39 @@ RSpec.describe Piece, type: :model do
     end
   end
 
+  describe "piece#move_to! captures piece in new square if piece is the opposite color" do
+
+    before(:each) do
+      @game = FactoryGirl.build(:game)
+      @current_piece = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game, color: :black_player_id)
+      @next_square = FactoryGirl.create(:piece, file: 5, rank: 5, game: @game, color: :white_player_id)
+    end
+
+    it "checks that there is a piece in the new square" do
+      expect(@next_square.blank?).to be false
+    end
+    it "checks that the piece in the new square belongs to the current game" do
+      expect(@next_square.game == @game).to be true
+    end
+    it "checks that the piece in the new square has not already been captured" do
+      expect(@next_square[:is_captured]).to be false
+    end
+    it "checks that the piece is the opposite color" do
+      expect(@next_square.color == @current_piece.color).to be false
+    end
+    it "captures a piece" do
+      @current_piece.move_to!(5, 5)
+      @next_square.reload
+      expect(@next_square[:is_captured]).to be true
+    end
+    it "updates the coordinates of the piece that did the capturing" do
+      @current_piece.move_to!(5, 5)
+      expect(@current_piece.file).to eq 5
+      expect(@current_piece.rank).to eq 5
+    end
+  end
 end
+
 
   # it "is valid with valid attributes" do
   #   piece = FactoryGirl.create(:piece)
@@ -86,13 +118,13 @@ end
 
   # it "is not valid if it is an invalid type" do
   #   piece = FactoryGirl.create(:piece, type: "invalid_type")
-  
+
   #   expect(piece).to_not be_valid
   # end
 
   # it "is valid with a user" do
-  #   piece = FactoryGirl.create(:piece, user: User.create( email:"test@email.com", 
-  #                                                         password:"secret", 
+  #   piece = FactoryGirl.create(:piece, user: User.create( email:"test@email.com",
+  #                                                         password:"secret",
   #                                                         password_confirmation: "secret"))
   #   expect(piece).to be_valid
   # end
