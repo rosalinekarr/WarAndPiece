@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe StaticPagesController, type: :controller do
   describe "static_pages#index action" do
     it "should require player to be logged in" do
-      get :new 
+      get :index 
       expect(response).to redirect_to new_user_session_path
     end
     it "should successfully show all current games" do
