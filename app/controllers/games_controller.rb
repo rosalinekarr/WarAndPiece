@@ -2,8 +2,6 @@ class GamesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :show, :update, :join]
 
   def index
-    @inprogress_games = Game.inprogress
-    @pending_games = Game.available
   end
 
   def new

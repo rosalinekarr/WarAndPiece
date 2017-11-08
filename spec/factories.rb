@@ -20,6 +20,10 @@ FactoryGirl.define do
   end
 
   factory :piece do
+    sequence :id do |n|
+      n
+    end  
+
     type "Pawn"
     rank 4
     file 4
