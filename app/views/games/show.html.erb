@@ -21,16 +21,13 @@
           <% 8.times do %>
             <% file = file + 1 %>
             <div class="square">
-              <%= link_to "/pieces/" + "#{@game.pieces.where(
-                {file: file, rank: rank}).ids.join('')}" do %>
-                <div class=<%= "file#{file}rank#{rank}" %>>
-                  <% current_game.pieces.each do |piece| %>
-                    <% if piece.rank == rank && piece.file == file %>
-                      <%= "#{piece.color} #{piece.type}" %>
-                    <% end %>
+              <div class=<%= "file#{file}rank#{rank}" %>>
+                <% current_game.pieces.each do |piece| %>
+                  <% if piece.rank == rank && piece.file == file %>
+                    <%= "#{piece.color} #{piece.type}" %>
                   <% end %>
-                </div>
-              <% end %>
+                <% end %>
+              </div>
             </div>
           <% end %>
           <br />
