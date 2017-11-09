@@ -1,8 +1,6 @@
 require 'rails_helper'
 
-
 RSpec.describe Rook, type: :model do
-
   describe 'Rook#valid_move? checks if the Rook is making a valid move' do
     before(:each) do
       @game = FactoryGirl.build(:game)

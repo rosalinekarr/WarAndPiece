@@ -1,5 +1,4 @@
-# /app/models/rook.rb
-
+# logic for Rook Piece
 class Rook < Piece
 
   def valid_move?(new_file, new_rank)
