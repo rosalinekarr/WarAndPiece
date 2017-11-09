@@ -6,7 +6,7 @@ RSpec.describe Rook, type: :model do
   describe 'Rook#valid_move? checks if the Rook is making a valid move' do
     before(:each) do
       @game = FactoryGirl.build(:game)
-      @rook = FactoryGirl.create(:piece, type: 'Rook', file: 1, rank: 1, game: @game)
+      @rook = Rook.new(file: 1, rank: 1)
     end
     it 'returns true for vertical move' do
       expect(@rook.valid_move?(1, 6)).to be true
