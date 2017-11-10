@@ -15,15 +15,13 @@ before_action :authenticate_user!, only: :update
       return render plain: 'Forbidden :(', status: :forbidden
     end
     current_piece.update_attributes(piece_params)
-    # if (piece_params.include?(:rank) && piece_params.include?(:file))
-    #   move = Move.create({
-    #     piece_id: current_piece.id,
-    #     game_id: current_piece.game_id,
-    #     rank: rank,
-    #     file: file
-    #   }).save!
-    # end
     if current_piece.valid?
+      Move.create(
+        piece_id: current_piece.id, 
+        game_id: current_piece.game_id, 
+        rank: current_piece.rank, 
+        file: current_piece.file
+        )
       redirect_to game_path(current_piece.game.id)
     else
       return render plain: 'Not Valid', status: :unprocessable_entity
