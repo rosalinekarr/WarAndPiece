@@ -24,6 +24,7 @@ RSpec.describe Knight, type: :model do
       valid_knight_moves.each do |position|
         file = position.keys[0]
         rank = position.values[0]
+        
         result = knight.valid_move?(file, rank)
 
         expect(result).to eq(true)
@@ -76,6 +77,7 @@ RSpec.describe Knight, type: :model do
       knight = Knight.new(file: 4, rank: 5)
       file = 3
       rank = 7
+
       result = knight.move_up_left?(file, rank)
 
       expect(result).to eq(true)
@@ -97,6 +99,7 @@ RSpec.describe Knight, type: :model do
       knight = Knight.new(file: 4, rank: 5)
       file = 5
       rank = 7
+
       result = knight.move_up_right?(file, rank)
 
       expect(result).to eq(true)
@@ -118,6 +121,7 @@ RSpec.describe Knight, type: :model do
       knight = Knight.new(file: 4, rank: 5)
       file = 2
       rank = 6
+
       result = knight.move_left_up?(file, rank)
 
       expect(result).to eq(true)
@@ -139,6 +143,7 @@ RSpec.describe Knight, type: :model do
       knight = Knight.new(file: 4, rank: 5)
       file = 2
       rank = 4
+
       result = knight.move_left_down?(file, rank)
 
       expect(result).to eq(true)
@@ -160,6 +165,7 @@ RSpec.describe Knight, type: :model do
       knight = Knight.new(file: 4, rank: 5)
       file = 6
       rank = 6
+
       result = knight.move_right_up?(file, rank)
 
       expect(result).to eq(true)
@@ -181,6 +187,7 @@ RSpec.describe Knight, type: :model do
       knight = Knight.new(file: 4, rank: 5)
       file = 6
       rank = 4
+
       result = knight.move_right_down?(file, rank)
 
       expect(result).to eq(true)
@@ -202,6 +209,7 @@ RSpec.describe Knight, type: :model do
       knight = Knight.new(file: 4, rank: 5)
       file = 3
       rank = 3
+
       result = knight.move_down_left?(file, rank)
 
       expect(result).to eq(true)
@@ -223,6 +231,7 @@ RSpec.describe Knight, type: :model do
       knight = Knight.new(file: 4, rank: 5)
       file = 5
       rank = 3
+
       result = knight.move_down_right?(file, rank)
 
       expect(result).to eq(true)
