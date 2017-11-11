@@ -1,14 +1,1 @@
-<div class="col-10 offset-1">
-  <h1>Here's the games#index view</h1>
-
-  <% @pending_games.each do |game| %>
-    <div class="row">
-      <div class="col-sm-8 col-12">
-        <%= game %> <!-- display name of user that created the game? -->
-      </div>
-      <div class="col-sm-4 col-12 text-center">
-        <%= link_to 'Have at thee!', game_join_path(game), class: 'btn btn-primary btn-large', method: :post %>
-      </div>
-    </div>
-  <% end %>
-</div>
+<p>Games Index Page. Should redirect to the user's most recently viewed game.</p>
