@@ -1,3 +1,56 @@
+<!--
+
+<script>
+
+class Square {
+  constructor(file, rank, render) {
+    this.file = file
+    this.rank = rank
+    this.render = render
+  }
+}
+
+$(.chessboard() {
+  let file = 0
+  let rank = 9
+  while (rank > 0) {
+    rank -= 1
+    while (file < 9) {
+      file += 1
+      let pos = "square" + file + rank
+      if (file = 8) {
+        let render = <div class="square"></div>
+      }
+      } else {
+        let render = <div class="square"></div><br />
+      }
+      const pos.inspect = new Square(file, rank, render)
+      $(pos.inspect.render().droppable {
+        // Change file and rank of dragged piece to file and rank of pos.inspect       
+      };
+    };
+  };
+  <br />
+  file = 0
+};
+
+-Upon drag and drop, perform the following anonymous function:
+  -Make the piece draggable with jquery.
+  -Make the piece snap to the center of div tags with the class "square".
+-end
+
+-Upon page load, perform the following anonymous function:
+  -For each piece, do:
+    -Determine the current rank and file of the piece
+    -Find the square corresponding to that rank and file
+    -Display the piece name on that square.
+  -end
+-end
+
+</script>
+
+-->
+
 <div class="row">
 
   <div class="col-8 placeholder">
@@ -15,7 +68,6 @@
       <div class="grid">
         <% file = 0 %>
         <% rank = 9 %>
-
         <% 8.times do %>
           <% rank = rank - 1 %>
           <% 8.times do %>
@@ -24,7 +76,9 @@
               <div class=<%= "file#{file}rank#{rank}" %>>
                 <% current_game.pieces.each do |piece| %>
                   <% if piece.rank == rank && piece.file == file %>
-                    <%= "#{piece.color} #{piece.type}" %>
+                    <div class="piece-icon">
+                      <%= "#{piece.color} #{piece.type}" %>
+                    </div>
                   <% end %>
                 <% end %>
               </div>
