@@ -30,46 +30,7 @@ RSpec.describe Knight, type: :model do
         expect(result).to eq(true)
       end
     end
-
-    it 'is not valid when exceeding left game board edge' do
-      knight = Knight.new(file: 1, rank: 3)
-      invalid_file = 0
-      rank = 1
-
-      result = knight.valid_move?(invalid_file, rank)
-      
-      expect(result).to eq(false)
-    end
-
-    it 'is not valid when exceeding right game board edge' do
-      knight = Knight.new(file: 8, rank: 3)
-      invalid_file = 9
-      rank = 1
-
-      result = knight.valid_move?(invalid_file, rank)
-      
-      expect(result).to eq(false)
-    end
-
-    it 'is not valid when exceeding top game board edge' do
-      knight = Knight.new(file: 1, rank: 8)
-      file = 3
-      invalid_rank = 9
-
-      result = knight.valid_move?(file, invalid_rank)
-      
-      expect(result).to eq(false)     
-    end
-
-    it 'is not valid when exceeding bottom game board edge' do
-      knight = Knight.new(file: 7, rank: 1)
-      file = 5
-      invalid_rank = 0
-
-      result = knight.valid_move?(file, invalid_rank)
-      
-      expect(result).to eq(false)     
-    end
+    
   end
 
   describe '#move_up_left?' do
