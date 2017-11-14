@@ -61,6 +61,8 @@ class Piece < ApplicationRecord
     if self.color != captured_piece.color
       captured_piece.update(is_captured: true)
       self.update(file: new_col, rank: new_row)
+      # game.check(self)
+      # also need to add check method when piece is moved to empty square
     end
   end
 end

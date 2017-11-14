@@ -9,7 +9,7 @@ RSpec.describe Game, type: :model do
     end
 
     it "creates pieces in specific positions" do
-      
+
       piece_positions = []
       ['Rook', 'Knight', 'Bishop', 'Queen', 'King', 'Bishop', 'Knight', 'Rook'].each.with_index(1) do |piece, i|
         piece_positions << { type: piece,   file: i, rank: 1, game: @game, user: @game.white_player, color: 'white' }
@@ -29,8 +29,8 @@ RSpec.describe Game, type: :model do
 
     end
 
-    it "creates a specific number of types per color" do 
-      
+    it "creates a specific number of types per color" do
+
       number_of_chess_types = {
         'Rook': 2,
         'Knight': 2,
@@ -46,7 +46,20 @@ RSpec.describe Game, type: :model do
         expect(Piece.where(type: piece, color:'white').count).to eq(number)
         expect(Piece.where(type: piece, color:'black').count).to eq(number)
       end
-      
+
     end
-  end 
+  end
+
+  describe '.check' do
+
+    before do
+      @game = FactoryGirl.build(:game)
+      @king = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game, color: :black_player_id)
+      @piece = FactoryGirl.create(:piece, file: 5, rank: 5, game: @game, color: :white_player_id)
+    end
+
+    it 'king is in check' do
+      expect(@piece.valid_move?(4, 4)).to be true
+    end
+  end
 end

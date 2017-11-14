@@ -17,11 +17,15 @@ before_action :authenticate_user!, only: :update
     current_piece.update_attributes(piece_params)
     if current_piece.valid?
       Move.create(
-        piece_id: current_piece.id, 
-        game_id: current_piece.game_id, 
-        rank: current_piece.rank, 
+        piece_id: current_piece.id,
+        game_id: current_piece.game_id,
+        rank: current_piece.rank,
         file: current_piece.file
         )
+        @game = current_piece.game
+        if @game.check(current_piece)
+          flash[:alert] = "Check!"
+        end
       redirect_to game_path(current_piece.game.id)
     else
       return render plain: 'Not Valid', status: :unprocessable_entity
