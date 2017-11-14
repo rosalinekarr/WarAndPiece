@@ -30,7 +30,7 @@ RSpec.describe Knight, type: :model do
         expect(result).to eq(true)
       end
     end
-    
+
   end
 
   describe '#move_up_left?' do
@@ -44,7 +44,7 @@ RSpec.describe Knight, type: :model do
       expect(result).to eq(true)
     end
 
-    it 'is invalid moving up and left' do
+    it 'is invalid for moves other than rank+2 and file-1' do
       knight = Knight.new(file: 4, rank: 5)
       file = 4
       rank = 6
@@ -66,7 +66,7 @@ RSpec.describe Knight, type: :model do
       expect(result).to eq(true)
     end
 
-    it 'is invalid moving up and right' do
+    it 'is invalid for moves other than rank+2 and file+1' do
       knight = Knight.new(file: 4, rank: 5)
       file = 4
       rank = 7
@@ -88,7 +88,7 @@ RSpec.describe Knight, type: :model do
       expect(result).to eq(true)
     end
 
-    it 'is invalid moving left and up' do
+    it 'is invalid for moves other than file-2 and rank+1' do
       knight = Knight.new(file: 4, rank: 5)
       file = 3
       rank = 5
@@ -110,7 +110,7 @@ RSpec.describe Knight, type: :model do
       expect(result).to eq(true)
     end
 
-    it 'is invalid moving left and down' do
+    it 'is invalid for moves other than file-2 and rank-1' do
       knight = Knight.new(file: 4, rank: 5)
       file = 2
       rank = 5
@@ -132,7 +132,7 @@ RSpec.describe Knight, type: :model do
       expect(result).to eq(true)
     end
 
-    it 'is invalid moving right and up' do
+    it 'is invalid for moves other than file+2 and rank+1' do
       knight = Knight.new(file: 4, rank: 5)
       file = 5
       rank = 5
@@ -154,7 +154,7 @@ RSpec.describe Knight, type: :model do
       expect(result).to eq(true)
     end
 
-    it 'is invalid moving right and down' do
+    it 'is invalid for moves other than file+2 and rank-1' do
       knight = Knight.new(file: 4, rank: 5)
       file = 6
       rank = 5
@@ -176,7 +176,7 @@ RSpec.describe Knight, type: :model do
       expect(result).to eq(true)
     end
 
-    it 'is invalid moving down and left' do
+    it 'is invalid for moves other than rank-2 and file-1' do
       knight = Knight.new(file: 4, rank: 5)
       file = 4
       rank = 4
@@ -198,7 +198,7 @@ RSpec.describe Knight, type: :model do
       expect(result).to eq(true)
     end
 
-    it 'is invalid moving down and right' do
+    it 'is invalid for moves other than rank-2 and file+1' do
       knight = Knight.new(file: 4, rank: 5)
       file = 4
       rank = 3
