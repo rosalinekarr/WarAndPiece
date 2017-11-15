@@ -54,11 +54,12 @@ RSpec.describe Game, type: :model do
 
     before do
       @game = FactoryGirl.build(:game)
-      @king = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game, color: :black_player_id)
+      @king = FactoryGirl.create(:king, file: 4, rank: 4, game: @game, color: :black_player_id)
       @piece = FactoryGirl.create(:piece, file: 5, rank: 5, game: @game, color: :white_player_id)
     end
 
     it 'king is in check' do
+      # puts @king.inspect
       expect(@piece.valid_move?(4, 4)).to be true
     end
   end
