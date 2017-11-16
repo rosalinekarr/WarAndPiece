@@ -13,7 +13,7 @@ before_action :authenticate_user!, only: :update
       return render plain: 'Forbidden :(', status: :forbidden
     end
 
-    current_piece.move_to!(params[:piece][:file],params[:piece][:rank])
+    current_piece.move_to!(params[:piece][:file], params[:piece][:rank])
 
     if current_piece.valid?
       Move.create(

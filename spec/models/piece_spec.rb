@@ -104,18 +104,18 @@ RSpec.describe Piece, type: :model do
         @piece_same_color = FactoryGirl.create(:piece, file: 5, rank: 5, game: @game, color: 'white')
       end
       
-      it "does not move the player's current piece when capturing a same color piece" do
+      it "does not move to own-piece square" do
         @current_piece.move_to!(5, 5)
 
         expect(@current_piece.file).to eq(4)
         expect(@current_piece.rank).to eq(4)
       end
 
-      it "does not capture the player's other same color piece" do
+      it "does not capture own piece" do
         @current_piece.move_to!(5, 5)
         @piece_same_color.reload
 
-        expect(@piece_same_color.is_captured).to eq(false)
+        expect(@piece_same_color.is_captured).to be false
       end
     end
   end
