@@ -57,10 +57,14 @@ class Piece < ApplicationRecord
     current_col = self.file
     current_row = self.rank
     pieces = Piece.where(file: new_col, rank: new_row, game: game, is_captured: false)
-    captured_piece = pieces.first
-    if self.color != captured_piece.color
-      captured_piece.update(is_captured: true)
-      self.update(file: new_col, rank: new_row)
+    unless pieces.empty?
+      captured_piece = pieces.first
+      if self.color != captured_piece.color
+        captured_piece.update(is_captured: true)
+      else
+        return
+      end
     end
+    self.update(file: new_col, rank: new_row)
   end
 end
