@@ -25,6 +25,10 @@ before_action :authenticate_user!, only: :update
 
   private
 
+  def current_piece
+    @current_piece ||= Piece.find_by_id(params[:id])
+  end
+
   def piece_params
     # puts params
     params.require(:piece).permit(:rank, :file)

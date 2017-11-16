@@ -1,7 +1,7 @@
 <script>
 
 $(function() {
-  $('.piece-icon').draggable({
+  $('.player-pieces').draggable({
     snap: '.square'
   });
 
@@ -47,8 +47,12 @@ $(function() {
             <div class="square" data-rank="<%= sq_rank %>" data-file="<%= sq_file %>">
               <% current_game.pieces.each do |piece| %>
                 <% if piece.rank == sq_rank && piece.file == sq_file %>
-                  <div class="piece-icon" data-update-url="<%= piece_path piece %>">
-                    <%= "#{piece.color} #{piece.type}" %>
+                  <% if current_user == piece.user %>
+                    <div class="player-pieces" data-update-url="<%= piece_path piece %>">
+                    <% else %>
+                    <div class="opponent-pieces">
+                  <% end %>
+                  <%= "#{piece.color} #{piece.type}" %>
                   </div>
                 <% end %>
               <% end %>
