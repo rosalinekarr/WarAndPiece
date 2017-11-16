@@ -36,7 +36,7 @@ $(function() {
             <!-- <a href='#' onclick="submitPieceMove(@current_piece.id, file, rank)"><%= "#{file}, #{rank}" %></a> -->
             <%= button_to piece_path(@current_piece), method: :patch, params: {piece: {file: file, rank: rank}} do %>
               <% current_piece.game.pieces.each do |piece| %>
-                <% if piece.rank == rank && piece.file == file && ([piece.file]+[piece.rank]) != @piece_coord %>
+                <% if piece.rank == rank && piece.file == file && ([piece.file]+[piece.rank]) != @piece_coord && piece.is_captured == false%>
                   <%= "#{piece.color} #{piece.type}" %>
                 <% end %>
               <% end %>
