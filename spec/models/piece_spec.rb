@@ -66,33 +66,57 @@ RSpec.describe Piece, type: :model do
 
   describe "piece#move_to! captures piece in new square if piece is the opposite color" do
 
-    before(:each) do
-      @game = FactoryGirl.build(:game)
-      @current_piece = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game, color: :black_player_id)
-      @next_square = FactoryGirl.create(:piece, file: 5, rank: 5, game: @game, color: :white_player_id)
+    context "valid case" do
+      before(:each) do
+        @game = FactoryGirl.build(:game)
+        @current_piece = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game, color: :black_player_id)
+        @next_square = FactoryGirl.create(:piece, file: 5, rank: 5, game: @game, color: :white_player_id)
+      end
+
+      it "checks that there is a piece in the new square" do
+        expect(@next_square.blank?).to be false
+      end
+      it "checks that the piece in the new square belongs to the current game" do
+        expect(@next_square.game == @game).to be true
+      end
+      it "checks that the piece in the new square has not already been captured" do
+        expect(@next_square[:is_captured]).to be false
+      end
+      it "checks that the piece is the opposite color" do
+        expect(@next_square.color == @current_piece.color).to be false
+      end
+      it "captures a piece" do
+        @current_piece.move_to!(5, 5)
+        @next_square.reload
+        expect(@next_square[:is_captured]).to be true
+      end
+      it "updates the coordinates of the piece that did the capturing" do
+        @current_piece.move_to!(5, 5)
+        expect(@current_piece.file).to eq 5
+        expect(@current_piece.rank).to eq 5
+      end
     end
 
-    it "checks that there is a piece in the new square" do
-      expect(@next_square.blank?).to be false
-    end
-    it "checks that the piece in the new square belongs to the current game" do
-      expect(@next_square.game == @game).to be true
-    end
-    it "checks that the piece in the new square has not already been captured" do
-      expect(@next_square[:is_captured]).to be false
-    end
-    it "checks that the piece is the opposite color" do
-      expect(@next_square.color == @current_piece.color).to be false
-    end
-    it "captures a piece" do
-      @current_piece.move_to!(5, 5)
-      @next_square.reload
-      expect(@next_square[:is_captured]).to be true
-    end
-    it "updates the coordinates of the piece that did the capturing" do
-      @current_piece.move_to!(5, 5)
-      expect(@current_piece.file).to eq 5
-      expect(@current_piece.rank).to eq 5
+    context "invalid case" do
+      before(:each) do
+        @game = FactoryGirl.build(:game)
+        @current_piece = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game, color: 'white')
+        @piece_same_color = FactoryGirl.create(:piece, file: 5, rank: 5, game: @game, color: 'white')
+      end
+      
+      it "does not move the player's current piece when capturing a same color piece" do
+        @current_piece.move_to!(5, 5)
+
+        expect(@current_piece.file).to eq(4)
+        expect(@current_piece.rank).to eq(4)
+      end
+
+      it "does not capture the player's other same color piece" do
+        @current_piece.move_to!(5, 5)
+        @piece_same_color.reload
+
+        expect(@piece_same_color.is_captured).to eq(false)
+      end
     end
   end
 end
