@@ -49,4 +49,35 @@ RSpec.describe Game, type: :model do
       
     end
   end 
+
+  describe ".checkmate?" do
+
+    before do
+      @game = FactoryGirl.create(:game)
+    end
+
+    context "when valid" do
+      it "is checkmate when all of king's valid moves result in check" do
+        @black_king = FactoryGirl.create(:king, file: 5, rank: 5, game: @game, user: @game.black_player, color: 'black')
+        @white_king = FactoryGirl.create(:king, file: 4, rank: 7, game: @game, user: @game.white_player, color: 'white')
+        @white_queen = FactoryGirl.create(:queen, file: 4, rank: 1, game: @game, user: @game.white_player, color: 'white')
+        @white_rook = FactoryGirl.create(:rook, file: 2, rank: 4, game: @game, user: @game.white_player, color: 'white')
+        @white_bishop = FactoryGirl.create(:bishop, file: 3, rank: 1, game: @game, user: @game.white_player, color: 'white')
+        @white_knight = FactoryGirl.create(:knight, file: 8, rank: 6, game: @game, user: @game.white_player, color: 'white')
+
+        @white_bishop.move_to!(2, 2)
+
+        expect(@game.checkmate?).to be true
+      end
+    end
+
+    context "when not valid" do
+      it "is not checkmate when king can move to non-check square"
+
+      it "is not checkmate when king captures a piece to escape check"
+
+      it "is not checkmate when opposing player obstructs attacking piece"
+    end
+
+  end
 end
