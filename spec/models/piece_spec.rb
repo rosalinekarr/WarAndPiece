@@ -16,6 +16,23 @@ RSpec.describe Piece, type: :model do
   #  end
   # end
 
+  describe "piece#valid_move? checks if a move is valid" do
+
+    context "valid move" do
+    end
+
+    context "invalid move" do
+      it "is not valid when moving in place" do
+        @piece = FactoryGirl.build(:piece, file: 2, rank: 2)
+
+        result = @piece.valid_move?(2, 2)
+
+        expect(result).to be false
+      end
+    end
+
+  end
+
   describe "piece#is_obstructed? checks if there is an obstruction between two squares" do
 
     before(:each) do
