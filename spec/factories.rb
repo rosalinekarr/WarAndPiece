@@ -42,4 +42,12 @@ FactoryGirl.define do
   factory :bishop, parent: :piece, class: Bishop do
     type "Bishop"
   end
+
+  factory :rook, parent: :piece, class: Rook do
+    type "Rook"
+  end
+
+  factory :knight, parent: :piece, class: Knight do
+    type "Knight"
+  end
 end
