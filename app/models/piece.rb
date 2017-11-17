@@ -66,5 +66,6 @@ class Piece < ApplicationRecord
       end
     end
     self.update(file: new_col, rank: new_row)
+    self.game.update(turn: !self.game.turn)
   end
 end
