@@ -24,5 +24,30 @@ RSpec.describe King, type: :model do
       expect(@king.valid_move?(1, 0)).to eq(false)
     end
   end
-  
+
+  describe '.get_valid_moves' do
+
+    context "no adjacent pieces" do
+      it "returns all 8 valid king moves" do
+        @king = FactoryGirl.build(:king, file: 5, rank: 5)
+        @king_valid_moves = [ {4=>4}, {4=>5}, {4=>6}, {5=>4},
+                              {5=>6}, {6=>4}, {6=>5}, {6=>6} ]
+                              
+        result = @king.get_valid_moves
+
+        expect(result).to eq(@king_valid_moves)
+      end
+    end
+
+    context "adjacent pieces" do
+      it "returns valid moves excluding same color piece positions"
+      it "returns valid moves when opposing pieces are adjacent"
+    end
+      
+    context "on game board edge" do
+      it "returns valid moves when on edges"
+    end
+    
+  end
+
 end
