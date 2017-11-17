@@ -11,4 +11,21 @@ class King < Piece
     end
   end
 
+  def get_valid_moves
+    valid_moves = []
+
+    adjacent_files = (self.file-1..self.file+1)
+    adjacent_ranks = (self.rank-1..self.rank+1)
+
+    adjacent_files.each do |column|
+      adjacent_ranks.each do |row|
+        if valid_move?(column, row)
+          valid_moves << {column=>row}
+        end
+      end
+    end
+
+    valid_moves
+  end
+
 end
