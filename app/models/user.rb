@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   has_many :games
+  has_many :pieces
+  has_many :moves, through: :pieces
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
