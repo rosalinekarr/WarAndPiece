@@ -25,7 +25,11 @@ RSpec.describe PiecesController, type: :controller do
       expect(response).to have_http_status(:forbidden)
     end
     it "creates a move model on update" do
-
+      sign_in @piece.user
+      update_xy
+      expect(@piece.moves.length).to eq 1
+      expect(@piece.moves.last.file).to eq 3
+      expect(@piece.moves.last.rank).to eq 3
     end
     it "does not update the database when not valid" do
       sign_in @piece.user

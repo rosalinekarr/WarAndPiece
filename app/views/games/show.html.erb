@@ -49,7 +49,7 @@ $(function() {
                 <% if piece.rank == sq_rank && piece.file == sq_file %>
                   <% if current_user == piece.user %>
                     <div class="player-pieces" data-update-url="<%= piece_path piece %>">
-                    <% else %>
+                  <% else %>
                     <div class="opponent-pieces">
                   <% end %>
                   <%= "#{piece.color} #{piece.type}" %>
