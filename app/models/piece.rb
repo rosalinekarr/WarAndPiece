@@ -6,9 +6,16 @@ class Piece < ApplicationRecord
   validates :rank, presence: true, numericality: (1..8)
   validates :file, presence: true, numericality: (1..8)
 
-  # checks to make sure move is on the board
+  # checks to make sure move is on the board and cannot move in place
   def valid_move?(new_file, new_rank)
-    new_file >= 1 && new_file <= 8 && new_rank >= 1 && new_rank <= 8
+    new_position = {new_file => new_rank}
+    
+    new_file >= 1 && new_file <= 8 && new_rank >= 1 && new_rank <= 8 &&
+    new_position != current_position
+  end
+
+  def current_position
+    {self.file => self.rank}
   end
 
   def is_obstructed?(col, row)     ## pass in rank and file of the square we want to move to
