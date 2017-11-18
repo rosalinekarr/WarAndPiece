@@ -22,12 +22,6 @@ class GamesController < ApplicationController
   def show
     @game = Game.find_by_id(params[:id])
     return render_not_found if @game.blank?
-    ## if @game.turn == true && current_user.id == @game.white_player.id ||
-    ##  @game.turn == false && current_user.id == @game.black_player.id
-    ##   @turn = "Your Turn"
-    ## else
-    ##   @turn = "Your Opponents' Turn"
-    ## end
   end
 
   def join
@@ -67,4 +61,5 @@ class GamesController < ApplicationController
   def game_params
     params.require(:game).permit(:white_player_id, :black_player_id, :game_state)
   end
+
 end
