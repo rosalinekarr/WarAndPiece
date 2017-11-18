@@ -22,13 +22,4 @@ class Game < ApplicationRecord
   
   end
 
-  def whose_turn
-    if turn == true && white_player.id || turn == false && black_player.id
-      @turn = "Your Turn"
-    else
-      @turn = "Your Opponents' Turn"
-    end
-    @turn
-  end
-
 end
