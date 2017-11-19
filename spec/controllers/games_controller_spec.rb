@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe GamesController, type: :controller do
+  
+  let(:game) { FactoryGirl.create :game }
+  let(:white_piece) { FactoryGirl.create :piece, file: 4, rank: 2, game: game, color: :white_player_id }
+  let(:black_piece) { FactoryGirl.create :piece, file: 4, rank: 7, game: game, color: :black_player_id }
+
   # describe "games#index action" do
 
   # end
@@ -44,6 +49,15 @@ RSpec.describe GamesController, type: :controller do
       expect(response).to have_http_status(:success)
     end
 
+    it "assigns the first turn to the white_player" do
+      #game begins, default turn should be true/white_player
+      black_piece.move_to!(4, 5)
+      expect(response).to have_http_status(:forbidden)
+    end
+    it "prevents the opposing player from moving when it is not their turn" do
+
+    end
+
   end
   
   describe "games#create action" do
@@ -65,19 +79,13 @@ RSpec.describe GamesController, type: :controller do
   end
 
   describe "games#update" do
-    let(:game) { FactoryGirl.create :game }
-    let(:white_piece) { FactoryGirl.create :piece, file: 4, rank: 2, game: game, color: :white_player_id }
-    let(:black_piece) { FactoryGirl.create :piece, file: 4, rank: 7, game: game, color: :black_player_id }
-
-    it "assigns the first turn to the white_player" do
-
-    end
-    it "prevents the opposing player from moving when it is not their turn" do
-
-    end
+    
     it "changes turn after a player has moved" do
+      # game begins, default turn is true/white_player
       white_piece.move_to!(4, 4)
       expect(game.turn).to be false
+      black_piece.move_to!(4, 5)
+      expect(game.turn).to be true
     end
   end
 
