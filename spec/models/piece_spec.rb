@@ -16,6 +16,26 @@ RSpec.describe Piece, type: :model do
   #  end
   # end
 
+  describe ".valid_move? validates piece move positions" do
+
+    before(:each) do
+      @game = FactoryGirl.build(:game)
+    end
+
+    context "valid move" do
+      it "when moving inside the board"
+      it "when moving to an opposing piece position"
+    end
+
+    context "invalid move" do
+      it "when moving off the board"
+      it "when moving to a same color piece position"
+      it "when moving in place"
+      it "when obstructed by another piece moving unidirectionally"
+    end
+
+  end
+
   describe "piece#is_obstructed? checks if there is an obstruction between two squares" do
 
     before(:each) do
@@ -128,7 +148,7 @@ end
   #   expect(piece).to be_valid
   # end
 
-  # it "is not valid without a type" do
+  # it "without a type" do
   #   piece = FactoryGirl.create(:piece, type: "")
 
   #   expect(piece).to_not be_valid
@@ -140,7 +160,7 @@ end
   #   expect(piece.type).to eq("pawn")
   # end
 
-  # it "is not valid if it is an invalid type" do
+  # it "if it is an invalid type" do
   #   piece = FactoryGirl.create(:piece, type: "invalid_type")
 
   #   expect(piece).to_not be_valid
@@ -153,13 +173,13 @@ end
   #   expect(piece).to be_valid
   # end
 
-  # it "is not valid without a user" do
+  # it "without a user" do
   #   piece = FactoryGirl.create(:piece, user: "")
 
   #   expect(piece).to_not be_valid
   # end
 
-  # it "is not valid without a rank" do
+  # it "without a rank" do
   #   piece = FactoryGirl.create(:piece, rank: "")
 
   #   expect(piece).to_not be_valid
@@ -174,7 +194,7 @@ end
   #   end
   # end
 
-  # it "is not valid with any rank not between integers 1-8" do
+  # it "with any rank not between integers 1-8" do
   #   piece = FactoryGirl.create(:piece)
   #   invalid_integers = [-1, 9, 100, 1000]
 
@@ -184,7 +204,7 @@ end
   #   end
   # end
 
-  # it "is not valid with a non-integer value for the rank" do
+  # it "with a non-integer value for the rank" do
   #   piece = FactoryGirl.create(:piece)
   #   invalid_types = ['a',"rank1", true, 1.5, {a:1}]
 
@@ -194,7 +214,7 @@ end
   #   end
   # end
 
-  # it "is not valid without a file" do
+  # it "without a file" do
   #   piece = FactoryGirl.create(:piece, file:"")
 
   #   expect(piece).to_not be_valid
@@ -211,7 +231,7 @@ end
 
   # end
 
-  # it "is not valid with an invalid file value" do
+  # it "with an invalid file value" do
   #   piece = FactoryGirl.create(:piece)
   #   invalid_files = ['g',"file_a", true, 1.5, {file:a}]
 
@@ -227,7 +247,7 @@ end
   #    expect(piece).to be_valid
   # end
 
-  # it "is not valid without an is_captured status" do
+  # it "without an is_captured status" do
   #   piece = FactoryGirl.create(:piece, is_captured: nil)
 
   #   expect(piece).to_not be_valid
