@@ -46,7 +46,7 @@ $(function() {
             <% sq_file = sq_file + 1 %>
             <div class="square" data-rank="<%= sq_rank %>" data-file="<%= sq_file %>">
               <% current_game.pieces.each do |piece| %>
-                <% if piece.rank == sq_rank && piece.file == sq_file %>
+                <% if piece.rank == sq_rank && piece.file == sq_file && piece.is_captured == false %>
                   <% if current_user == piece.user %>
                     <div class="player-pieces" data-update-url="<%= piece_path piece %>">
                   <% else %>
