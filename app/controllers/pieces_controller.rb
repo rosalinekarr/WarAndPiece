@@ -7,8 +7,7 @@ before_action :authenticate_user!, only: :update
       return render plain: 'Forbidden :(', status: :forbidden
     end
 
-    if current_piece.valid_move?(params[:piece][:file].to_i, params[:piece][:rank].to_i)
-      current_piece.move_to!(params[:piece][:file].to_i, params[:piece][:rank].to_i)
+    if current_piece.move_to!(params[:piece][:file].to_i, params[:piece][:rank].to_i)
       Move.create(
         piece_id: current_piece.id, 
         game_id: current_piece.game_id, 
