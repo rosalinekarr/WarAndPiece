@@ -17,7 +17,7 @@ RSpec.describe Piece, type: :model do
     end
   end
 
-  describe "piece#is_move_to_opposing_color?" do
+  describe "piece#is_capture_opposing_color?" do
 
     before do
       @game = FactoryGirl.create(:game)
@@ -28,7 +28,7 @@ RSpec.describe Piece, type: :model do
         @white_piece = FactoryGirl.create(:piece, file: 4, rank: 4, color: 'white', game: @game)
         @black_piece = FactoryGirl.create(:piece, file: 5, rank: 5, color: 'black', game: @game)
 
-        result = @white_piece.is_move_to_opposing_color?(@black_piece.file, @black_piece.rank)
+        result = @white_piece.is_capture_opposing_color?(@black_piece.file, @black_piece.rank)
 
         expect(result).to be true
       end
@@ -39,7 +39,7 @@ RSpec.describe Piece, type: :model do
         @white_piece = FactoryGirl.create(:piece, file: 1, rank: 1, color: 'white', game: @game)
         @same_color_piece = FactoryGirl.create(:piece, file: 2, rank: 2, color: 'white', game: @game)
         
-        result = @white_piece.is_move_to_opposing_color?(@same_color_piece.file, @same_color_piece.rank)
+        result = @white_piece.is_capture_opposing_color?(@same_color_piece.file, @same_color_piece.rank)
 
         expect(result).to be false
       end
@@ -49,7 +49,7 @@ RSpec.describe Piece, type: :model do
         empty_position_file = 2
         empty_position_rank = 2
 
-        result = @white_piece.is_move_to_opposing_color?(empty_position_file, empty_position_rank)
+        result = @white_piece.is_capture_opposing_color?(empty_position_file, empty_position_rank)
 
         expect(result).to be false
       end
@@ -59,9 +59,13 @@ RSpec.describe Piece, type: :model do
 
   describe ".valid_move? validates piece move positions" do
 
+    before do
+      @game = FactoryGirl.create(:game)
+    end
+
     context "valid move" do
       it "when moving inside the board" do
-        @piece = Piece.new(file: 1, rank: 1)
+        @piece = FactoryGirl.create(:piece, file: 1, rank: 1, game: @game)
         new_file = 2
         new_rank = 2
 
@@ -71,8 +75,8 @@ RSpec.describe Piece, type: :model do
       end
 
       it "when moving to an opposing piece position" do
-        @white_piece = Piece.new(file: 1, rank: 1, color: 'white')
-        @black_piece = Piece.new(file: 2, rank: 2, color: 'black')
+        @white_piece = FactoryGirl.create(:piece, file: 1, rank: 1, color: 'white', game: @game)
+        @black_piece = FactoryGirl.create(:piece, file: 2, rank: 2, color: 'black', game: @game)
 
         result = @white_piece.valid_move?(@black_piece.file, @black_piece.rank)
 
@@ -82,7 +86,7 @@ RSpec.describe Piece, type: :model do
 
     context "invalid move" do
       it "when moving off the board" do
-        @piece = Piece.new(file: 1, rank: 1)
+        @piece = FactoryGirl.create(:piece, file: 1, rank: 1, game: @game)
         invalid_file = -1
         invalid_rank = -1
 
@@ -92,8 +96,8 @@ RSpec.describe Piece, type: :model do
       end
 
       it "when moving to a same color piece position" do
-        @white_piece = Piece.new(file: 1, rank: 1, color: 'white')
-        @same_color_piece = Piece.new(file: 2, rank: 2, color: 'white')
+        @white_piece = FactoryGirl.create(:piece, file: 1, rank: 1, color: 'white', game: @game)
+        @same_color_piece = FactoryGirl.create(:piece, file: 2, rank: 2, color: 'white', game: @game)
         
         result = @white_piece.valid_move?(@same_color_piece.file, @same_color_piece.rank)
 
@@ -101,22 +105,69 @@ RSpec.describe Piece, type: :model do
       end
 
       it "when moving in place" do
-        @piece = Piece.new(file: 1, rank: 1)
+        @piece = FactoryGirl.create(:piece, file: 1, rank: 1, game: @game)
 
         result = @piece.valid_move?(@piece.file, @piece.rank)
 
         expect(result).to be false
       end
 
-      it "when obstructed by another piece moving unidirectionally" do
-        @obstruction = Piece.new(file: 2, rank: 1)
-        @piece = Piece.new(file: 1, rank: 1)
-        new_file = 3
-        new_rank = 1
+      context "pieces that move more than 1 space unidirectionally" do
 
-        result = @piece.valid_move?(new_file, new_rank)
+        before do
+          @piece = FactoryGirl.create(:piece, file: 1, rank: 1, game: @game)
+        end
 
-        expect(result).to be false
+        it "when obstructed by another piece moving horizontally more than 1 space" do
+          @obstruction = FactoryGirl.create(:piece, file: 2, rank: 1, game: @game)
+          
+          new_file = 3
+          new_rank = 1
+
+          horizontal_types = ["Rook", "Queen"]
+          
+          horizontal_types.each do |chess_type|
+            @piece.type = chess_type
+            
+            result = @piece.valid_move?(new_file, new_rank)
+
+            expect(result).to be false
+          end
+        end
+
+        it "when obstructed by another piece moving vertically" do
+          @obstruction = FactoryGirl.create(:piece, file: 1, rank: 2, game: @game)
+          
+          new_file = 1
+          new_rank = 3
+
+          vertical_types = ["Rook", "Queen"]
+
+          vertical_types.each do |chess_type|
+            @piece.type = chess_type
+            
+            result = @piece.valid_move?(new_file, new_rank)
+
+            expect(result).to be false
+          end
+        end
+
+        it "when obstructed by another piece moving diagonally" do
+          @obstruction = FactoryGirl.create(:piece, file: 2, rank: 2, game: @game)
+          
+          new_file = 3
+          new_rank = 3
+
+          diagonal_types = ["Queen", "Bishop"]
+
+          diagonal_types.each do |chess_type|
+            @piece.type = chess_type
+            
+            result = @piece.valid_move?(new_file, new_rank)
+
+            expect(result).to be false
+          end
+        end
       end
 
     end
