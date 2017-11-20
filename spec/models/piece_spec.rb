@@ -27,7 +27,7 @@ RSpec.describe Piece, type: :model do
       @piece = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)
       @capture_piece = FactoryGirl.create(:piece, file: 5, rank: 5, game: @game)
 
-      result = @piece.is_capturing?(@piece.file, @piece.rank)
+      result = @piece.is_capturing?(@capture_piece.file, @capture_piece.rank)
 
       expect(result).to be true
     end
