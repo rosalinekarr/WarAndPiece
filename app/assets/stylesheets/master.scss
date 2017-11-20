@@ -1,7 +1,7 @@
 @import "bootstrap";
 
 .chessboard {
-  background: image_url('chessboard.jpg');
+  background: image_url('pixelboard.png');
   background-size: cover;
   width: 500px;
   height: 500px;
@@ -72,4 +72,22 @@
 .show-image {
   min-height: 150px;
   min-width: 150px;
+}
+
+.piece-icon {
+  height: 100%;
+  display: block;
+  margin: auto;
+}
+
+.player-pieces {
+  height: 100%;
+  display: block;
+  margin: auto;
+}
+
+.opponent-pieces {
+  height: 100%;
+  display: block;
+  margin: auto;
 }
