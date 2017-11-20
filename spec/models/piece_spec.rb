@@ -17,6 +17,46 @@ RSpec.describe Piece, type: :model do
     end
   end
 
+  describe "piece#is_move_to_opposing_color?" do
+
+    before do
+      @game = FactoryGirl.create(:game)
+    end
+
+    context "valid case" do
+      it "when moving to an opposing color's position" do
+        @white_piece = FactoryGirl.create(:piece, file: 4, rank: 4, color: 'white', game: @game)
+        @black_piece = FactoryGirl.create(:piece, file: 5, rank: 5, color: 'black', game: @game)
+
+        result = @white_piece.is_move_to_opposing_color?(@black_piece.file, @black_piece.rank)
+
+        expect(result).to be true
+      end
+    end
+
+    context "invalid case" do
+      it "when moving to a same color position" do
+        @white_piece = FactoryGirl.create(:piece, file: 1, rank: 1, color: 'white', game: @game)
+        @same_color_piece = FactoryGirl.create(:piece, file: 2, rank: 2, color: 'white', game: @game)
+        
+        result = @white_piece.is_move_to_opposing_color?(@same_color_piece.file, @same_color_piece.rank)
+
+        expect(result).to be false
+      end
+
+      it "when moving to an empty position" do
+        @white_piece = FactoryGirl.create(:piece, file: 1, rank: 1, color: 'white', game: @game)
+        empty_position_file = 2
+        empty_position_rank = 2
+
+        result = @white_piece.is_move_to_opposing_color?(empty_position_file, empty_position_rank)
+
+        expect(result).to be false
+      end
+    end
+
+  end
+
   describe ".valid_move? validates piece move positions" do
 
     context "valid move" do

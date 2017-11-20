@@ -14,6 +14,15 @@ class Piece < ApplicationRecord
     new_file >= 1 && new_file <= 8 && new_rank >= 1 && new_rank <= 8
   end
 
+  def is_move_to_opposing_color?(file, rank)
+    piece = Piece.where(file: file, rank: rank, is_captured: false, game: game).first
+    if piece && self.color != piece.color
+      true
+    else
+      false
+    end
+  end
+
   def is_obstructed?(col, row)     ## pass in rank and file of the square we want to move to
     current_col = self.file     ## file of the Piece we're applying the method to
     current_row = self.rank     ## rank of the Piece we're applying the method to
