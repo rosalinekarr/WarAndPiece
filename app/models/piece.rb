@@ -7,20 +7,38 @@ class Piece < ApplicationRecord
   validates :file, presence: true, numericality: (1..8)
 
   def valid_move?(new_file, new_rank)
-    move_on_the_board?(new_file, new_rank)
+    return false unless move_on_the_board?(new_file, new_rank)
+  
+    if is_capturing?(new_file, new_rank)
+      return false unless is_capture_opposing_color?(new_file, new_rank)
+    end
+
+    if is_unidirectional_type?
+      return false if is_obstructed?(new_file, new_rank)
+    end
+
+    true
   end
 
   def move_on_the_board?(new_file, new_rank)
     new_file >= 1 && new_file <= 8 && new_rank >= 1 && new_rank <= 8
   end
 
-  def is_move_to_opposing_color?(file, rank)
+  def is_capturing?(new_file, new_rank)
+    Piece.where(file: new_file, rank: new_rank, is_captured: false, game: game).present?
+  end
+
+  def is_capture_opposing_color?(file, rank)
     piece = Piece.where(file: file, rank: rank, is_captured: false, game: game).first
     if piece && self.color != piece.color
       true
     else
       false
     end
+  end
+
+  def is_unidirectional_type?
+    self.type == "Rook" || self.type == "Queen" || self.type == "Bishop"
   end
 
   def is_obstructed?(col, row)     ## pass in rank and file of the square we want to move to
