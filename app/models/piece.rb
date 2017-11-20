@@ -6,8 +6,11 @@ class Piece < ApplicationRecord
   validates :rank, presence: true, numericality: (1..8)
   validates :file, presence: true, numericality: (1..8)
 
-  # checks to make sure move is on the board
   def valid_move?(new_file, new_rank)
+    move_on_the_board?(new_file, new_rank)
+  end
+
+  def move_on_the_board?(new_file, new_rank)
     new_file >= 1 && new_file <= 8 && new_rank >= 1 && new_rank <= 8
   end
 

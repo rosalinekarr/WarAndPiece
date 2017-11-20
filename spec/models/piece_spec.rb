@@ -1,20 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe Piece, type: :model do
-  # describe "piece#move_on_the_board?" do
-  #  before(:each) do
-  #    @game = FactoryGirl.build(:game)
-  #    @piece = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)
-  #  end
-  #  it "should return true if piece is on the board" do
-  #    @piece = FactoryGirl.create(:piece, file: 1, rank: 2, game: @game)
-  #    expect(@piece.move_on_the_board?(1,3)).to eq(true)
-  #  end
-  #  it "should return Not Valid if piece is not on the board" do
-  #    @piece = FactoryGirl.create(:piece, file: 1, rank: 2, game: @game)
-  #    expect(@piece.move_on_the_board?(1, -1)).to eq(false)
-  #  end
-  # end
+  describe "piece#move_on_the_board?" do
+    before(:each) do
+      @game = FactoryGirl.build(:game)
+    end
+
+    it "should return true if piece is on the board" do
+      @piece = FactoryGirl.create(:piece, file: 1, rank: 2, game: @game)
+      expect(@piece.move_on_the_board?(1,3)).to eq(true)
+    end
+
+    it "should return false if piece is not on the board" do
+      @piece = FactoryGirl.create(:piece, file: 1, rank: 2, game: @game)
+      expect(@piece.move_on_the_board?(1, -1)).to eq(false)
+    end
+  end
 
   describe ".valid_move? validates piece move positions" do
 
