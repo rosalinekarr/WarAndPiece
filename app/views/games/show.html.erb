@@ -20,6 +20,13 @@ $(function() {
     }
   });
 });
+  
+$(function() {
+  $('.piece-icon').each( function() {
+    var o = $(this);
+    if( ! o.attr('title') && o.attr('alt') ) o.attr('title', o.attr('alt') );
+  });
+});
 
 </script>
 
@@ -52,7 +59,7 @@ $(function() {
                   <% else %>
                     <div class="opponent-pieces">
                   <% end %>
-                  <%= image_tag("#{piece.color}-#{piece.type}.png", class: 'piece-icon') %>
+                  <%= image_tag("#{piece.color}-#{piece.type}.png", class: 'piece-icon', alt: "#{piece.color.capitalize} #{piece.type}") %>
                   </div>
                 <% end %>
               <% end %>
