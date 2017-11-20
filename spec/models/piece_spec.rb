@@ -18,20 +18,66 @@ RSpec.describe Piece, type: :model do
 
   describe ".valid_move? validates piece move positions" do
 
-    before(:each) do
-      @game = FactoryGirl.build(:game)
-    end
-
     context "valid move" do
-      it "when moving inside the board"
-      it "when moving to an opposing piece position"
+      it "when moving inside the board" do
+        @piece = Piece.new(file: 1, rank: 1)
+        new_file = 2
+        new_rank = 2
+
+        result = @piece.valid_move?(new_file, new_rank)
+
+        expect(result).to be true
+      end
+
+      it "when moving to an opposing piece position" do
+        @white_piece = Piece.new(file: 1, rank: 1, color: 'white')
+        @black_piece = Piece.new(file: 2, rank: 2, color: 'black')
+
+        result = @white_piece.valid_move?(@black_piece.file, @black_piece.rank)
+
+        expect(result).to be true
+      end
     end
 
     context "invalid move" do
-      it "when moving off the board"
-      it "when moving to a same color piece position"
-      it "when moving in place"
-      it "when obstructed by another piece moving unidirectionally"
+      it "when moving off the board" do
+        @piece = Piece.new(file: 1, rank: 1)
+        invalid_file = -1
+        invalid_rank = -1
+
+        result = @piece.valid_move?(invalid_file, invalid_rank)
+
+        expect(result).to be false
+      end
+
+      it "when moving to a same color piece position" do
+        @white_piece = Piece.new(file: 1, rank: 1, color: 'white')
+        @same_color_piece = Piece.new(file: 2, rank: 2, color: 'white')
+        
+        result = @white_piece.valid_move?(@same_color_piece.file, @same_color_piece.rank)
+
+        expect(result).to be false
+      end
+
+      it "when moving in place" do
+        @piece = Piece.new(file: 1, rank: 1)
+
+        result = @piece.valid_move?(@piece.file, @piece.rank)
+
+        expect(result).to be false
+      end
+
+      it "when obstructed by another piece moving unidirectionally" do
+        @obstruction = Piece.new(file: 2, rank: 1)
+        @piece = Piece.new(file: 1, rank: 1)
+        new_file = 3
+        new_rank = 1
+
+        result = @piece.valid_move?(new_file, new_rank)
+
+        expect(result).to be false
+      end
+
     end
 
   end
