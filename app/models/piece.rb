@@ -24,9 +24,7 @@ class Piece < ApplicationRecord
       return false unless is_capture_opposing_color?(new_file, new_rank)
     end
 
-    if is_unidirectional_type?
-      return false if is_obstructed?(new_file, new_rank)
-    end
+    return false if is_obstructed?(new_file, new_rank)
 
     true
   end
@@ -48,11 +46,9 @@ class Piece < ApplicationRecord
     end
   end
 
-  def is_unidirectional_type?
-    self.type == "Rook" || self.type == "Queen" || self.type == "Bishop"
-  end
-
-  def is_obstructed?(col, row)     ## pass in rank and file of the square we want to move to
+  def is_obstructed?(col, row)     
+    return false if type == "Knight"
+                                ## pass in rank and file of the square we want to move to
     current_col = self.file     ## file of the Piece we're applying the method to
     current_row = self.rank     ## rank of the Piece we're applying the method to
     if current_row == row                                ## checks horizontally

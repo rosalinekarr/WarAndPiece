@@ -83,38 +83,6 @@ RSpec.describe Piece, type: :model do
 
   end
 
-  describe "piece#is_unidirectional_type?" do
-    before do
-      @game = FactoryGirl.create(:game)
-    end
-
-    it "is unidirectional" do 
-      @piece = FactoryGirl.create(:piece)
-      unidirectional_types = ["Rook", "Queen", "Bishop"]
-
-      unidirectional_types.each do |chess_type|
-        @piece.type = chess_type
-
-        result = @piece.is_unidirectional_type?
-
-        expect(result).to be true
-      end
-    end
-
-    it "is not unidirectional" do
-      @piece = FactoryGirl.create(:piece)
-      unidirectional_types = ["Pawn", "King", "Knight"]
-
-      unidirectional_types.each do |chess_type|
-        @piece.type = chess_type
-
-        result = @piece.is_unidirectional_type?
-
-        expect(result).to be false
-      end
-    end
-  end
-
   describe ".valid_move? validates piece move positions" do
 
     before do
@@ -170,63 +138,6 @@ RSpec.describe Piece, type: :model do
         expect(result).to be false
       end
 
-      context "pieces that move more than 1 space unidirectionally" do
-
-        before do
-          @piece = FactoryGirl.create(:piece, file: 1, rank: 1, game: @game)
-        end
-
-        it "when obstructed by another piece moving horizontally more than 1 space" do
-          @obstruction = FactoryGirl.create(:piece, file: 2, rank: 1, game: @game)
-          
-          new_file = 3
-          new_rank = 1
-
-          horizontal_types = ["Rook", "Queen"]
-          
-          horizontal_types.each do |chess_type|
-            @piece.type = chess_type
-            
-            result = @piece.valid_move?(new_file, new_rank)
-
-            expect(result).to be false
-          end
-        end
-
-        it "when obstructed by another piece moving vertically" do
-          @obstruction = FactoryGirl.create(:piece, file: 1, rank: 2, game: @game)
-          
-          new_file = 1
-          new_rank = 3
-
-          vertical_types = ["Rook", "Queen"]
-
-          vertical_types.each do |chess_type|
-            @piece.type = chess_type
-            
-            result = @piece.valid_move?(new_file, new_rank)
-
-            expect(result).to be false
-          end
-        end
-
-        it "when obstructed by another piece moving diagonally" do
-          @obstruction = FactoryGirl.create(:piece, file: 2, rank: 2, game: @game)
-          
-          new_file = 3
-          new_rank = 3
-
-          diagonal_types = ["Queen", "Bishop"]
-
-          diagonal_types.each do |chess_type|
-            @piece.type = chess_type
-            
-            result = @piece.valid_move?(new_file, new_rank)
-
-            expect(result).to be false
-          end
-        end
-      end
     end
   end
 
