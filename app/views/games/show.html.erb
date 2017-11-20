@@ -52,7 +52,7 @@ $(function() {
                   <% else %>
                     <div class="opponent-pieces">
                   <% end %>
-                  <%= "#{piece.color} #{piece.type}" %>
+                  <%= image_tag("#{piece.color}-#{piece.type}.png", class: 'piece-icon') %>
                   </div>
                 <% end %>
               <% end %>
