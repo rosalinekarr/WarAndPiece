@@ -148,6 +148,12 @@ RSpec.describe Piece, type: :model do
       @current_square = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)
     end
 
+    it "Knight never is obstructed" do
+      knight = FactoryGirl.create(:piece, type: "Knight", file: 2, rank: 1, game: @game)
+      FactoryGirl.create(:piece, file: 2, rank: 2, game: @game)
+      expect(knight.is_obstructed?(1, 3)).to be false
+    end
+
     it "checks if there is no obstruction" do
       FactoryGirl.create(:piece, file: 6, rank: 6, game: @game)
       expect(@current_square.is_obstructed?(5, 5)).to be false
