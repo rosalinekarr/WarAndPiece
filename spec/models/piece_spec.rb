@@ -17,6 +17,31 @@ RSpec.describe Piece, type: :model do
     end
   end
 
+  describe "piece#is_capturing?" do
+    before do
+      @game = FactoryGirl.create(:game)
+    end
+
+    it "is capturing" do
+      @piece = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)
+      @capture_piece = FactoryGirl.create(:piece, file: 5, rank: 5, game: @game)
+
+      result = @piece.is_capturing?(@piece.file, @piece.rank)
+
+      expect(result).to be true
+    end
+
+    it "is not capturing" do
+      @piece = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)
+      empty_file = 5
+      empty_rank = 5
+
+      result = @piece.is_capturing?(empty_file, empty_rank)
+
+      expect(result).to be false
+    end
+  end
+
   describe "piece#is_capture_opposing_color?" do
 
     before do
