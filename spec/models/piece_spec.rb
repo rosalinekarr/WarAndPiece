@@ -21,7 +21,6 @@ RSpec.describe Piece, type: :model do
     before(:each) do
       @game = FactoryGirl.build(:game)
       @current_square = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)
-      # move this to a different place where tests failing! @king = FactoryGirl.create(:king, game: @game, color: "black")
     end
 
     it "checks if there is no obstruction" do
