@@ -22,9 +22,7 @@ class Game < ApplicationRecord
   end
 
   def check(piece)
-    # puts "test"
-    king = King.where(game: @game).where.not(color: piece.color).first
-    # puts king.inspect
+    king = King.where(game: piece.game).where.not(color: piece.color).first
     piece.valid_move?(king.rank, king.file)
   end
 

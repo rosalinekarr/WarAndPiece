@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.describe PiecesController, type: :controller do
 
   before(:each) do
-    @piece = FactoryGirl.create(:piece)    
+    @game = FactoryGirl.create(:game)
+    @piece = FactoryGirl.create(:piece, game: @game, color: :white_player_id)
+    @king = FactoryGirl.create(:king, game: @game, color: :black_player_id)
   end
 
   def update_xy
