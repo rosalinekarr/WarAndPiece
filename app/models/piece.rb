@@ -3,6 +3,17 @@ class Piece < ApplicationRecord
   belongs_to :game
   belongs_to :user
 
+  scope :black, -> { where(color: 'black') }
+  scope :white, -> { where(color: 'white') }
+
+  def white?
+    color == 'white'
+  end
+
+  def black?
+    color == 'black'
+  end
+
   validates :rank, presence: true, numericality: (1..8)
   validates :file, presence: true, numericality: (1..8)
 
@@ -57,12 +68,14 @@ class Piece < ApplicationRecord
     current_col = self.file
     current_row = self.rank
     pieces = Piece.where(file: new_col, rank: new_row, game: game, is_captured: false)
-    captured_piece = pieces.first
-    if self.color != captured_piece.color
-      captured_piece.update(is_captured: true)
-      self.update(file: new_col, rank: new_row)
-      game.check(self)
-      # also need to add check method when piece is moved to empty square
+    unless pieces.empty?
+      captured_piece = pieces.first
+      if self.color != captured_piece.color
+        captured_piece.update(is_captured: true)
+      else
+        return
+      end
     end
+    self.update(file: new_col, rank: new_row)
   end
 end

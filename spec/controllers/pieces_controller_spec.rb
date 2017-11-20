@@ -12,20 +12,6 @@ RSpec.describe PiecesController, type: :controller do
     patch :update, params: { id: @piece.id, piece: { file: 3, rank: 3}}
   end
 
-  describe "pieces#show" do
-    it "successfully loads the view if a piece exists" do
-      sign_in @piece.user
-      get :show, params: { id: @piece.id }
-      expect(response).to have_http_status(:success)
-    end
-    it "does not let a player select a piece of the opposite color" do
-      player = FactoryGirl.create(:user)
-      sign_in player
-      get :show, params: { id: @piece.id }
-      expect(response).to have_http_status(:forbidden)
-    end
-  end
-
   describe "pieces#update" do
     it "updates the file and rank of the chess piece when moved" do
       sign_in @piece.user
@@ -46,11 +32,6 @@ RSpec.describe PiecesController, type: :controller do
       expect(@piece.moves.length).to eq 1
       expect(@piece.moves.last.file).to eq 3
       expect(@piece.moves.last.rank).to eq 3
-    end
-    it "redirects to the games#show on successful update" do
-      sign_in @piece.user
-      update_xy
-      expect(response).to redirect_to game_path(@piece.game)
     end
     it "does not update the database when not valid" do
       sign_in @piece.user
