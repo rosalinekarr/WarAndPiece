@@ -82,6 +82,38 @@ RSpec.describe Piece, type: :model do
 
   end
 
+  describe "piece#is_unidirectional_type?" do
+    before do
+      @game = FactoryGirl.create(:game)
+    end
+
+    it "is unidirectional" do 
+      @piece = FactoryGirl.create(:piece)
+      unidirectional_types = ["Rook", "Queen", "Bishop"]
+
+      unidirectional_types.each do |chess_type|
+        @piece.type = chess_type
+
+        result = @piece.is_unidirectional_type?
+
+        expect(result).to be true
+      end
+    end
+
+    it "is not unidirectional" do
+      @piece = FactoryGirl.create(:piece)
+      unidirectional_types = ["Pawn", "King", "Knight"]
+
+      unidirectional_types.each do |chess_type|
+        @piece.type = chess_type
+
+        result = @piece.is_unidirectional_type?
+
+        expect(result).to be false
+      end
+    end
+  end
+
   describe ".valid_move? validates piece move positions" do
 
     before do
