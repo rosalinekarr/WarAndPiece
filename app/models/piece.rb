@@ -3,6 +3,17 @@ class Piece < ApplicationRecord
   belongs_to :game
   belongs_to :user
 
+  scope :black, -> { where(color: 'black') }
+  scope :white, -> { where(color: 'white') }
+
+  def white?
+    color == 'white'
+  end
+
+  def black?
+    color == 'black'
+  end
+
   validates :rank, presence: true, numericality: (1..8)
   validates :file, presence: true, numericality: (1..8)
 

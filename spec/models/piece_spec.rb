@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Piece, type: :model do
+
   describe "piece#move_on_the_board?" do
     before(:each) do
       @game = FactoryGirl.build(:game)
@@ -226,9 +227,7 @@ RSpec.describe Piece, type: :model do
           end
         end
       end
-
     end
-
   end
 
   describe "piece#is_obstructed? checks if there is an obstruction between two squares" do
@@ -334,6 +333,7 @@ RSpec.describe Piece, type: :model do
       end
     end
   end
+
 end
 
 
