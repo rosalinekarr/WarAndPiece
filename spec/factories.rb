@@ -13,8 +13,8 @@ FactoryGirl.define do
   end
 
   factory :move do |f|
-#     f.game_id "1"
-#     f.piece_id "1"
+#    f.game_id "1"
+#    f.piece_id "1"
 #     f.rank "1"
 #     f.file "1"
   end
@@ -33,6 +33,10 @@ FactoryGirl.define do
 
   factory :king, parent: :piece, class: King do
     type "King"
+  end
+  
+  factory :pawn, parent: :piece, class: Pawn do
+    type "Pawn"
   end
 
   factory :queen, parent: :piece, class: Queen do
