@@ -14,11 +14,8 @@ before_action :authenticate_user!, only: :update
         rank: current_piece.rank, 
         file: current_piece.file
         )
-    # else
-    #   return render plain: 'Not Valid', status: :unprocessable_entity
     end
     
-    # redirect_to game_path(current_piece.game.id)
   end
 
   private
