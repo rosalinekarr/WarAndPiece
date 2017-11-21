@@ -3,22 +3,56 @@ class Piece < ApplicationRecord
   belongs_to :game
   belongs_to :user
 
+  scope :black, -> { where(color: 'black') }
+  scope :white, -> { where(color: 'white') }
+
+  def white?
+    color == 'white'
+  end
+
+  def black?
+    color == 'black'
+  end
+
   validates :rank, presence: true, numericality: (1..8)
   validates :file, presence: true, numericality: (1..8)
-
-  # checks to make sure move is on the board and cannot move in place
-  def valid_move?(new_file, new_rank)
-    new_position = {new_file => new_rank}
-    
-    new_file >= 1 && new_file <= 8 && new_rank >= 1 && new_rank <= 8 &&
-    new_position != current_position
-  end
 
   def current_position
     {self.file => self.rank}
   end
 
-  def is_obstructed?(col, row)     ## pass in rank and file of the square we want to move to
+  def valid_move?(new_file, new_rank)
+    return false unless move_on_the_board?(new_file, new_rank)
+  
+    if is_capturing?(new_file, new_rank)
+      return false unless is_capture_opposing_color?(new_file, new_rank)
+    end
+
+    return false if is_obstructed?(new_file, new_rank)
+
+    true
+  end
+
+  def move_on_the_board?(new_file, new_rank)
+    new_file >= 1 && new_file <= 8 && new_rank >= 1 && new_rank <= 8
+  end
+
+  def is_capturing?(new_file, new_rank)
+    Piece.where(file: new_file, rank: new_rank, is_captured: false, game: game).present?
+  end
+
+  def is_capture_opposing_color?(file, rank)
+    piece = Piece.where(file: file, rank: rank, is_captured: false, game: game).first
+    if piece && self.color != piece.color
+      true
+    else
+      false
+    end
+  end
+
+  def is_obstructed?(col, row)     
+    return false if type == "Knight"
+                                ## pass in rank and file of the square we want to move to
     current_col = self.file     ## file of the Piece we're applying the method to
     current_row = self.rank     ## rank of the Piece we're applying the method to
     if current_row == row                                ## checks horizontally
@@ -61,16 +95,13 @@ class Piece < ApplicationRecord
   end
 
   def move_to!(new_col, new_row)
+    return false unless valid_move?(new_col, new_row)
     current_col = self.file
     current_row = self.rank
     pieces = Piece.where(file: new_col, rank: new_row, game: game, is_captured: false)
-    unless pieces.empty?
+    if is_capturing?(new_col,new_row)
       captured_piece = pieces.first
-      if self.color != captured_piece.color
-        captured_piece.update(is_captured: true)
-      else
-        return
-      end
+      captured_piece.update(is_captured: true)
     end
     self.update(file: new_col, rank: new_row)
   end

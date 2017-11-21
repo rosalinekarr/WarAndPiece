@@ -1,3 +1,33 @@
+<script>
+
+$(function() {
+  $('.player-pieces').draggable({
+    snap: '.square'
+  });
+
+  $('.square').droppable({
+    drop: function( event, ui ) {
+      const square = this
+      const icon = ui.draggable
+      const sq_rank = $(square).data('rank')
+      const sq_file = $(square).data('file')
+      $.ajax({
+        type: 'PUT',
+        url: icon.data('update-url'),
+        dataType: 'json',
+        data: { piece: { rank: sq_rank, file: sq_file } }
+      });
+    }
+  });
+  
+  $('.piece-icon').each( function() {
+    var o = $(this);
+    if( ! o.attr('title') && o.attr('alt') ) o.attr('title', o.attr('alt') );
+  });
+});
+  
+</script>
+
 <div class="row">
 
   <div class="col-8 placeholder">
@@ -13,28 +43,28 @@
     <div class="chessboard">
 
       <div class="grid">
-        <% file = 0 %>
-        <% rank = 9 %>
-
+        <% sq_file = 0 %>
+        <% sq_rank = 9 %>
         <% 8.times do %>
-          <% rank = rank - 1 %>
+          <% sq_rank = sq_rank - 1 %>
           <% 8.times do %>
-            <% file = file + 1 %>
-            <div class="square">
-              <%= link_to "/pieces/" + "#{@game.pieces.where(
-                {file: file, rank: rank, is_captured: 'f' }).ids.join('')}" do %>
-                <div class=<%= "file#{file}rank#{rank}" %>>
-                  <% current_game.pieces.each do |piece| %>
-                    <% if piece.rank == rank && piece.file == file && piece.is_captured == false%>
-                      <%= "#{piece.color} #{piece.type}" %>
-                    <% end %>
+            <% sq_file = sq_file + 1 %>
+            <div class="square" data-rank="<%= sq_rank %>" data-file="<%= sq_file %>">
+              <% current_game.pieces.each do |piece| %>
+                <% if piece.rank == sq_rank && piece.file == sq_file %>
+                  <% if current_user == piece.user %>
+                    <div class="player-pieces" data-update-url="<%= piece_path piece %>">
+                  <% else %>
+                    <div class="opponent-pieces">
                   <% end %>
-                </div>
+                  <%= image_tag("#{piece.color}-#{piece.type}.png", class: 'piece-icon', alt: "#{piece.color.capitalize} #{piece.type}") %>
+                  </div>
+                <% end %>
               <% end %>
             </div>
           <% end %>
           <br />
-          <% file = 0 %>
+          <% sq_file = 0 %>
         <% end %>
       </div>
 

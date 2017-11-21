@@ -11,7 +11,7 @@ RSpec.describe King, type: :model do
       @king = FactoryGirl.create(:king, file: 1, rank: 2, game: @game)
       expect(@king.valid_move?(1, 3)).to eq(true)
     end
-    it 'should be false for invalid move down' do
+    it 'should return false for invalid move down' do
       @king = FactoryGirl.create(:king, file: 1, rank: 1, game: @game)
       expect(@king.valid_move?(1, -1)).to eq(false)
     end
