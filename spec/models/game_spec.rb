@@ -96,6 +96,16 @@ RSpec.describe Game, type: :model do
 
         expect(result).to be true
       end
+
+      it 'is checked by Queen' do
+        @king = FactoryGirl.create(:king,  game: @game, file: 4, rank: 4, color: :black_player_id)
+        @queen = FactoryGirl.create(:queen, game: @game, file: 2, rank: 1, color: :white_player_id)
+
+        @queen.move_to!(1, 1)
+        result = @game.check?(@queen)
+
+        expect(result).to be true
+      end
     end
 
     context "invalid case" do
@@ -139,6 +149,15 @@ RSpec.describe Game, type: :model do
         expect(result).to be false
       end
 
+      it 'is not checked by Queen' do
+        @king = FactoryGirl.create(:king,  game: @game, file: 4, rank: 4, color: :black_player_id)
+        @queen = FactoryGirl.create(:queen, game: @game, file: 2, rank: 1, color: :white_player_id)
+
+        @queen.move_to!(2, 3)
+        result = @game.check?(@queen)
+
+        expect(result).to be false
+      end
     end
   end
 end
