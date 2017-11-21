@@ -1,6 +1,6 @@
 <script>
 
-$(function() {
+function setup () {
   $('.player-pieces').draggable({
     snap: '.square'
   });
@@ -14,16 +14,21 @@ $(function() {
       $.ajax({
         type: 'PUT',
         url: icon.data('update-url'),
-        dataType: 'json',
+        dataType: 'script',
         data: { piece: { rank: sq_rank, file: sq_file } }
       });
     }
+
   });
   
   $('.piece-icon').each( function() {
     var o = $(this);
     if( ! o.attr('title') && o.attr('alt') ) o.attr('title', o.attr('alt') );
   });
+}
+
+$(function() {
+  setup()
 });
   
 </script>
@@ -43,29 +48,7 @@ $(function() {
     <div class="chessboard">
 
       <div class="grid">
-        <% sq_file = 0 %>
-        <% sq_rank = 9 %>
-        <% 8.times do %>
-          <% sq_rank = sq_rank - 1 %>
-          <% 8.times do %>
-            <% sq_file = sq_file + 1 %>
-            <div class="square" data-rank="<%= sq_rank %>" data-file="<%= sq_file %>">
-              <% current_game.pieces.each do |piece| %>
-                <% if piece.rank == sq_rank && piece.file == sq_file && piece.is_captured == false %>
-                  <% if current_user == piece.user %>
-                    <div class="player-pieces" data-update-url="<%= piece_path piece %>">
-                  <% else %>
-                    <div class="opponent-pieces">
-                  <% end %>
-                  <%= image_tag("#{piece.color}-#{piece.type}.png", class: 'piece-icon', alt: "#{piece.color.capitalize} #{piece.type}") %>
-                  </div>
-                <% end %>
-              <% end %>
-            </div>
-          <% end %>
-          <br />
-          <% sq_file = 0 %>
-        <% end %>
+        <%= render partial: "grid", locals: {game: current_game} %>
       </div>
 
     </div>
@@ -88,13 +71,7 @@ $(function() {
     <!-- Captured Pieces Display -->
 
     <div class="placeholder captured-display">
-      <% current_game.pieces.each do |piece| %>
-        <% if piece.is_captured == true %>
-          <div>
-            <%= image_tag("#{piece.color}-#{piece.type}.png", class: 'piece-icon', alt: "#{piece.color.capitalize} #{piece.type}") %>
-          </div>
-        <% end %>
-      <% end %>
+      <%= render partial: "captured-display", locals: {game: current_game} %>
     </div>
 
     <!-- Surrender button and modal -->
