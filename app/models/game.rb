@@ -21,9 +21,9 @@ class Game < ApplicationRecord
 
   end
 
-  def check(piece)
+  def check?(piece)
     king = King.where(game: piece.game).where.not(color: piece.color).first
-    piece.valid_move?(king.rank, king.file)
+    piece.valid_move?(king.file, king.rank)
   end
 
 end

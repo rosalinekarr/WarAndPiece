@@ -15,13 +15,13 @@ before_action :authenticate_user!, only: :update
         file: current_piece.file
       )
       @game = current_piece.game
-      if @game.check(current_piece)
+      if @game.check?(current_piece)
         flash[:alert] = "Check!"
       end
     else
       return render plain: 'Not Valid', status: :unprocessable_entity
     end
-    
+
     redirect_to game_path(current_piece.game.id)
   end
 
