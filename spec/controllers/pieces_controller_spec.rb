@@ -4,7 +4,7 @@ RSpec.describe PiecesController, type: :controller do
 
   before(:each) do
     @game = FactoryGirl.create(:game)
-    @piece = FactoryGirl.create(:piece, game: @game, color: :white_player_id)
+    @piece = FactoryGirl.create(:piece, type: nil, game: @game, color: :white_player_id)
     @king = FactoryGirl.create(:king, game: @game, color: :black_player_id)
   end
 
