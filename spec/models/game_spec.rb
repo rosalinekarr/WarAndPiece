@@ -50,15 +50,54 @@ RSpec.describe Game, type: :model do
     end
   end
 
-  describe '.check' do
+  describe '.check?' do
 
     before do
-      @king = FactoryGirl.create(:king, file: 4, rank: 4, color: :black_player_id)
-      @piece = FactoryGirl.create(:piece, file: 5, rank: 5, game: @king.game, color: :white_player_id)
+      @game = FactoryGirl.create(:game)
     end
 
-    it 'king is in check' do
-      expect(@piece.valid_move?(4, 4)).to be true
+    context "game is in check" do
+      xit 'is checked by Pawn on two-square first move' do
+        @king = FactoryGirl.create(:king, file: 5, rank: 5, color: :black_player_id)
+        @pawn = FactoryGirl.create(:pawn, file: 4, rank: 2, game: @game, color: :white_player_id)
+
+        @pawn.move_to!(4, 4)
+        result = @game.check?(@pawn)
+
+        expect(result).to be true
+      end
+
+      xit 'is checked by Pawn on one-square move' do
+        @king = FactoryGirl.create(:king, file: 5, rank: 4, color: :black_player_id)
+        @pawn = FactoryGirl.create(:pawn, file: 4, rank: 2, game: @game, color: :white_player_id)
+
+        @pawn.move_to!(4, 3)
+        result = @game.check?(@pawn)
+
+        expect(result).to be true
+      end
+    end
+
+    context "invalid case" do
+      xit 'is not checked by Pawn on two-square first move' do
+        @king = FactoryGirl.create(:king, file: 5, rank: 5, color: :black_player_id)
+        @pawn = FactoryGirl.create(:pawn, file: 5, rank: 2, game: @game, color: :white_player_id)
+
+        @pawn.move_to!(5, 4)
+        result = @game.check?(@pawn)
+
+        expect(result).to be false
+      end
+
+      xit 'is not checked by Pawn on one-square move' do
+        @king = FactoryGirl.create(:king, file: 5, rank: 4, color: :black_player_id)
+        @pawn = FactoryGirl.create(:pawn, file: 5, rank: 2, game: @game, color: :white_player_id)
+
+        @pawn.move_to!(5, 3)
+        result = @game.check?(@pawn)
+
+        expect(result).to be false
+      end
     end
   end
 end
