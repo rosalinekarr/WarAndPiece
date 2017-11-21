@@ -1,26 +1,157 @@
 require 'rails_helper'
 
 RSpec.describe Piece, type: :model do
-  # describe "piece#move_on_the_board?" do
-  #  before(:each) do
-  #    @game = FactoryGirl.build(:game)
-  #    @piece = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)
-  #  end
-  #  it "should return true if piece is on the board" do
-  #    @piece = FactoryGirl.create(:piece, file: 1, rank: 2, game: @game)
-  #    expect(@piece.move_on_the_board?(1,3)).to eq(true)
-  #  end
-  #  it "should return Not Valid if piece is not on the board" do
-  #    @piece = FactoryGirl.create(:piece, file: 1, rank: 2, game: @game)
-  #    expect(@piece.move_on_the_board?(1, -1)).to eq(false)
-  #  end
-  # end
+
+  describe "piece#move_on_the_board?" do
+    before(:each) do
+      @game = FactoryGirl.build(:game)
+    end
+
+    it "should return true if piece is on the board" do
+      @piece = FactoryGirl.create(:piece, file: 1, rank: 2, game: @game)
+      expect(@piece.move_on_the_board?(1,3)).to eq(true)
+    end
+
+    it "should return false if piece is not on the board" do
+      @piece = FactoryGirl.create(:piece, file: 1, rank: 2, game: @game)
+      expect(@piece.move_on_the_board?(1, -1)).to eq(false)
+    end
+  end
+
+  describe "piece#is_capturing?" do
+    before do
+      @game = FactoryGirl.create(:game)
+    end
+
+    it "is capturing" do
+      @piece = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)
+      @capture_piece = FactoryGirl.create(:piece, file: 5, rank: 5, game: @game)
+
+      result = @piece.is_capturing?(@capture_piece.file, @capture_piece.rank)
+
+      expect(result).to be true
+    end
+
+    it "is not capturing" do
+      @piece = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)
+      empty_file = 5
+      empty_rank = 5
+
+      result = @piece.is_capturing?(empty_file, empty_rank)
+
+      expect(result).to be false
+    end
+  end
+
+  describe "piece#is_capture_opposing_color?" do
+
+    before do
+      @game = FactoryGirl.create(:game)
+    end
+
+    context "valid case" do
+      it "when moving to an opposing color's position" do
+        @white_piece = FactoryGirl.create(:piece, file: 4, rank: 4, color: 'white', game: @game)
+        @black_piece = FactoryGirl.create(:piece, file: 5, rank: 5, color: 'black', game: @game)
+
+        result = @white_piece.is_capture_opposing_color?(@black_piece.file, @black_piece.rank)
+
+        expect(result).to be true
+      end
+    end
+
+    context "invalid case" do
+      it "when moving to a same color position" do
+        @white_piece = FactoryGirl.create(:piece, file: 1, rank: 1, color: 'white', game: @game)
+        @same_color_piece = FactoryGirl.create(:piece, file: 2, rank: 2, color: 'white', game: @game)
+        
+        result = @white_piece.is_capture_opposing_color?(@same_color_piece.file, @same_color_piece.rank)
+
+        expect(result).to be false
+      end
+
+      it "when moving to an empty position" do
+        @white_piece = FactoryGirl.create(:piece, file: 1, rank: 1, color: 'white', game: @game)
+        empty_position_file = 2
+        empty_position_rank = 2
+
+        result = @white_piece.is_capture_opposing_color?(empty_position_file, empty_position_rank)
+
+        expect(result).to be false
+      end
+    end
+
+  end
+
+  describe ".valid_move? validates piece move positions" do
+
+    before do
+      @game = FactoryGirl.create(:game)
+    end
+
+    context "valid move" do
+      it "when moving inside the board" do
+        @piece = FactoryGirl.create(:piece, file: 1, rank: 1, game: @game)
+        new_file = 2
+        new_rank = 2
+
+        result = @piece.valid_move?(new_file, new_rank)
+
+        expect(result).to be true
+      end
+
+      it "when moving to an opposing piece position" do
+        @white_piece = FactoryGirl.create(:piece, file: 1, rank: 1, color: 'white', game: @game)
+        @black_piece = FactoryGirl.create(:piece, file: 2, rank: 2, color: 'black', game: @game)
+
+        result = @white_piece.valid_move?(@black_piece.file, @black_piece.rank)
+
+        expect(result).to be true
+      end
+    end
+
+    context "invalid move" do
+      it "when moving off the board" do
+        @piece = FactoryGirl.create(:piece, file: 1, rank: 1, game: @game)
+        invalid_file = -1
+        invalid_rank = -1
+
+        result = @piece.valid_move?(invalid_file, invalid_rank)
+
+        expect(result).to be false
+      end
+
+      it "when moving to a same color piece position" do
+        @white_piece = FactoryGirl.create(:piece, file: 1, rank: 1, color: 'white', game: @game)
+        @same_color_piece = FactoryGirl.create(:piece, file: 2, rank: 2, color: 'white', game: @game)
+        
+        result = @white_piece.valid_move?(@same_color_piece.file, @same_color_piece.rank)
+
+        expect(result).to be false
+      end
+
+      it "when moving in place" do
+        @piece = FactoryGirl.create(:piece, file: 1, rank: 1, game: @game)
+
+        result = @piece.valid_move?(@piece.file, @piece.rank)
+
+        expect(result).to be false
+      end
+
+    end
+  end
 
   describe "piece#is_obstructed? checks if there is an obstruction between two squares" do
 
     before(:each) do
       @game = FactoryGirl.build(:game)
       @current_square = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game)
+    end
+
+    it "Knight never is obstructed" do
+      knight = FactoryGirl.create(:piece, type: "Knight", file: 2, rank: 1, game: @game)
+      FactoryGirl.create(:piece, file: 2, rank: 2, game: @game)
+      expect(knight.is_obstructed?(1, 3)).to be false
     end
 
     it "checks if there is no obstruction" do
@@ -119,6 +250,7 @@ RSpec.describe Piece, type: :model do
       end
     end
   end
+
 end
 
 
@@ -128,7 +260,7 @@ end
   #   expect(piece).to be_valid
   # end
 
-  # it "is not valid without a type" do
+  # it "without a type" do
   #   piece = FactoryGirl.create(:piece, type: "")
 
   #   expect(piece).to_not be_valid
@@ -140,7 +272,7 @@ end
   #   expect(piece.type).to eq("pawn")
   # end
 
-  # it "is not valid if it is an invalid type" do
+  # it "if it is an invalid type" do
   #   piece = FactoryGirl.create(:piece, type: "invalid_type")
 
   #   expect(piece).to_not be_valid
@@ -153,13 +285,13 @@ end
   #   expect(piece).to be_valid
   # end
 
-  # it "is not valid without a user" do
+  # it "without a user" do
   #   piece = FactoryGirl.create(:piece, user: "")
 
   #   expect(piece).to_not be_valid
   # end
 
-  # it "is not valid without a rank" do
+  # it "without a rank" do
   #   piece = FactoryGirl.create(:piece, rank: "")
 
   #   expect(piece).to_not be_valid
@@ -174,7 +306,7 @@ end
   #   end
   # end
 
-  # it "is not valid with any rank not between integers 1-8" do
+  # it "with any rank not between integers 1-8" do
   #   piece = FactoryGirl.create(:piece)
   #   invalid_integers = [-1, 9, 100, 1000]
 
@@ -184,7 +316,7 @@ end
   #   end
   # end
 
-  # it "is not valid with a non-integer value for the rank" do
+  # it "with a non-integer value for the rank" do
   #   piece = FactoryGirl.create(:piece)
   #   invalid_types = ['a',"rank1", true, 1.5, {a:1}]
 
@@ -194,7 +326,7 @@ end
   #   end
   # end
 
-  # it "is not valid without a file" do
+  # it "without a file" do
   #   piece = FactoryGirl.create(:piece, file:"")
 
   #   expect(piece).to_not be_valid
@@ -211,7 +343,7 @@ end
 
   # end
 
-  # it "is not valid with an invalid file value" do
+  # it "with an invalid file value" do
   #   piece = FactoryGirl.create(:piece)
   #   invalid_files = ['g',"file_a", true, 1.5, {file:a}]
 
@@ -227,7 +359,7 @@ end
   #    expect(piece).to be_valid
   # end
 
-  # it "is not valid without an is_captured status" do
+  # it "without an is_captured status" do
   #   piece = FactoryGirl.create(:piece, is_captured: nil)
 
   #   expect(piece).to_not be_valid
