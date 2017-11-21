@@ -16,14 +16,27 @@ $(function() {
         url: icon.data('update-url'),
         dataType: 'json',
         data: { piece: { rank: sq_rank, file: sq_file } }
-      });
+      })
     }
-  });
-  
+  })
+// // on completion of move, change the text indication whose turn it is
+  // .done(function() {
+  //   $('.whose-turn').html('Hello!');
+  // });
+
   $('.piece-icon').each( function() {
     var o = $(this);
     if( ! o.attr('title') && o.attr('alt') ) o.attr('title', o.attr('alt') );
   });
+
+// // suck in the html indicating whose turn it is, 
+// // and prevent selecting elements when not your turn.
+  // $(function() {
+  //   if(('.whose-turn').html() === "Your Opponents' Turn") {
+  //     $('.piece-icon').click(false);
+  //   }
+  // });
+
 });
   
 </script>
@@ -86,7 +99,8 @@ $(function() {
     </div>
 
     <div class="placeholder">
-      <h4><%= @turn %></h4>
+      <h4 class="whose-turn"><%= @turn %></h4>
+      <p><%= @game.turn %></p>
     </div>
 
     <!-- Captured Pieces Display -->

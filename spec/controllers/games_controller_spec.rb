@@ -56,6 +56,7 @@ RSpec.describe GamesController, type: :controller do
     end
     it "prevents the opposing player from moving when it is not their turn" do
       white_piece.move_to!(4, 4)
+      white_piece.reload
       white_piece.move_to!(4, 5)
       expect(response).to have_http_status(:forbidden)
     end
