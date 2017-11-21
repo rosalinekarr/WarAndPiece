@@ -18,8 +18,5 @@ RSpec.describe Rook, type: :model do
     it 'returns false for a non-linear move' do
       expect(@rook.valid_move?(7, 3)).to be false
     end
-    it 'returns false for a move off board' do
-      expect(@rook.valid_move?(1, 9)).to be false
-    end
   end
 end
