@@ -62,12 +62,13 @@ RSpec.describe Game, type: :model do
         @white_king = FactoryGirl.create(:king, file: 4, rank: 7, game: @game, user: @game.white_player, color: 'white')
         @white_queen = FactoryGirl.create(:queen, file: 4, rank: 1, game: @game, user: @game.white_player, color: 'white')
         @white_rook = FactoryGirl.create(:rook, file: 2, rank: 4, game: @game, user: @game.white_player, color: 'white')
-        @white_bishop = FactoryGirl.create(:bishop, file: 3, rank: 1, game: @game, user: @game.white_player, color: 'white')
         @white_knight = FactoryGirl.create(:knight, file: 8, rank: 6, game: @game, user: @game.white_player, color: 'white')
+        @attacking_piece = FactoryGirl.create(:bishop, file: 3, rank: 1, game: @game, user: @game.white_player, color: 'white')
 
-        @white_bishop.move_to!(2, 2)
+        @attacking_piece.move_to!(2, 2)
+        result = @game.checkmate?(@attacking_piece)
 
-        expect(@game.checkmate?).to be true
+        expect(result).to be true
       end
     end
 

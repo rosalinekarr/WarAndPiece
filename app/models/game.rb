@@ -21,7 +21,7 @@ class Game < ApplicationRecord
   
   end
 
-  def checkmate?
+  def checkmate?(attacking_piece)
     true
   end
 
