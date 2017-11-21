@@ -21,4 +21,8 @@ class Game < ApplicationRecord
   
   end
 
+  def checkmate?
+    true
+  end
+
 end

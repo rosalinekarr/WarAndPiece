@@ -29,7 +29,7 @@ RSpec.describe King, type: :model do
 
     context "no adjacent pieces" do
       it "returns all 8 valid king moves" do
-        @king = FactoryGirl.build(:king, file: 5, rank: 5)
+        @king = FactoryGirl.create(:king, file: 5, rank: 5)
         @king_valid_moves = [ {4=>4}, {4=>5}, {4=>6}, {5=>4},
                               {5=>6}, {6=>4}, {6=>5}, {6=>6} ]
                               
