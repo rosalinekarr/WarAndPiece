@@ -12,12 +12,12 @@ RSpec.describe Game, type: :model do
       
       piece_positions = []
       ['Rook', 'Knight', 'Bishop', 'Queen', 'King', 'Bishop', 'Knight', 'Rook'].each.with_index(1) do |piece, i|
-        piece_positions << { type: piece,   file: i, rank: 1, game: @game, user: @game.white_player, color: 'white' }
+        piece_positions << { type: piece,   file: i, rank: 1, game: @game,  color: 'white' }
         piece_positions << { type: piece,   file: i, rank: 8, game: @game, user: @game.black_player, color: 'black' }
       end
 
       1.upto(8).each do |column|
-        piece_positions << { type: 'Pawn', file: column, rank: 2, game: @game, user: @game.white_player, color: 'white' }
+        piece_positions << { type: 'Pawn', file: column, rank: 2, game: @game,  color: 'white' }
         piece_positions << { type: 'Pawn', file: column, rank: 7, game: @game, user: @game.black_player, color: 'black' }
       end
 
@@ -58,12 +58,12 @@ RSpec.describe Game, type: :model do
 
     context "when valid" do
       it "is checkmate when all of king's valid moves result in check" do
-        @black_king = FactoryGirl.create(:king, file: 5, rank: 5, game: @game, user: @game.black_player, color: 'black')
-        @white_king = FactoryGirl.create(:king, file: 4, rank: 7, game: @game, user: @game.white_player, color: 'white')
-        @white_queen = FactoryGirl.create(:queen, file: 4, rank: 1, game: @game, user: @game.white_player, color: 'white')
-        @white_rook = FactoryGirl.create(:rook, file: 2, rank: 4, game: @game, user: @game.white_player, color: 'white')
-        @white_knight = FactoryGirl.create(:knight, file: 8, rank: 6, game: @game, user: @game.white_player, color: 'white')
-        @attacking_piece = FactoryGirl.create(:bishop, file: 3, rank: 1, game: @game, user: @game.white_player, color: 'white')
+        @black_king = FactoryGirl.create(:king, file: 5, rank: 5, game: @game, color: 'black')
+        @white_king = FactoryGirl.create(:king, file: 4, rank: 7, game: @game, color: 'white')
+        @white_queen = FactoryGirl.create(:queen, file: 4, rank: 1, game: @game, color: 'white')
+        @white_rook = FactoryGirl.create(:rook, file: 2, rank: 4, game: @game, color: 'white')
+        @white_knight = FactoryGirl.create(:knight, file: 8, rank: 6, game: @game, color: 'white')
+        @attacking_piece = FactoryGirl.create(:bishop, file: 3, rank: 1, game: @game, color: 'white')
 
         @attacking_piece.move_to!(2, 2)
         result = @game.checkmate?(@attacking_piece)

@@ -28,7 +28,7 @@ class Piece < ApplicationRecord
       return false unless is_capture_opposing_color?(new_file, new_rank)
     end
 
-    return false if is_obstructed?(new_file, new_rank)
+    #return false if is_obstructed?(new_file, new_rank)
 
     true
   end
