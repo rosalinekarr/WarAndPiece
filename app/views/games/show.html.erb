@@ -16,13 +16,9 @@ $(function() {
         url: icon.data('update-url'),
         dataType: 'json',
         data: { piece: { rank: sq_rank, file: sq_file } }
-      })
+      }).done(nextTurn())
     }
   })
-// // on completion of move, change the text indication whose turn it is
-  // .done(function() {
-  //   $('.whose-turn').html('Hello!');
-  // });
 
   $('.piece-icon').each( function() {
     var o = $(this);
@@ -37,7 +33,21 @@ $(function() {
   //   }
   // });
 
+  function nextTurn() {
+    let whoseTurn = $( ".whose-turn" );
+    jQuery.data( whoseTurn, "updatedTurn", {
+      first: "Your Turn",
+      last: "Your Opponent's Turn!"
+    });
+    if(whoseTurn.html() === "Your Turn") {
+      $(whoseTurn.html( jQuery.data( whoseTurn, "updatedTurn" ).last ));
+    } else if(whoseTurn.html() === "Your Opponent's Turn!") {
+      $(whoseTurn.html( jQuery.data( whoseTurn, "updatedTurn" ).first ));
+    }
+  }
+
 });
+
   
 </script>
 
