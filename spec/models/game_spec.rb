@@ -9,7 +9,7 @@ RSpec.describe Game, type: :model do
     end
 
     it "creates pieces in specific positions" do
-      
+
       piece_positions = []
       ['Rook', 'Knight', 'Bishop', 'Queen', 'King', 'Bishop', 'Knight', 'Rook'].each.with_index(1) do |piece, i|
         piece_positions << { type: piece,   file: i, rank: 1, game: @game, user: @game.white_player, color: 'white' }
@@ -29,8 +29,8 @@ RSpec.describe Game, type: :model do
 
     end
 
-    it "creates a specific number of types per color" do 
-      
+    it "creates a specific number of types per color" do
+
       number_of_chess_types = {
         'Rook': 2,
         'Knight': 2,
@@ -46,7 +46,138 @@ RSpec.describe Game, type: :model do
         expect(Piece.where(type: piece, color:'white').count).to eq(number)
         expect(Piece.where(type: piece, color:'black').count).to eq(number)
       end
-      
+
+    end
+  end
+
+  describe '.check?' do
+
+    before do
+      @game = FactoryGirl.create(:game)
+    end
+
+    context "game is in check" do
+      xit 'is checked by Pawn on two-square first move' do
+        @king = FactoryGirl.create(:king, game: @game, file: 5, rank: 5, color: :black_player_id)
+        @pawn = FactoryGirl.create(:pawn, game: @game, file: 4, rank: 2,  color: :white_player_id)
+
+        @pawn.move_to!(4, 4)
+        result = @game.check?(@pawn)
+
+        expect(result).to be true
+      end
+
+      xit 'is checked by Pawn on one-square move' do
+        @king = FactoryGirl.create(:king, game: @game, file: 5, rank: 4, color: :black_player_id)
+        @pawn = FactoryGirl.create(:pawn, game: @game, file: 4, rank: 2, color: :white_player_id)
+
+        @pawn.move_to!(4, 3)
+        result = @game.check?(@pawn)
+
+        expect(result).to be true
+      end
+
+      it 'is checked by Rook' do
+        @king = FactoryGirl.create(:king,  game: @game, file: 4, rank: 4, color: :black_player_id)
+        @rook = FactoryGirl.create(:rook, game: @game, file: 1, rank: 1, color: :white_player_id)
+
+        @rook.move_to!(4, 1)
+        result = @game.check?(@rook)
+
+        expect(result).to be true
+      end
+
+      it 'is checked by Knight' do
+        @king = FactoryGirl.create(:king,  game: @game, file: 4, rank: 4, color: :black_player_id)
+        @knight = FactoryGirl.create(:knight, file: 1, rank: 1, game: @game, color: :white_player_id)
+
+        @knight.move_to!(3, 2)
+        result = @game.check?(@knight)
+
+        expect(result).to be true
+      end
+
+      it 'is checked by Queen' do
+        @king = FactoryGirl.create(:king,  game: @game, file: 4, rank: 4, color: :black_player_id)
+        @queen = FactoryGirl.create(:queen, game: @game, file: 2, rank: 1, color: :white_player_id)
+
+        @queen.move_to!(1, 1)
+        result = @game.check?(@queen)
+
+        expect(result).to be true
+      end
+
+      it 'is checked by Bishop' do
+        @king = FactoryGirl.create(:king,  game: @game, file: 4, rank: 4, color: :black_player_id)
+        @bishop = FactoryGirl.create(:bishop, game: @game, file: 5, rank: 7, color: :white_player_id)
+
+        @bishop.move_to!(6, 6)
+        result = @game.check?(@bishop)
+
+        expect(result).to be true
+      end
+    end
+
+    context "invalid case" do
+      xit 'is not checked by Pawn on two-square first move' do
+        @king = FactoryGirl.create(:king, game: @game, file: 5, rank: 5, color: :black_player_id)
+        @pawn = FactoryGirl.create(:pawn, game: @game, file: 5, rank: 2, color: :white_player_id)
+
+        @pawn.move_to!(5, 4)
+        result = @game.check?(@pawn)
+
+        expect(result).to be false
+      end
+
+      xit 'is not checked by Pawn on one-square move' do
+        @king = FactoryGirl.create(:king, game: @game, file: 5, rank: 4, color: :black_player_id)
+        @pawn = FactoryGirl.create(:pawn, game: @game, file: 5, rank: 2, color: :white_player_id)
+
+        @pawn.move_to!(5, 3)
+        result = @game.check?(@pawn)
+
+        expect(result).to be false
+      end
+
+      it 'is not checked by Rook' do
+        @king = FactoryGirl.create(:king,  game: @game, file: 4, rank: 4, color: :black_player_id)
+        @rook = FactoryGirl.create(:rook, game: @game, file: 1, rank: 1,  color: :white_player_id)
+
+        @rook.move_to!(1, 3)
+        result = @game.check?(@rook)
+
+        expect(result).to be false
+      end
+
+      it 'is not checked by Knight' do
+        @king = FactoryGirl.create(:king,  game: @game, file: 4, rank: 4, color: :black_player_id)
+        @knight = FactoryGirl.create(:knight, game: @game, file: 2, rank: 1,  color: :white_player_id)
+
+        @knight.move_to!(1, 3)
+        result = @game.check?(@knight)
+
+        expect(result).to be false
+      end
+
+      it 'is not checked by Queen' do
+        @king = FactoryGirl.create(:king, game: @game, file: 4, rank: 4, color: :black_player_id)
+        @queen = FactoryGirl.create(:queen, game: @game, file: 2, rank: 1, color: :white_player_id)
+
+        @queen.move_to!(2, 3)
+        result = @game.check?(@queen)
+
+        expect(result).to be false
+      end
+
+      it 'is not checked by Bishop' do
+        @king = FactoryGirl.create(:king, game: @game, file: 4, rank: 4, color: :black_player_id)
+        @bishop = FactoryGirl.create(:bishop, game: @game, file: 1, rank: 3, color: :white_player_id)
+
+        @bishop.move_to!(2, 4)
+        result = @game.check?(@bishop)
+
+        expect(result).to be false
+      end
     end
   end
 

@@ -3,7 +3,9 @@ require 'rails_helper'
 RSpec.describe PiecesController, type: :controller do
 
   before(:each) do
-    @piece = FactoryGirl.create(:piece, type: nil)    
+    @game = FactoryGirl.create(:game)
+    @piece = FactoryGirl.create(:piece, type: nil, game: @game, color: :white_player_id)
+    @king = FactoryGirl.create(:king, game: @game, color: :black_player_id)
   end
   let(:game) { FactoryGirl.create :game }
   let(:white_piece) { FactoryGirl.create :piece, file: 4, rank: 2, game: game, color: :white_player_id }
