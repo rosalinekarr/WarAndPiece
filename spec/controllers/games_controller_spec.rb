@@ -49,18 +49,6 @@ RSpec.describe GamesController, type: :controller do
       expect(response).to have_http_status(:success)
     end
 
-    it "assigns the first turn to the white_player" do
-      #game begins, default turn should be true/white_player
-      black_piece.move_to!(4, 5)
-      expect(response).to have_http_status(:forbidden)
-    end
-    it "prevents the opposing player from moving when it is not their turn" do
-      white_piece.move_to!(4, 4)
-      white_piece.reload
-      white_piece.move_to!(4, 5)
-      expect(response).to have_http_status(:forbidden)
-    end
-
   end
   
   describe "games#create action" do
@@ -82,7 +70,6 @@ RSpec.describe GamesController, type: :controller do
   end
 
   describe "games#update" do
-    
     it "changes turn after a player has moved" do
       # game begins, default turn is true/white_player
       white_piece.move_to!(4, 4)

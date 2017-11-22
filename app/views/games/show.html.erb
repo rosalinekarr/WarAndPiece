@@ -1,37 +1,6 @@
 <script>
 
-$(function() {
-  $('.player-pieces').draggable({
-    snap: '.square'
-  });
-
-  $('.square').droppable({
-    drop: function( event, ui ) {
-      const square = this
-      const icon = ui.draggable
-      const sq_rank = $(square).data('rank')
-      const sq_file = $(square).data('file')
-      $.ajax({
-        type: 'PUT',
-        url: icon.data('update-url'),
-        dataType: 'json',
-        data: { piece: { rank: sq_rank, file: sq_file } }
-      }).done(nextTurn())
-    }
-  })
-
-  $('.piece-icon').each( function() {
-    var o = $(this);
-    if( ! o.attr('title') && o.attr('alt') ) o.attr('title', o.attr('alt') );
-  });
-
-// // suck in the html indicating whose turn it is, 
-// // and prevent selecting elements when not your turn.
-  // $(function() {
-  //   if(('.whose-turn').html() === "Your Opponents' Turn") {
-  //     $('.piece-icon').click(false);
-  //   }
-  // });
+$(function () {
 
   function nextTurn() {
     let whoseTurn = $( ".whose-turn" );
@@ -46,8 +15,38 @@ $(function() {
     }
   }
 
-});
+  $(function () {
+    $('.player-pieces').draggable({
+      snap: '.square',
+      start: function(e, ui) {
+        if($(".whose-turn" ).html() === "Your Opponent's Turn!") {
+          e.preventDefault();
+        }
+      }
+    });
 
+    $('.square').droppable({
+      drop: function( event, ui ) {
+        const square = this
+        const icon = ui.draggable
+        const sq_rank = $(square).data('rank')
+        const sq_file = $(square).data('file')
+        $.ajax({
+          type: 'PUT',
+          url: icon.data('update-url'),
+          dataType: 'json',
+          data: { piece: { rank: sq_rank, file: sq_file } }
+        }).done(nextTurn())
+      }
+    });
+  });
+
+  $('.piece-icon').each( function() {
+    var o = $(this);
+    if( ! o.attr('title') && o.attr('alt') ) o.attr('title', o.attr('alt') );
+  });
+
+});
   
 </script>
 
