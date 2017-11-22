@@ -22,7 +22,7 @@ FactoryGirl.define do
   factory :piece do
     sequence :id do |n|
       n
-    end  
+    end
 
     type "Pawn"
     rank 4
@@ -34,7 +34,7 @@ FactoryGirl.define do
   factory :king, parent: :piece, class: King do
     type "King"
   end
-  
+
   factory :pawn, parent: :piece, class: Pawn do
     type "Pawn"
   end
@@ -45,5 +45,13 @@ FactoryGirl.define do
 
   factory :bishop, parent: :piece, class: Bishop do
     type "Bishop"
+  end
+
+  factory :rook, parent: :piece, class: Rook do
+    type "Rook"
+  end
+
+  factory :knight, parent: :piece, class: Knight do
+    type "Knight"
   end
 end
