@@ -7,10 +7,7 @@ RSpec.describe PiecesController, type: :controller do
     @piece = FactoryGirl.create(:piece, type: nil, game: @game, color: :white_player_id)
     @king = FactoryGirl.create(:king, game: @game, color: :black_player_id)
   end
-  let(:game) { FactoryGirl.create :game }
-  let(:white_piece) { FactoryGirl.create :piece, file: 4, rank: 2, game: game, color: :white_player_id }
-  let(:black_piece) { FactoryGirl.create :piece, file: 4, rank: 7, game: game, color: :black_player_id }
-
+  
   def update_xy
     patch :update, params: { id: @piece.id, piece: { file: 3, rank: 3}}, format: :js
   end
@@ -43,17 +40,6 @@ RSpec.describe PiecesController, type: :controller do
       expect(@piece.rank).to eq 4
       expect(@piece.file).to eq 4    
     end
-    # it "assigns the first turn to the white_player" do
-    #   #game begins, default turn should be true/white_player
-    #   black_piece.move_to!(4, 5)
-    #   expect(response).to have_http_status(:forbidden)    ## TEST FAILS; status is :ok (200)
-    # end
-    # it "prevents the opposing player from moving when it is not their turn" do
-    #   white_piece.move_to!(4, 4)
-    #   white_piece.reload
-    #   white_piece.move_to!(4, 5)
-    #   expect(response).to have_http_status(:forbidden)    ## TEST FAILS; status is :ok (200)
-    # end
   end
 
 end
