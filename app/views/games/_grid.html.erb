@@ -1,0 +1,23 @@
+<% sq_file = 0 %>
+<% sq_rank = 9 %>
+<% 8.times do %>
+<% sq_rank = sq_rank - 1 %>
+<% 8.times do %>
+  <% sq_file = sq_file + 1 %>
+  <div class="square" data-rank="<%= sq_rank %>" data-file="<%= sq_file %>">
+    <% game.pieces.each do |piece| %>
+      <% if piece.rank == sq_rank && piece.file == sq_file && piece.is_captured == false %>
+        <% if current_user == piece.user %>
+          <div class="player-pieces" data-update-url="<%= piece_path piece %>">
+        <% else %>
+          <div class="opponent-pieces">
+        <% end %>
+        <%= image_tag("#{piece.color}-#{piece.type}.png", class: 'piece-icon', alt: "#{piece.color.capitalize} #{piece.type}") %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>
+<br />
+<% sq_file = 0 %>
+<% end %>

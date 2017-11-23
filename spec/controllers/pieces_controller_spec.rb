@@ -9,7 +9,7 @@ RSpec.describe PiecesController, type: :controller do
   end
 
   def update_xy
-    patch :update, params: { id: @piece.id, piece: { file: 3, rank: 3}}
+    patch :update, params: { id: @piece.id, piece: { file: 3, rank: 3}}, format: :js
   end
 
   describe "pieces#update" do
@@ -35,8 +35,10 @@ RSpec.describe PiecesController, type: :controller do
     end
     it "does not update the database when not valid" do
       sign_in @piece.user
-      patch :update, params: { id: @piece.id, piece: { file: 'huh', rank: 'nope'}}
-      expect(response).to have_http_status(:unprocessable_entity)
+      patch :update, params: { id: @piece.id, piece: { file: 'huh', rank: 'nope'}}, format: :js
+      @piece.reload
+      expect(@piece.rank).to eq 4
+      expect(@piece.file).to eq 4    
     end
   end
 

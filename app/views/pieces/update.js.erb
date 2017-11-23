@@ -1,0 +1,5 @@
+$('.grid').html("<%= j render partial: "games/grid", locals: {game: Game.find(current_piece.game.id)} %>")
+
+$('.captured-display').html("<%= j render partial: "games/captured-display", locals: {game: Game.find(current_piece.game.id)} %>")
+
+setup()

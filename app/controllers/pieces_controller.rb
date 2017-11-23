@@ -13,20 +13,19 @@ before_action :authenticate_user!, only: :update
         game_id: current_piece.game_id,
         rank: current_piece.rank,
         file: current_piece.file
-      )
-      @game = current_piece.game
-      if @game.check?(current_piece)
-        flash[:alert] = "Check!"
-      end
-    else
-      return render plain: 'Not Valid', status: :unprocessable_entity
+        )
     end
 
-    redirect_to game_path(current_piece.game.id)
+    @game = current_piece.game
+    if @game.check?(current_piece)
+      flash[:alert] = "Check!"
+    end
+
   end
 
   private
 
+  helper_method :current_piece
   def current_piece
     @current_piece ||= Piece.find_by_id(params[:id])
   end

@@ -1,0 +1,7 @@
+<% game.pieces.each do |piece| %>
+  <% if piece.is_captured == true %>
+    <div>
+      <%= image_tag("#{piece.color}-#{piece.type}.png", class: 'piece-icon', alt: "#{piece.color.capitalize} #{piece.type}") %>
+    </div>
+  <% end %>
+<% end %>
