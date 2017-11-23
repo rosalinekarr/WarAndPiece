@@ -202,6 +202,7 @@ RSpec.describe Piece, type: :model do
         @game = FactoryGirl.build(:game)
         @current_piece = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game, color: :black_player_id)
         @next_square = FactoryGirl.create(:piece, file: 5, rank: 5, game: @game, color: :white_player_id)
+        @king = FactoryGirl.create(:king, game: @game, color: "black")
       end
 
       it "checks that there is a piece in the new square" do
@@ -234,7 +235,7 @@ RSpec.describe Piece, type: :model do
         @current_piece = FactoryGirl.create(:piece, file: 4, rank: 4, game: @game, color: 'white')
         @piece_same_color = FactoryGirl.create(:piece, file: 5, rank: 5, game: @game, color: 'white')
       end
-      
+
       it "does not move to own-piece square" do
         @current_piece.move_to!(5, 5)
 

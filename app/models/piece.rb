@@ -28,7 +28,7 @@ class Piece < ApplicationRecord
       return false unless is_capture_opposing_color?(new_file, new_rank)
     end
 
-    #return false if is_obstructed?(new_file, new_rank)
+    return false if is_obstructed?(new_file, new_rank)
 
     true
   end
@@ -80,14 +80,15 @@ class Piece < ApplicationRecord
     else (row + col) == (current_row + current_col)
       if row > current_row                                ## top-left
         files = (col+1..current_col-1).map { |n| n = n }
-        ranks = (current_row+1..row-1).map { |n| n = n }
+        ranks = (current_row+1..row-1).map { |n| n = n }.reverse
       else                                                ## bottom-right
         files = (current_col+1..col-1).map { |n| n = n }
-        ranks = (row+1..current_row-1).map { |n| n = n }
+        ranks = (row+1..current_row-1).map { |n| n = n }.reverse
       end
     end
+    pairs = files.zip(ranks)
     game.pieces.each do |p|
-      if files.include?(p.file) && ranks.include?(p.rank)
+      if pairs.include?([p.file, p.rank]) && p.is_captured == false
         return true
       end
     end
