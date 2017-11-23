@@ -89,7 +89,7 @@ class Piece < ApplicationRecord
     pairs = files.zip(ranks)
     game.pieces.each do |p|
       if pairs.include?([p.file, p.rank]) && p.is_captured == false
-        return true
+        return true unless p.type == "King"
       end
     end
     false
