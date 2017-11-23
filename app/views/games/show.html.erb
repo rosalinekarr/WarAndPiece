@@ -5,13 +5,20 @@ $(function () {
   function nextTurn() {
     let whoseTurn = $( ".whose-turn" );
     jQuery.data( whoseTurn, "updatedTurn", {
-      first: "Your Turn",
-      last: "Your Opponent's Turn!"
+      first: "your-turn",
+      last: "opponent-turn"
     });
-    if(whoseTurn.html() === "Your Turn") {
+    if(whoseTurn.html() === "your-turn") {
       $(whoseTurn.html( jQuery.data( whoseTurn, "updatedTurn" ).last ));
-    } else if(whoseTurn.html() === "Your Opponent's Turn!") {
+    } else if(whoseTurn.html() === "opponent-turn") {
       $(whoseTurn.html( jQuery.data( whoseTurn, "updatedTurn" ).first ));
+    }
+  }
+  function switchTurnDisplay() {
+    if($( "#turn-on" ).html() === "Time to fight!") {
+      $( "#turn-on" ).html("Now roll with the punches...")
+    } else if($( "#turn-on" ).html() === "Now roll with the punches...") {
+      $( "#turn-on" ).html("Time to fight!")
     }
   }
 
@@ -19,7 +26,7 @@ $(function () {
     $('.player-pieces').draggable({
       snap: '.square',
       start: function(e, ui) {
-        if($(".whose-turn" ).html() === "Your Opponent's Turn!") {
+        if($(".whose-turn" ).html() === "opponent-turn") {
           e.preventDefault();
         }
       }
@@ -36,7 +43,7 @@ $(function () {
           url: icon.data('update-url'),
           dataType: 'script',
           data: { piece: { rank: sq_rank, file: sq_file } }
-        }).done(nextTurn())
+        }).done(nextTurn(), switchTurnDisplay())
       }
     });
 
@@ -90,8 +97,16 @@ $(function () {
     </div>
 
     <div class="placeholder">
-      <h4 class="whose-turn"><%= @turn %></h4>
-      <p><%= @game.turn %></p>
+      <p class="whose-turn"><%= @turn %></p> <!-- Even though it shouldn't display this is necessary -->
+      <!-- for nextTurn and setup functions to prevent wrong player from moving -->
+      <% if @turn == "your-turn" %>
+        <h5 id="turn-on">Time to fight!</h5> <!-- If change in wording; amend switchTurn function accordingly --> 
+        <br/>                                <!-- same comment for #turn-off below -->
+      <% elsif @turn == "opponent-turn" %>
+        <h5 id="turn-off">Now roll with the punches...</h5>
+        <br/>
+      <% end %>
+      <%= @game.turn %>
     </div>
 
     <!-- Captured Pieces Display -->

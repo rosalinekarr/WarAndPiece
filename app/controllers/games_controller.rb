@@ -24,9 +24,9 @@ class GamesController < ApplicationController
     return render_not_found if @game.blank?
     if @game.turn == true && current_user == @game.white_player ||
      @game.turn == false && current_user == @game.black_player
-      @turn = "Your Turn"
+      @turn = "your-turn"
     else
-      @turn = "Your Opponents' Turn"
+      @turn = "opponent-turn"
     end
   end
 
