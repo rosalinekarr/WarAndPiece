@@ -201,6 +201,8 @@ RSpec.describe Game, type: :model do
 
         expect(result).to be true
       end
+
+      it "is checkmate when king's valid moves cannot capture pieces putting itself in check"
     end
 
     context "when not valid" do
@@ -220,11 +222,50 @@ RSpec.describe Game, type: :model do
         expect(game_result).to be false
       end
 
-      it "is not checkmate when king captures a piece to escape check"
+      xit "is not checkmate when king captures attacking piece to escape check" do
+        @white_rook1 = FactoryGirl.create(:rook, file: 1, rank: 1, game: @game, color: 'white')
+        @white_rook2 = FactoryGirl.create(:rook, file: 3, rank: 1, game: @game, color: 'white')
+        @attacking_piece = FactoryGirl.create(:queen, file: 2, rank: 1, game: @game, color: 'white')
+        @black_king = FactoryGirl.create(:king, file: 4, rank: 4, game: @game, color: 'black')
+      
+        @attacking_piece.move_to!(2,3)
+        valid_capture = @black_king.valid_move?(@attacking_piece.file, @attacking_piece.rank)
+        game_result = @game.checkmate?(@attacking_piece)
 
-      it "is not checkmate when opposing player can capture attacking piece"
+        expect(valid_capture).to be true
+        expect(game_result).to be false
+      end
 
-      it "is not checkmate when opposing player obstructs attacking piece"
+      it "is not checkmate when opposing player can capture attacking piece" do
+        @black_rook = FactoryGirl.create(:rook, file: 8, rank: 8, game: @game, color: 'black')
+        @black_king = FactoryGirl.create(:king, file: 1, rank: 8, game: @game, color: 'black')
+        @black_pawn1 = FactoryGirl.create(:pawn, file: 1, rank: 7, game: @game, color: 'black')
+        @black_pawn2 = FactoryGirl.create(:pawn, file: 2, rank: 7, game: @game, color: 'black')
+        @attacking_piece = FactoryGirl.create(:queen, file: 3, rank: 7, game: @game, color: 'white')
+
+        @attacking_piece.move_to!(3,8)
+        valid_capture = @black_rook.valid_move?(@attacking_piece.file, @attacking_piece.rank)
+        game_result = @game.checkmate?(@attacking_piece)
+
+        expect(valid_capture).to be true
+        expect(game_result).to be false
+      end
+
+      it "is not checkmate when opposing player obstructs attacking piece" do
+        @white_rook = FactoryGirl.create(:rook, file: 2, rank: 1, game: @game, color: 'white')
+        @attacking_piece = FactoryGirl.create(:queen, file: 3, rank: 2, game: @game, color: 'white')
+        @black_king = FactoryGirl.create(:king, file: 1, rank: 8, game: @game, color: 'black')
+        @obstructing_piece = FactoryGirl.create(:rook, file: 4, rank: 7, game: @game, color: 'black')
+        obstruction_file = 1
+        obstruction_rank = 7
+
+        @attacking_piece.move_to!(1,2)
+        valid_obstruction = @obstructing_piece.valid_move?(obstruction_file, obstruction_rank)
+        game_result = @game.checkmate?(@attacking_piece)
+
+        expect(valid_obstruction).to be true
+        expect(game_result).to be false
+      end
     end
 
   end
