@@ -195,6 +195,27 @@ RSpec.describe Piece, type: :model do
     end
   end
 
+  describe "piece#get_path_between_pieces" do
+    it "returns the path between 2 pieces"
+  end
+
+  describe "piece#get_path_between_vertical" do
+    it "returns the path between 2 pieces top to bottom"
+    it "returns the path between 2 pieces bottom to top"
+  end
+
+  describe "piece#get_path_between_horizontal" do
+    it "returns the path between 2 pieces left to right"
+    it "returns the path between 2 pieces right to left"
+  end
+
+  describe "piece#get_path_between_diagonal" do
+    it "returns the path between 2 pieces upper-left to bottom-right"
+    it "returns the path between 2 pieces bottom-right to upper-left"
+    it "returns the path between 2 pieces upper-right to bottom-left"
+    it "returns the path between 2 pieces bottom-left to upper-right"
+  end
+
   describe "piece#move_to! captures piece in new square if piece is the opposite color" do
 
     context "valid case" do
