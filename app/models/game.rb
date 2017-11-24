@@ -30,9 +30,14 @@ class Game < ApplicationRecord
 
     checked_king = self.pieces.where(type:"King").where.not(color: attacking_piece.color).first
     king_moves = checked_king.get_valid_moves
+    checked_king_team_pieces = self.pieces.where(color: checked_king.color, is_captured: false)
+
+    checked_king_team_pieces.each do |piece|
+      return false if piece.valid_move?(attacking_piece.file, attacking_piece.rank)
+    end
 
     attack_team_pieces = self.pieces.where(color: attacking_piece.color, is_captured: false)
-
+    
     king_moves.each do |move|
       king_file = move[0]
       king_rank = move[1]
