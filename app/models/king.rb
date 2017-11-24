@@ -20,7 +20,7 @@ class King < Piece
     adjacent_files.each do |column|
       adjacent_ranks.each do |row|
         if valid_move?(column, row)
-          valid_moves << {column=>row}
+          valid_moves << [column, row]
         end
       end
     end

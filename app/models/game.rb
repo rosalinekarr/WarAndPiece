@@ -34,8 +34,8 @@ class Game < ApplicationRecord
     attack_team_pieces = self.pieces.where(color: attacking_piece.color, is_captured: false)
 
     king_moves.each do |move|
-      king_file = move.keys[0]
-      king_rank = move.values[0]
+      king_file = move[0]
+      king_rank = move[1]
 
       move_intersects = false    
       attack_team_pieces.each do |piece|
