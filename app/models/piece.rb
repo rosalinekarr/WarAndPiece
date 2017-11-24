@@ -106,4 +106,68 @@ class Piece < ApplicationRecord
     end
     self.update(file: new_col, rank: new_row)
   end
+
+  def get_path_between(file, rank)
+    if self.rank == rank
+      return get_path_between_horizontal(file, rank)
+    elsif self.file == file
+      return get_path_between_vertical(file, rank)
+    elsif (self.file-file).abs == (self.rank-rank).abs
+      return get_path_between_diagonal(file, rank)
+    else
+      return nil
+    end
+  end
+
+  def get_path_between_vertical(file, rank)
+    path_between = []
+
+    if self.rank > rank
+      path_ranks = (rank+1...self.rank).to_a.reverse
+    else
+      path_ranks = (self.rank+1...rank).to_a
+    end
+
+    path_ranks.each do |row|
+      path_between << [file, row]
+    end
+
+    path_between
+  end
+
+  def get_path_between_horizontal(file, rank)
+    path_between = []
+
+    if self.file < file
+      path_files = (self.file+1...file).to_a
+    else
+      path_files = (file+1...self.file).to_a.reverse
+    end
+
+    path_files.each do |column|
+      path_between << [column, rank]
+    end
+
+    path_between
+  end
+
+  def get_path_between_diagonal(file, rank)
+    path_between = []
+
+    if self.file < file && self.rank < rank
+      path_files = (self.file+1...file).to_a
+      path_ranks = (self.rank+1...rank).to_a
+    elsif self.file > file && self.rank > rank
+      path_files = (file+1...self.file).to_a.reverse
+      path_ranks = (rank+1...self.rank).to_a.reverse
+    elsif self.file < file && self.rank > rank
+      path_files = (self.file+1...file).to_a
+      path_ranks = (rank+1...self.rank).to_a.reverse
+    else
+      path_files = (file+1...self.file).to_a.reverse
+      path_ranks = (self.rank+1...rank).to_a
+    end
+
+    path_files.zip(path_ranks)
+  end
 end

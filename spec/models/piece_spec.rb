@@ -195,25 +195,123 @@ RSpec.describe Piece, type: :model do
     end
   end
 
-  describe "piece#get_path_between_pieces" do
-    it "returns the path between 2 pieces"
+  describe "piece#get_path_between" do
+    it "returns a valid path if both are directionally in line" do
+      piece1 = Piece.new(file: 1, rank: 1)
+      piece2 = Piece.new
+      horizontal = [3, 1]
+      vertical = [1, 3]
+      diagonal = [3, 3]
+      valid_paths = [ horizontal, vertical, diagonal ]
+      
+      valid_paths.each do |position|
+        piece2.attributes = {file: position[0], rank: position[1]}
+        result = piece1.get_path_between(piece2.file, piece2.rank)
+        expect(result).not_to be_empty
+      end
+    end
+
+    it "returns no valid path if both are not directionally in line" do
+      piece1 = Piece.new(file: 1, rank: 1)
+      piece2 = Piece.new
+      invalid_paths = [ [3, 2], [2, 3], [7,8] ]
+      
+      invalid_paths.each do |position|
+        piece2.attributes = {file: position[0], rank: position[1]}
+        result = piece1.get_path_between(piece2.file, piece2.rank)
+        expect(result).to be_nil
+      end
+    end
   end
 
   describe "piece#get_path_between_vertical" do
-    it "returns the path between 2 pieces top to bottom"
-    it "returns the path between 2 pieces bottom to top"
+    it "returns the path between 2 pieces top to bottom" do
+      @top_piece = Piece.new(file: 1, rank: 8)
+      @bottom_piece = Piece.new(file:1, rank: 1)
+      top_bottom_path = [ [1,7] , [1,6] ,[1,5] ,[1,4] ,[1,3] ,[1,2] ]
+
+      result = @top_piece.get_path_between_vertical(@bottom_piece.file, @bottom_piece.rank)
+
+      expect(result).to eq(top_bottom_path)
+    end
+
+    it "returns the path between 2 pieces bottom to top" do
+      @bottom_piece = Piece.new(file:1, rank: 1)
+      @top_piece = Piece.new(file: 1, rank: 8)
+      bottom_top_path = [ [1,2] , [1,3] ,[1,4] ,[1,5] ,[1,6] ,[1,7] ]
+
+      result = @bottom_piece.get_path_between_vertical(@top_piece.file, @top_piece.rank)
+
+      expect(result).to eq(bottom_top_path)
+    end
   end
 
   describe "piece#get_path_between_horizontal" do
-    it "returns the path between 2 pieces left to right"
-    it "returns the path between 2 pieces right to left"
+    it "returns the path between 2 pieces left to right" do
+      @left_piece = Piece.new(file: 1, rank: 1)
+      @right_piece = Piece.new(file:8, rank: 1)
+      left_right_path = [ [2,1] , [3,1] ,[4,1] ,[5,1] ,[6,1] ,[7,1] ]
+
+      result = @left_piece.get_path_between_horizontal(@right_piece.file, @right_piece.rank)
+
+      expect(result).to eq(left_right_path)
+    end
+    it "returns the path between 2 pieces right to left" do
+      @right_piece = Piece.new(file:8, rank: 1)
+      @left_piece = Piece.new(file: 1, rank: 1)
+      right_left_path = [ [7,1] , [6,1] ,[5,1] ,[4,1] ,[3,1] ,[2,1] ]
+      
+      result = @right_piece.get_path_between_horizontal(@left_piece.file, @left_piece.rank)
+
+      expect(result).to eq(right_left_path)
+    end
   end
 
   describe "piece#get_path_between_diagonal" do
-    it "returns the path between 2 pieces upper-left to bottom-right"
-    it "returns the path between 2 pieces bottom-right to upper-left"
-    it "returns the path between 2 pieces upper-right to bottom-left"
-    it "returns the path between 2 pieces bottom-left to upper-right"
+    it "returns the path between 2 pieces bottom-left to upper-right" do
+      @bottom_left_piece = Piece.new(file: 1, rank: 1)
+      @upper_right_piece = Piece.new(file:8, rank: 8)
+      bleft_uright_path = [ [2,2] ,[3,3] ,[4,4] ,[5,5] ,[6,6], [7,7] ]
+
+      result = @bottom_left_piece.get_path_between_diagonal(
+                  @upper_right_piece.file, @upper_right_piece.rank
+               )
+
+      expect(result).to eq(bleft_uright_path)      
+    end
+    it "returns the path between 2 pieces upper-right to bottom-left" do
+      @upper_right_piece = Piece.new(file:8, rank: 8)
+      @bottom_left_piece = Piece.new(file: 1, rank: 1)
+      uright_bleft_path = [ [7,7] ,[6,6] ,[5,5] ,[4,4] ,[3,3], [2,2] ]
+
+      result = @upper_right_piece.get_path_between_diagonal(
+                  @bottom_left_piece.file, @bottom_left_piece.rank
+               )
+
+      expect(result).to eq(uright_bleft_path) 
+    end
+    it "returns the path between 2 pieces upper-left to bottom-right" do
+      @upper_left_piece = Piece.new(file: 1, rank: 8)
+      @bottom_right_piece = Piece.new(file:8, rank: 1)
+      uleft_bright_path = [ [2,7] ,[3,6] ,[4,5] ,[5,4] ,[6,3], [7,2] ]
+
+      result = @upper_left_piece.get_path_between_diagonal(
+                  @bottom_right_piece.file, @bottom_right_piece.rank
+               )
+
+      expect(result).to eq(uleft_bright_path)  
+    end
+    it "returns the path between 2 pieces bottom-right to upper-left" do
+      @bottom_right_piece = Piece.new(file:8, rank: 1)
+      @upper_left_piece = Piece.new(file: 1, rank: 8)
+      bright_uleft_piece = [ [7,2] ,[6,3] ,[5,4] ,[4,5] ,[3,6], [2,7] ]
+
+      result = @bottom_right_piece.get_path_between_diagonal(
+                  @upper_left_piece.file, @upper_left_piece.rank
+               )
+
+      expect(result).to eq(bright_uleft_piece)  
+    end
   end
 
   describe "piece#move_to! captures piece in new square if piece is the opposite color" do
