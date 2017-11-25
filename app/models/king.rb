@@ -20,12 +20,41 @@ class King < Piece
     adjacent_files.each do |column|
       adjacent_ranks.each do |row|
         if valid_move?(column, row)
-          valid_moves << [column, row]
+          valid_moves << [column, row] unless move_into_check_position?(column, row)
         end
       end
     end
 
     valid_moves
+  end
+
+  def move_into_check_position?(column, row)
+    opposing_piece_adjacent = set_king_capture_piece_off_on(column, row)
+    opposing_team = self.game.pieces.where.not(color: self.color).where(is_captured: false)
+    opposing_team.each do |piece|
+      if piece.valid_move?(column, row)
+        set_king_capture_piece_off_on(column, row) if opposing_piece_adjacent
+        return true
+      end
+    end
+    
+    set_king_capture_piece_off_on(column, row)
+    false
+  end
+
+  def set_king_capture_piece_off_on(column, row)
+    opposing_piece_adjacent = self.game.pieces.where(file: column, rank: row).where.not(color: self.color).first
+    
+    if opposing_piece_adjacent
+      if opposing_piece_adjacent.is_captured
+        opposing_piece_adjacent.is_captured = false
+      else  
+        opposing_piece_adjacent.is_captured = true
+      end
+      opposing_piece_adjacent.save
+    end
+    
+    opposing_piece_adjacent
   end
 
 end

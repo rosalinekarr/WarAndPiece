@@ -41,8 +41,8 @@ class Game < ApplicationRecord
     
     # check if defending team can obstruct
     check_between_path = checked_king.get_path_between(attacking_piece.file, attacking_piece.rank)
-    if check_between_path
-      puts "#{check_between_path.inspect}"
+
+    unless check_between_path.blank?
       check_between_path.each do |position|
         checked_king_team_pieces.each do |piece|
           return false if piece.valid_move?(position[0], position[1])
@@ -64,9 +64,9 @@ class Game < ApplicationRecord
       end
 
 
-      unless move_intersects
-        puts "DEBUG king can move to #{king_file}, #{king_rank}"
-      end
+      # unless move_intersects
+      #   puts "DEBUG king can move to #{king_file}, #{king_rank}"
+      # end
 
       return false unless move_intersects
     end
