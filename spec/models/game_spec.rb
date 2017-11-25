@@ -222,13 +222,14 @@ RSpec.describe Game, type: :model do
         expect(game_result).to be false
       end
 
-      xit "is not checkmate when king captures attacking piece to escape check" do
-        @white_rook1 = FactoryGirl.create(:rook, file: 1, rank: 1, game: @game, color: 'white')
-        @white_rook2 = FactoryGirl.create(:rook, file: 3, rank: 1, game: @game, color: 'white')
+      it "is not checkmate when king captures attacking piece to escape check" do
+        @white_rook1 = FactoryGirl.create(:rook, file: 3, rank: 1, game: @game, color: 'white')
+        @white_rook2 = FactoryGirl.create(:rook, file: 5, rank: 1, game: @game, color: 'white')
+        @white_king = FactoryGirl.create(:king, file: 4, rank: 6, game: @game, color: 'white')
         @attacking_piece = FactoryGirl.create(:queen, file: 2, rank: 1, game: @game, color: 'white')
         @black_king = FactoryGirl.create(:king, file: 4, rank: 4, game: @game, color: 'black')
       
-        @attacking_piece.move_to!(2,3)
+        @attacking_piece.move_to!(4,3)
         valid_capture = @black_king.valid_move?(@attacking_piece.file, @attacking_piece.rank)
         game_result = @game.checkmate?(@attacking_piece)
 

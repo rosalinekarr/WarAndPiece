@@ -59,8 +59,7 @@ RSpec.describe King, type: :model do
         [:knight, :pawn, :knight].each.with_index(1) do |piece_type,i|
           FactoryGirl.create(piece_type, file: i, rank: 3, color: 'black', game: @game) 
         end                                         
-        @king_valid_moves = [ [1, 1], [1, 2], [1, 3], [2, 1],
-                              [2, 3], [3, 1], [3, 2], [3, 3] ]
+        @king_valid_moves = [ [1,1], [1,3], [2,3], [3,1], [3,3] ]
                               
         result = @king.get_valid_moves
 
@@ -80,9 +79,56 @@ RSpec.describe King, type: :model do
     end
 
     context "moves that place king in check" do
-      it "returns valid moves that do not place king in check"
+      it "returns valid moves that do not place king in check" do
+        @bishop1 = FactoryGirl.create(:bishop, file: 5, rank: 3, color: 'white', game: @game)
+        @bishop2 = FactoryGirl.create(:bishop, file: 1, rank: 2, color: 'white', game: @game)
+        @queen = FactoryGirl.create(:queen, file: 3, rank: 1, color: 'white', game: @game) 
+        @knight = FactoryGirl.create(:knight, file: 1, rank: 4, color: 'white', game: @game)
+        @white_king = FactoryGirl.create(:king, file: 6, rank: 4, color: 'white', game: @game)
+        @rook = FactoryGirl.create(:rook, file: 8, rank: 5, color: 'white', game: @game)
+        @black_king = FactoryGirl.create(:king, file: 4, rank: 4, color: 'black', game: @game) 
+        @black_king_valid_moves = [ [4,3] ]
+                              
+        result = @black_king.get_valid_moves
+
+        expect(result).to eq(@black_king_valid_moves)
+      end
+    end
+      
+  end
+
+  describe '.move_into_check_position?(column, row)' do
+    
+    before do
+      @game = FactoryGirl.create(:game)
     end
     
+    it "is valid when King moves in an illegal check position" do
+      @queen = FactoryGirl.create(:queen, file: 1, rank: 1, color: 'white', game: @game)
+      @rook = FactoryGirl.create(:rook, file: 1, rank: 3, color: 'white', game: @game)
+      @king = FactoryGirl.create(:king, file: 3, rank: 2, color: 'black', game: @game)
+      @king_illegal_moves = [ [2,1], [2,2], [2,3], [3,1],
+                              [3,3], [4,1], [4,3] ]
+
+      @king_illegal_moves.each do |move|
+        result = @king.move_into_check_position?(move[0], move[1])
+
+        expect(result).to be true
+      end
+    end
+
+    it "is invalid when King does not move into check position" do
+      @queen = FactoryGirl.create(:queen, file: 1, rank: 1, game: @game)
+      @rook = FactoryGirl.create(:rook, file: 1, rank: 3, game: @game)
+      @king = FactoryGirl.create(:king, file: 3, rank: 2, game: @game)
+      king_valid_file = 4
+      king_valid_rank = 2
+
+      result = @king.move_into_check_position?(king_valid_file, king_valid_rank)
+
+      expect(result).to be false
+    end
+  
   end
 
 end
