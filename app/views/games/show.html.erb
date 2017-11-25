@@ -1,39 +1,35 @@
 <script>
 
-$(function () {
-
-  function setup () {
-    $('.player-pieces').draggable({
-      snap: '.square',
-    });
-
-    $('.square').droppable({
-      drop: function( event, ui ) {
-        const square = this
-        const icon = ui.draggable
-        const sq_rank = $(square).data('rank')
-        const sq_file = $(square).data('file')
-        $.ajax({
-          type: 'PUT',
-          url: icon.data('update-url'),
-          dataType: 'script',
-          data: { piece: { rank: sq_rank, file: sq_file } }
-        }).always(function() {
-          location.reload()
-        });
-      }
-    });
-
-    $('.piece-icon').each( function() {
-      var o = $(this);
-      if( ! o.attr('title') && o.attr('alt') ) o.attr('title', o.attr('alt') );
-    });
-  }
-
-  $(function() {
-    setup()
+function setup () {
+  $('.player-pieces').draggable({
+    snap: '.square',
   });
 
+  $('.square').droppable({
+    drop: function( event, ui ) {
+      const square = this
+      const icon = ui.draggable
+      const sq_rank = $(square).data('rank')
+      const sq_file = $(square).data('file')
+      $.ajax({
+        type: 'PUT',
+        url: icon.data('update-url'),
+        dataType: 'script',
+        data: { piece: { rank: sq_rank, file: sq_file } }
+      }).always(function() {
+        location.reload()
+      });
+    }
+  });
+
+  $('.piece-icon').each( function() {
+    var o = $(this);
+    if( ! o.attr('title') && o.attr('alt') ) o.attr('title', o.attr('alt') );
+  });
+}
+
+$(function() {
+  setup()
 });
   
 </script>
@@ -74,8 +70,6 @@ $(function () {
     </div>
 
     <div class="placeholder">
-      <p class="whose-turn"><%= @turn %></p> <!-- Even though it shouldn't display this is necessary -->
-      <!-- for nextTurn and setup functions to prevent wrong player from moving -->
       <% if @turn == "your-turn" %>
         <h5 id="turn-on">Time to fight!</h5> <!-- If change in wording; amend switchTurn function accordingly --> 
         <br/>                                <!-- same comment for #turn-off below -->
