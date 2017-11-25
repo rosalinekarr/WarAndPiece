@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'static_pages#index'
   get 'team', to: 'static_pages#team'
   get 'contact', to: 'static_pages#contact'
+  get 'privacy', to: 'static_pages#privacy'
   get 'challenge', to: 'static_pages#challenge'
   resources :games do
     post 'join'

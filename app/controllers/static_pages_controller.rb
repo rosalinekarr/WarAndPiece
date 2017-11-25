@@ -1,5 +1,5 @@
 class StaticPagesController < ApplicationController
-  
+
   def index
     @inprogress_games = Game.inprogress
     @pending_games = Game.available
@@ -12,6 +12,9 @@ class StaticPagesController < ApplicationController
   end
 
   def contact
+  end
+
+  def privacy
   end
 
 end
