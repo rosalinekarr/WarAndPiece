@@ -71,11 +71,9 @@ $(function() {
 
     <div class="placeholder">
       <% if @turn == "your-turn" %>
-        <h5 id="turn-on">Time to fight!</h5> <!-- If change in wording; amend switchTurn function accordingly --> 
-        <br/>                                <!-- same comment for #turn-off below -->
+        <h5>Time to fight!</h5>
       <% elsif @turn == "opponent-turn" %>
-        <h5 id="turn-off">Now roll with the punches...</h5>
-        <br/>
+        <h5>Now roll with the punches...</h5>
       <% end %>
     </div>
 
