@@ -2,34 +2,9 @@
 
 $(function () {
 
-  function nextTurn() {
-    let whoseTurn = $( ".whose-turn" );
-    jQuery.data( whoseTurn, "updatedTurn", {
-      first: "your-turn",
-      last: "opponent-turn"
-    });
-    if(whoseTurn.html() === "your-turn") {
-      $(whoseTurn.html( jQuery.data( whoseTurn, "updatedTurn" ).last ));
-    } else if(whoseTurn.html() === "opponent-turn") {
-      $(whoseTurn.html( jQuery.data( whoseTurn, "updatedTurn" ).first ));
-    }
-  }
-  function switchTurnDisplay() {
-    if($( "#turn-on" ).html() === "Time to fight!") {
-      $( "#turn-on" ).html("Now roll with the punches...")
-    } else if($( "#turn-on" ).html() === "Now roll with the punches...") {
-      $( "#turn-on" ).html("Time to fight!")
-    }
-  }
-
   function setup () {
     $('.player-pieces').draggable({
       snap: '.square',
-      start: function(e, ui) {
-        if($(".whose-turn" ).html() === "opponent-turn") {
-          e.preventDefault();
-        }
-      }
     });
 
     $('.square').droppable({
@@ -43,7 +18,9 @@ $(function () {
           url: icon.data('update-url'),
           dataType: 'script',
           data: { piece: { rank: sq_rank, file: sq_file } }
-        }).done(nextTurn(), switchTurnDisplay())
+        }).always(function() {
+          location.reload()
+        });
       }
     });
 
