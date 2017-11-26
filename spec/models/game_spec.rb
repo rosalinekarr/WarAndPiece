@@ -197,12 +197,25 @@ RSpec.describe Game, type: :model do
         @attacking_piece = FactoryGirl.create(:bishop, file: 3, rank: 1, game: @game, color: 'white')
 
         @attacking_piece.move_to!(2, 2)
+        @game.check?(@attacking_piece)
+        @game.reload
         result = @game.checkmate?(@attacking_piece)
 
         expect(result).to be true
       end
 
-      it "is checkmate when king's valid moves cannot capture pieces putting itself in check"
+      it "is checkmate when king's valid moves cannot capture pieces putting itself in check" do
+        @black_king = FactoryGirl.create(:king, file: 1, rank: 8, game: @game, color: 'black')
+        @white_rook = FactoryGirl.create(:rook, file: 2, rank: 1, game: @game, color: 'white')
+        @attacking_piece = FactoryGirl.create(:queen, file: 2, rank: 6, game: @game, color: 'white')
+      
+        @attacking_piece.move_to!(2,7)
+        @game.check?(@attacking_piece)
+        @game.reload
+        result = @game.checkmate?(@attacking_piece)
+
+        expect(result).to be true
+      end
     end
 
     context "when not valid" do
