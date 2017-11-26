@@ -24,58 +24,39 @@ class King < Piece
         end
       end
     end
-
+    
     valid_moves
   end
 
   def move_into_check_position?(column, row)
-    
-    valid_moves_before_capturing = []
     opposing_piece_adjacent = Piece.new
     opposing_team = self.game.pieces.where.not(color: self.color).where(is_captured: false)
     opposing_team.each do |piece|
-      if piece.valid_move?(column, row)
-        valid_moves_before_capturing << [column, row]
-      end
+      return true if piece.valid_move?(column, row)
 
       if piece.file == column && piece.rank == row
         opposing_piece_adjacent = piece
       end
     end
 
-    valid_moves_after_capturing = []
+    king_is_in_check = false
     unless opposing_piece_adjacent.type.nil?
-      puts "#{opposing_piece_adjacent.type} is potential king capture piece!"
       opposing_piece_adjacent.is_captured = true
       opposing_piece_adjacent.save
     
       opposing_team = self.game.pieces.where.not(color: self.color).where(is_captured: false)
       opposing_team.each do |piece|
         if piece.valid_move?(column, row)
-          valid_moves_after_capturing << [column, row]
+          king_is_in_check = true
+          break
         end
       end
-
-      opposing_piece_adjacent.is_captured = false
-      opposing_piece_adjacent.save
     end
 
-    puts ""
-    puts ""
-    puts "position at #{column}, #{row}"
-    puts "#{valid_moves_before_capturing} moves before capture state"
-    puts "#{valid_moves_after_capturing} moves after capture state"
+    opposing_piece_adjacent.is_captured = false
+    opposing_piece_adjacent.save
 
-
-
-    if valid_moves_before_capturing.empty? && valid_moves_after_capturing.empty?
-      puts "king can escape here"
-      false
-    else
-      puts "king is in check here"
-      true
-    end
-
+    king_is_in_check
   end
 
 end
