@@ -1,3 +1,20 @@
 // Place all the styles related to the static_pages controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "bootstrap";
+
+ .page_heading {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+ ol {
+   counter-reset: list;
+ }
+ ol > li {
+   list-style: none;
+ }
+ ol > li:before {
+   content: counter(list, lower-alpha) ") ";
+   counter-increment: list;
+ }
