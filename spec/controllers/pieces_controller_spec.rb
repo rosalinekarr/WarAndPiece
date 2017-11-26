@@ -7,7 +7,7 @@ RSpec.describe PiecesController, type: :controller do
     @piece = FactoryGirl.create(:piece, type: nil, game: @game, color: :white_player_id)
     @king = FactoryGirl.create(:king, game: @game, color: :black_player_id)
   end
-
+  
   def update_xy
     patch :update, params: { id: @piece.id, piece: { file: 3, rank: 3}}, format: :js
   end

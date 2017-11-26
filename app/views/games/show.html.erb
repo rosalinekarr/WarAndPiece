@@ -16,11 +16,12 @@ function setup () {
         url: icon.data('update-url'),
         dataType: 'script',
         data: { piece: { rank: sq_rank, file: sq_file } }
+      }).always(function() {
+        location.reload()
       });
     }
-
   });
-  
+
   $('.piece-icon').each( function() {
     var o = $(this);
     if( ! o.attr('title') && o.attr('alt') ) o.attr('title', o.attr('alt') );
@@ -66,6 +67,14 @@ $(function() {
 
     <div class="placeholder">
       <h1>White Player</h1> <h3>vs.</h3> <h1>Black Player</h1>
+    </div>
+
+    <div class="placeholder">
+      <% if @turn == "your-turn" %>
+        <h5>Time to fight!</h5>
+      <% elsif @turn == "opponent-turn" %>
+        <h5>Now roll with the punches...</h5>
+      <% end %>
     </div>
 
     <!-- Captured Pieces Display -->

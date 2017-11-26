@@ -101,5 +101,6 @@ class Piece < ApplicationRecord
       captured_piece.update(is_captured: true)
     end
     self.update(file: new_col, rank: new_row)
+    self.game.update(turn: !self.game.turn)
   end
 end

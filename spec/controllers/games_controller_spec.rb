@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe GamesController, type: :controller do
+  
+  let(:game) { FactoryGirl.create :game }
+  let(:white_piece) { FactoryGirl.create :piece, file: 4, rank: 2, game: game, color: :white_player_id }
+  let(:black_piece) { FactoryGirl.create :piece, file: 4, rank: 7, game: game, color: :black_player_id }
+
   # describe "games#index action" do
 
   # end
@@ -63,4 +68,15 @@ RSpec.describe GamesController, type: :controller do
       expect(game.white_player).to eq(player)
     end
   end
+
+  describe "games#update" do
+    it "changes turn after a player has moved" do
+      # game begins, default turn is true/white_player
+      white_piece.move_to!(4, 4)
+      expect(game.turn).to be false
+      black_piece.move_to!(4, 5)
+      expect(game.turn).to be true
+    end
+  end
+
 end

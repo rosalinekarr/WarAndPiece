@@ -3,7 +3,9 @@ before_action :authenticate_user!, only: :update
 
   def update
     return render_not_found if current_piece.blank?
-    if current_piece.user != current_user
+    if current_piece.user != current_user || 
+    (current_piece.game.turn == true && current_user == current_piece.game.black_player) ||
+    (current_piece.game.turn == false && current_user == current_piece.game.white_player)
       return render plain: 'Forbidden :(', status: :forbidden
     end
 
