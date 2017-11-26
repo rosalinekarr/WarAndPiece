@@ -8,7 +8,6 @@ class Game < ApplicationRecord
   scope :inprogress, -> { where.not(black_player_id: nil) }
 
   def populate_board
-
     ['Rook', 'Knight', 'Bishop', 'Queen', 'King', 'Bishop', 'Knight', 'Rook'].each.with_index(1) do |piece, i|
       pieces.create!( type: piece,   file: i, rank: 1, user_id: white_player.id, color: 'white' )
       pieces.create!( type: piece,   file: i, rank: 8, user_id: black_player.id, color: 'black' )
@@ -18,7 +17,6 @@ class Game < ApplicationRecord
       pieces.create!( type: 'Pawn', file: column, rank: 2, user_id: white_player.id, color: 'white' )
       pieces.create!( type: 'Pawn', file: column, rank: 7, user_id: black_player.id, color: 'black' )
     end
-
   end
 
   def check?(piece)
@@ -27,50 +25,34 @@ class Game < ApplicationRecord
   end
 
   def checkmate?(attacking_piece)
-
     checked_king = self.pieces.where(type:"King").where.not(color: attacking_piece.color).first
-    king_moves = checked_king.get_valid_moves
+    valid_king_moves = checked_king.get_valid_moves
     checked_king_team_pieces = self.pieces.where(color: checked_king.color, is_captured: false).where.not(type:"King")
-
-    # check if defending team can capture attacking piece
-    checked_king_team_pieces.each do |piece|
-      return false if piece.valid_move?(attacking_piece.file, attacking_piece.rank)
-    end
-
-    attack_team_pieces = self.pieces.where(color: attacking_piece.color, is_captured: false)
-    
-    # check if defending team can obstruct
     check_between_path = checked_king.get_path_between(attacking_piece.file, attacking_piece.rank)
 
-    unless check_between_path.blank?
-      check_between_path.each do |position|
-        checked_king_team_pieces.each do |piece|
-          return false if piece.valid_move?(position[0], position[1])
-        end
-      end
-    end
-
-    # check if king can/cannot escape with his valid moves
-    king_moves.each do |move|
-      king_file = move[0]
-      king_rank = move[1]
-
-      move_intersects = false    
-      attack_team_pieces.each do |piece| 
-        if piece.valid_move?(king_file, king_rank)
-          move_intersects = true 
-          break
-        end
-      end
-
-
-      # unless move_intersects
-      #   puts "DEBUG king can move to #{king_file}, #{king_rank}"
-      # end
-
-      return false unless move_intersects
-    end
+    return false if defending_team_can_capture?(checked_king_team_pieces, attacking_piece)
+    return false if defending_team_can_obstruct?(checked_king_team_pieces, check_between_path)
+    return false unless valid_king_moves.empty?
 
     true
   end
+
+  def defending_team_can_capture?(defending_team, attacking_piece)
+    defending_team.each do |piece|
+      return true if piece.valid_move?(attacking_piece.file, attacking_piece.rank)
+    end
+    false   
+  end
+
+  def defending_team_can_obstruct?(defending_team, check_between_path)
+    unless check_between_path.blank?
+      check_between_path.each do |position|
+        defending_team.each do |piece|
+          return true if piece.valid_move?(position[0], position[1])
+        end
+      end
+    end
+    false
+  end
+
 end

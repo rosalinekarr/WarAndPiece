@@ -39,6 +39,7 @@ class King < Piece
       end
     end
 
+    # simulate King capturing nearby piece and revalidate opposing team's moves
     king_is_in_check = false
     unless opposing_piece_adjacent.type.nil?
       opposing_piece_adjacent.is_captured = true
