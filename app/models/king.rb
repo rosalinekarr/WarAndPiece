@@ -10,4 +10,54 @@ class King < Piece
       false
     end
   end
+
+  def get_valid_moves
+    valid_moves = []
+
+    adjacent_files = (self.file-1..self.file+1)
+    adjacent_ranks = (self.rank-1..self.rank+1)
+
+    adjacent_files.each do |column|
+      adjacent_ranks.each do |row|
+        if valid_move?(column, row)
+          valid_moves << [column, row] unless move_into_check_position?(column, row)
+        end
+      end
+    end
+    
+    valid_moves
+  end
+
+  def move_into_check_position?(column, row)
+    opposing_piece_adjacent = Piece.new
+    opposing_team = self.game.pieces.where.not(color: self.color).where(is_captured: false)
+    opposing_team.each do |piece|
+      return true if piece.valid_move?(column, row)
+
+      if piece.file == column && piece.rank == row
+        opposing_piece_adjacent = piece
+      end
+    end
+
+    # simulate King capturing nearby piece and revalidate opposing team's moves
+    king_is_in_check = false
+    unless opposing_piece_adjacent.type.nil?
+      opposing_piece_adjacent.is_captured = true
+      opposing_piece_adjacent.save
+    
+      opposing_team = self.game.pieces.where.not(color: self.color).where(is_captured: false)
+      opposing_team.each do |piece|
+        if piece.valid_move?(column, row)
+          king_is_in_check = true
+          break
+        end
+      end
+    end
+
+    opposing_piece_adjacent.is_captured = false
+    opposing_piece_adjacent.save
+
+    king_is_in_check
+  end
+
 end
