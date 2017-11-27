@@ -1,10 +1,59 @@
 @import "bootstrap";
+@import url(https://fonts.googleapis.com/css?family=VT323);
+@import url(https://fonts.googleapis.com/css?family=Press+Start+2P);
+
+body {
+  background: image_url('grass-pattern.png');
+}
+
+a {
+  color: #d9d9d9;
+}
+
+a:hover {
+  color: #d9d9d9;
+}
+
+.topnav {
+  font-family: "Press Start 2P", Lucida Console, sans-serif;
+  font-size: 16px;
+  background: image_url('grass-pattern2.png');
+  background-size: 5%;
+  width: 100%;
+}
+
+.rockslab {
+
+}
+
+.topnav h1 {
+  font-family: "VT323", Lucida Console, sans-serif;
+  font-size: 60px;
+}
+
+.blue-box {
+  background-color: #2E4172;
+  border-radius: 25px;
+  border-style: solid;
+  border-width: 6px;
+  color: white;
+  font-family: Lucida Console, sans-serif;
+  font-size: 16px;
+  padding: 16px;
+  margin: 12px;
+}
+
+.player-display {
+  font-family: "Press Start 2P", Lucida Console, sans-serif;
+  font-size: 24px;
+}
 
 .chessboard {
   background: image_url('pixelboard.png');
   background-size: cover;
-  width: 500px;
-  height: 500px;
+  width: 700px;
+  height: 700px;
+  margin: 12px;
 }
 
 .square {
