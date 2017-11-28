@@ -21,8 +21,3 @@ Temporarily on this page until we finalize the layout of the app-->
     <img src="<%= image_url "placeholder.jpg" %>" class="img-fluid">
   </div>
 </div>
-<div class="col-10 offset-1 placeholder">
-  <div class="placeholder">
-    <%= link_to 'New Game', games_path( { game: { white_player: current_user, game_state: "pending" } } ), class: 'btn btn-primary btn-large', method: :post %>
-  </div>
-</div>
