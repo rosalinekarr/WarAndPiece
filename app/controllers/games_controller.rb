@@ -13,7 +13,7 @@ class GamesController < ApplicationController
     @game.white_player_id = current_user.id
     @game.save
     if @game.valid?
-      redirect_to root_path
+      redirect_to lobby_path
     else
       render :new, status: :unprocessable_entity
     end
