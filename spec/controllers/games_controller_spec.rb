@@ -62,7 +62,7 @@ RSpec.describe GamesController, type: :controller do
       sign_in player
       post :create, params: { game: { white_player_id: player.id, game_state: "new" } }
       
-      expect(response).to redirect_to root_path
+      expect(response).to redirect_to lobby_path
       game = Game.last
       expect(game.game_state).to eq("new")
       expect(game.white_player).to eq(player)
