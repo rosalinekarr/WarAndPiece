@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :show, :update, :join]
-
+  before_action :authenticate_user!
+  
   def index
   end
 
