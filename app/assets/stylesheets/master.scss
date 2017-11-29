@@ -43,6 +43,12 @@ a:hover {
   font-size: 60px;
 }
 
+.player-display {
+  text-align: center;
+  font-family: "Press Start 2P", Lucida Console, sans-serif;
+  font-size: 24px;
+}
+
 .blue-box {
   background-color: #2E4172;
   border-radius: 25px;
@@ -57,9 +63,8 @@ a:hover {
   text-shadow: 1px 1px 1px black;
 }
 
-.player-display {
-  font-family: "Press Start 2P", Lucida Console, sans-serif;
-  font-size: 24px;
+.intro-box {
+  display: inline-block;
 }
 
 .chessboard {

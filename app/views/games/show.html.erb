@@ -38,10 +38,10 @@ $(function() {
 
   <div class="col-8">
 
-    <!-- Game Selection Modal or Drop-down -->
+    <!-- Player Name Display -->
 
-    <div class="blue-box">
-      <p>Game Name + Game Selector Drop Down or Modal</p>
+    <div class="blue-box player-display">
+      <p>White Player vs. Black Player</p>
     </div>
 
     <!-- Game Board -->
@@ -58,11 +58,13 @@ $(function() {
 
   <div class="col-4">
 
-    <!-- Player Name Display -->
+    <!-- Cute image and possibly check/checkmate indicator? -->
 
-    <div class="blue-box">
-      <h1>White Player</h1> <h3>vs.</h3> <h1>Black Player</h1>
+    <div class="placeholder show-image">
+      <p>Image</p>
     </div>
+
+    <!-- Turn Indicator -->
 
     <div class="blue-box">
       <% if @turn == "your-turn" %>
@@ -89,12 +91,6 @@ $(function() {
 
     <div class="show-button">
       <button>Truce</button>
-    </div>
-
-    <!-- Cute image and possibly check/checkmate indicator? -->
-
-    <div class="placeholder show-image">
-      <p>Image</p>
     </div>
 
   </div>
