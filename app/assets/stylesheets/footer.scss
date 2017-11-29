@@ -16,8 +16,15 @@ body {
   position: relative;
   width: 100%;
   min-height: 75px;
-  background-color: grey;
   color: black;
   padding: 10px 0px;
   margin-top: 30px;
+  background: image_url('rock-pattern.png');
+  background-size: 5%;
+}
+
+.battlements {
+  background: image_url('battlement.png');
+  background-size: 60px;
+  height: 30px;
 }
