@@ -63,10 +63,6 @@ a:hover {
   text-shadow: 1px 1px 1px black;
 }
 
-.intro-box {
-  display: inline-block;
-}
-
 .chessboard {
   background: image_url('pixelboard.png');
   background-size: cover;
@@ -144,6 +140,7 @@ a:hover {
 
 .piece-icon {
   height: 100%;
+  align-self: center;
 }
 
 .player-pieces {
@@ -164,4 +161,16 @@ a:hover {
 
 .intro-box {
   text-align: center;
+  display: inline;
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+.root-sprites {
+  margin: auto;
+}
+
+.root-icon {
+  height: 80px;
+  margin: 10%;
 }
