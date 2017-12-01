@@ -1,17 +1,21 @@
 class StaticPagesController < ApplicationController
-  
+  before_action :authenticate_user!, only: [:lobby]
+
   def index
-    @inprogress_games = Game.inprogress
-    @pending_games = Game.available
   end
 
-  def challenge
+  def lobby
+    @inprogress_games = Game.inprogress
+    @pending_games = Game.available
   end
 
   def team
   end
 
   def contact
+  end
+
+  def privacy
   end
 
 end

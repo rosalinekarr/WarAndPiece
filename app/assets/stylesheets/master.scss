@@ -1,10 +1,65 @@
 @import "bootstrap";
+@import url(https://fonts.googleapis.com/css?family=VT323);
+@import url(https://fonts.googleapis.com/css?family=Press+Start+2P);
+
+body {
+  background: image_url('grass-pattern.png');
+}
+
+a {
+  color: #e5e5e5;
+  text-shadow: 2px 2px 2px #000000;
+}
+
+a:hover {
+  color: #d9d9d9;
+}
+
+.topnav {
+  font-family: "Press Start 2P", Lucida Console, sans-serif;
+  font-size: 14px;
+  letter-spacing: -1px;
+  width: 100%;
+}
+
+.rockslab {
+  width: 60%;
+  margin: auto;
+  box-shadow: 5px 5px 5px black;
+  background: image_url('rock-pattern.png');
+  background-size: 10%;
+}
+
+.topnav h1 {
+  font-family: "VT323", Lucida Console, sans-serif;
+  font-size: 50px;
+}
+
+.blue-box {
+  background-color: #2E4172;
+  border-radius: 25px;
+  border-style: solid;
+  border-width: 6px;
+  color: white;
+  font-family: "VT323", Lucida Console, sans-serif;
+  font-size: 24px;
+  padding: 16px;
+  margin: 12px;
+  box-shadow: 3px 3px 3px black;
+  text-shadow: 1px 1px 1px black;
+}
+
+.player-display {
+  font-family: "Press Start 2P", Lucida Console, sans-serif;
+  font-size: 24px;
+}
 
 .chessboard {
   background: image_url('pixelboard.png');
   background-size: cover;
-  width: 500px;
-  height: 500px;
+  width: 700px;
+  height: 700px;
+  margin: 12px;
 }
 
 .square {
@@ -88,4 +143,17 @@
   height: 100%;
   display: block;
   margin: auto;
+}
+
+.opponent-turn {
+  pointer-events: none;
+}
+
+.intro-box {
+  text-align: center;
+}
+
+.navbar-toggler {
+  border: 1px solid #404040;
+  margin-top: 5px;
 }

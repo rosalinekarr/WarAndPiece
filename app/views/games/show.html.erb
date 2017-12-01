@@ -16,11 +16,12 @@ function setup () {
         url: icon.data('update-url'),
         dataType: 'script',
         data: { piece: { rank: sq_rank, file: sq_file } }
+      }).always(function() {
+        location.reload()
       });
     }
-
   });
-  
+
   $('.piece-icon').each( function() {
     var o = $(this);
     if( ! o.attr('title') && o.attr('alt') ) o.attr('title', o.attr('alt') );
@@ -35,11 +36,11 @@ $(function() {
 
 <div class="row">
 
-  <div class="col-8 placeholder">
+  <div class="col-8">
 
     <!-- Game Selection Modal or Drop-down -->
 
-    <div class="placeholder">
+    <div class="blue-box">
       <p>Game Name + Game Selector Drop Down or Modal</p>
     </div>
 
@@ -53,24 +54,27 @@ $(function() {
 
     </div>
 
-    <!-- Challenges Feed -->
-
-    <div class="placeholder">
-      <p>Challenges Feed/Current Games List</p>
-    </div>
   </div>
 
-  <div class="col-4 placeholder">
+  <div class="col-4">
 
     <!-- Player Name Display -->
 
-    <div class="placeholder">
+    <div class="blue-box">
       <h1>White Player</h1> <h3>vs.</h3> <h1>Black Player</h1>
+    </div>
+
+    <div class="blue-box">
+      <% if @turn == "your-turn" %>
+        <h3>Your Turn!</h3>
+      <% elsif @turn == "opponent-turn" %>
+        <h3>Wait Your Turn!</h3>
+      <% end %>
     </div>
 
     <!-- Captured Pieces Display -->
 
-    <div class="placeholder captured-display">
+    <div class="blue-box captured-display">
       <h5>Captured Pieces</h5>
       <%= render partial: "captured-display", locals: {game: current_game} %>
     </div>

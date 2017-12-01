@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :show, :update, :join]
-
+  before_action :authenticate_user!
+  
   def index
   end
 
@@ -13,7 +13,7 @@ class GamesController < ApplicationController
     @game.white_player_id = current_user.id
     @game.save
     if @game.valid?
-      redirect_to root_path
+      redirect_to lobby_path
     else
       render :new, status: :unprocessable_entity
     end
@@ -22,6 +22,12 @@ class GamesController < ApplicationController
   def show
     @game = Game.find_by_id(params[:id])
     return render_not_found if @game.blank?
+    if @game.turn == true && current_user == @game.white_player ||
+     @game.turn == false && current_user == @game.black_player
+      @turn = "your-turn"
+    else
+      @turn = "opponent-turn"
+    end
   end
 
   def join
@@ -61,4 +67,5 @@ class GamesController < ApplicationController
   def game_params
     params.require(:game).permit(:white_player_id, :black_player_id, :game_state)
   end
+
 end

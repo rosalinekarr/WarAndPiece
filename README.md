@@ -1,24 +1,20 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+War & Piece is a chess application built as part of The Firehose Project software engineering bootcamp.
 
-Things you may want to cover:
+During the project, cldambrosio, garyravago, RajSannidhi, reneesandefur and hereismyusername worked as part of a remote agile web development team under the guidance of experienced software engineer rosalinekarr.
 
-* Ruby version
+The team used languages and tools including:
+- Ruby on Rails
+- JavaScript
+- jQuery
+- Ajax
+- HTML
+- CSS
+- Bootstrap
+- PostgreSQL
+- RSpec
+- Heroku
+- Trello
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+The application can be found at war-and-piece.herokuapp.com
