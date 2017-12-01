@@ -18,15 +18,6 @@ before_action :authenticate_user!, only: :update
         )
     end
 
-    @game = current_piece.game
-    if @game.check?(current_piece)
-      if @game.checkmate?(current_piece)
-        flash[:alert] = "Checkmate!"
-      else
-        flash[:alert] = "Check!"
-      end
-    end
-
   end
 
   private

@@ -28,6 +28,16 @@ class GamesController < ApplicationController
     else
       @turn = "opponent-turn"
     end
+
+    @piece = 
+    if @game.check?(@piece)
+      if @game.checkmate?(@piece)
+        @check_status = "Checkmate!"
+      else
+        @check_status = "Check!"
+      end
+    end
+
   end
 
   def join
