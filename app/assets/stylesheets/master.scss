@@ -7,7 +7,8 @@ body {
 }
 
 a {
-  color: #d9d9d9;
+  color: #e5e5e5;
+  text-shadow: 2px 2px 2px #000000;
 }
 
 a:hover {
@@ -16,19 +17,22 @@ a:hover {
 
 .topnav {
   font-family: "Press Start 2P", Lucida Console, sans-serif;
-  font-size: 16px;
-  background: image_url('grass-pattern2.png');
-  background-size: 5%;
+  font-size: 14px;
+  letter-spacing: -1px;
   width: 100%;
 }
 
 .rockslab {
-
+  width: 60%;
+  margin: auto;
+  box-shadow: 5px 5px 5px black;
+  background: image_url('rock-pattern.png');
+  background-size: 10%;
 }
 
 .topnav h1 {
   font-family: "VT323", Lucida Console, sans-serif;
-  font-size: 60px;
+  font-size: 50px;
 }
 
 .blue-box {
@@ -37,10 +41,12 @@ a:hover {
   border-style: solid;
   border-width: 6px;
   color: white;
-  font-family: Lucida Console, sans-serif;
-  font-size: 16px;
+  font-family: "VT323", Lucida Console, sans-serif;
+  font-size: 24px;
   padding: 16px;
   margin: 12px;
+  box-shadow: 3px 3px 3px black;
+  text-shadow: 1px 1px 1px black;
 }
 
 .player-display {
@@ -141,4 +147,13 @@ a:hover {
 
 .opponent-turn {
   pointer-events: none;
+}
+
+.intro-box {
+  text-align: center;
+}
+
+.navbar-toggler {
+  border: 1px solid #404040;
+  margin-top: 5px;
 }
