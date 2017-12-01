@@ -1,1 +1,15 @@
-<p>Games Index Page. Should redirect to the user's most recently viewed game.</p>
+<div class="game-list blue-box" >
+  <h4>Games In Progress</h4>
+  <% @inprogress_games.each do |game| %>
+    <% if game.black_player == current_user || game.white_player == current_user %>
+      <div class="row">
+        <div class="col-sm-8 col-12">
+          <p><%= "Game #{game.id} ( #{game.white_player.email} VS #{game.black_player.email} )" %></p>
+        </div>
+        <div class="col-sm-4 col-12 text-center">
+          <%= link_to 'View Game', game_path(game), class: 'btn btn-primary btn-large' %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
