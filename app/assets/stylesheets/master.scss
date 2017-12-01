@@ -7,7 +7,7 @@ body {
 }
 
 a {
-  color: #d9d9d9;
+  color: #e5e5e5;
   text-shadow: 2px 2px 2px #000000;
 }
 
@@ -17,7 +17,8 @@ a:hover {
 
 .topnav {
   font-family: "Press Start 2P", Lucida Console, sans-serif;
-  font-size: 16px;
+  font-size: 14px;
+  letter-spacing: -1px;
   width: 100%;
 }
 
@@ -29,18 +30,9 @@ a:hover {
   background-size: 10%;
 }
 
-.rockslab a {
-  background-color: black;
-  color: transparent;
-  text-shadow: 2px 2px #d9d9d9;
-  -webkit-background-clip: text;
-     -moz-background-clip: text;
-          background-clip: text;
-}
-
 .topnav h1 {
   font-family: "VT323", Lucida Console, sans-serif;
-  font-size: 60px;
+  font-size: 50px;
 }
 
 .blue-box {
@@ -159,4 +151,9 @@ a:hover {
 
 .intro-box {
   text-align: center;
+}
+
+.navbar-toggler {
+  border: 1px solid #404040;
+  margin-top: 5px;
 }
