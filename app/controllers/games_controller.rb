@@ -3,6 +3,7 @@ class GamesController < ApplicationController
   
   def index
     @inprogress_games = Game.inprogress
+    @pending_games = Game.available
   end
 
   def new
