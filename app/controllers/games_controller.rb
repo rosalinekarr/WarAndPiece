@@ -29,7 +29,10 @@ class GamesController < ApplicationController
       @turn = "opponent-turn"
     end
 
-    @piece = 
+    if @check_status != "Check!"
+      last_piece_id = @game.moves.last.piece_id
+    end
+    @piece = Piece.find_by_id(last_piece_id)
     if @game.check?(@piece)
       if @game.checkmate?(@piece)
         @check_status = "Checkmate!"
