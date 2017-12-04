@@ -1,0 +1,6 @@
+
+# Pusher credentials
+APP_ID:      '440134'
+APP_KEY:     '7bf1fd557050b6bf72a8'
+APP_SECRET:  '81e3632ecc01082d7803'
+APP_CLUSTER: 'eu'

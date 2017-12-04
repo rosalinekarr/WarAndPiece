@@ -30,6 +30,12 @@ class GamesController < ApplicationController
     end
   end
 
+  def hello_world
+    pusher_client.trigger('my-channel', 'my-event', {
+      message: 'hello world'
+    })
+  end
+
   def join
     @game = Game.find(params[:game_id])
     @game.update_attributes(black_player_id: current_user.id, game_state:"inprogress")

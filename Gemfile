@@ -73,3 +73,5 @@ gem 'omniauth-facebook'
 gem 'faker'
 
 gem 'jquery-ui-rails'
+
+gem 'pusher'

@@ -1,3 +1,13 @@
+<script src="https://js.pusher.com/4.1/pusher.min.js">
+  var pusher = new Pusher('APP_KEY', {
+    cluster: 'APP_CLUSTER'
+  });
+  var channel = pusher.subscribe('my-channel');
+  channel.bind('my-event', function(data) {
+    alert('An event was triggered with message: ' + data.message);
+  });
+</script>
+
 <script>
 
 function setup () {
