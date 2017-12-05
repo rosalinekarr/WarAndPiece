@@ -1,46 +1,47 @@
-<script src="https://js.pusher.com/4.1/pusher.min.js">
-  var pusher = new Pusher('APP_KEY', {
-    cluster: 'APP_CLUSTER'
-  });
-  var channel = pusher.subscribe('my-channel');
-  channel.bind('my-event', function(data) {
-    alert('An event was triggered with message: ' + data.message);
-  });
-</script>
+<script src="https://js.pusher.com/4.1/pusher.min.js"></script>
 
 <script>
-
-function setup () {
-  $('.player-pieces').draggable({
-    snap: '.square'
+  // Pusher.logToConsole = true;    ## debugging
+  var pusher = new Pusher('ae50b9d5276df9c39c26', {
+    cluster: 'mt1',
   });
 
-  $('.square').droppable({
-    drop: function( event, ui ) {
-      const square = this
-      const icon = ui.draggable
-      const sq_rank = $(square).data('rank')
-      const sq_file = $(square).data('file')
-      $.ajax({
-        type: 'PUT',
-        url: icon.data('update-url'),
-        dataType: 'script',
-        data: { piece: { rank: sq_rank, file: sq_file } }
-      }).always(function() {
-        location.reload()
-      });
-    }
+  var channel = pusher.subscribe('my-channel');
+  channel.bind('pusher:subscription_succeeded', function() {
+    alert('hello world');
   });
 
-  $('.piece-icon').each( function() {
-    var o = $(this);
-    if( ! o.attr('title') && o.attr('alt') ) o.attr('title', o.attr('alt') );
-  });
-}
+  function setup () {
+    $('.player-pieces').draggable({
+      snap: '.square'
+    });
 
-$(function() {
-  setup()
-});
+    $('.square').droppable({
+      drop: function( event, ui ) {
+        const square = this
+        const icon = ui.draggable
+        const sq_rank = $(square).data('rank')
+        const sq_file = $(square).data('file')
+        $.ajax({
+          type: 'PUT',
+          url: icon.data('update-url'),
+          dataType: 'script',
+          data: { piece: { rank: sq_rank, file: sq_file } }
+        }).always(function() {
+          location.reload()
+        });
+      }
+    });
+
+    $('.piece-icon').each( function() {
+      var o = $(this);
+      if( ! o.attr('title') && o.attr('alt') ) o.attr('title', o.attr('alt') );
+    });
+  }
+
+  $(function() {
+    setup()
+  });
   
 </script>
 
