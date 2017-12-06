@@ -1,14 +1,16 @@
 <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
 
 <script>
-  // Pusher.logToConsole = true;    ## debugging
+  Pusher.logToConsole = true;    // debugging
   var pusher = new Pusher('aebf9e61c8ccd0443466', {
     cluster: 'mt1',
   });
 
+  // const myChannel = location.href;
+  // console.log(myChannel);
   var channel = pusher.subscribe('my-channel');
-  channel.bind('pusher:subscription_succeeded', function() {
-    alert('hello world');
+  channel.bind('my-event', function(data) {
+    alert(data.message);
   });
 
   function setup () {
