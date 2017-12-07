@@ -1,19 +1,19 @@
 <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
 
 <script>
-  Pusher.logToConsole = true;    // debugging
-  var pusher = new Pusher('aebf9e61c8ccd0443466', {
-    cluster: 'mt1',
-  });
-
-  // const myChannel = location.href;
-  // console.log(myChannel);
-  var channel = pusher.subscribe('my-channel');
-  channel.bind('my-event', function(data) {
-    alert(data.message);
-  });
 
   function setup () {
+    Pusher.logToConsole = true;    // debugging
+    var pusher = new Pusher('aebf9e61c8ccd0443466', {
+      cluster: 'mt1',
+    });
+
+    let myChannel = location.href;
+    myChannel = myChannel.replace(/(.+)(games\/)(\d{1,})/, "$3");
+    // console.log("myChannel is:")
+    // console.log(myChannel);
+    var channel = pusher.subscribe(myChannel);
+
     $('.player-pieces').draggable({
       snap: '.square'
     });
@@ -30,7 +30,9 @@
           dataType: 'script',
           data: { piece: { rank: sq_rank, file: sq_file } }
         }).always(function() {
-          location.reload()
+          channel.bind('player-moved', function() {
+            location.reload(true);
+          });
         });
       }
     });
