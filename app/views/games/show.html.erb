@@ -8,12 +8,9 @@
 
   let myChannel = location.href;
   myChannel = myChannel.replace(/(.+)(games\/)(\d{1,})/, "$3");
-  // console.log("myChannel is:")
-  // console.log(myChannel);
   var channel = pusher.subscribe(myChannel);
 
   channel.bind('player-moved', function(data) {
-    // alert(data.location);
     location.reload(true);
   });
 
