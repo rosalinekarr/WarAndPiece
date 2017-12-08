@@ -27,6 +27,14 @@ before_action :authenticate_user!, only: :update
       end
     end
 
+    ## => WebSocket for realtime screen update for both players:
+    ## Pusher.trigger(channels, event, data)
+    Pusher.trigger(@game.id, 'player-moved', {
+      ## method requires 3 (or 4) arguments, though in this case
+      ## we have no use of data
+      ## ex: `location: game_path(@game)`   
+    })
+
   end
 
   private

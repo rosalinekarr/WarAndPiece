@@ -22,19 +22,12 @@ class GamesController < ApplicationController
   def show
     @game = Game.find_by_id(params[:id])
     return render_not_found if @game.blank?
-
-    # Pusher.trigger(channels, event, data)
-    Pusher.trigger(@game.id, 'player-moved', {
-      message: 'hello world'
-    })
-
     if @game.turn == true && current_user == @game.white_player ||
      @game.turn == false && current_user == @game.black_player
       @turn = "your-turn"
     else
       @turn = "opponent-turn"
     end
-
   end
 
   def join
