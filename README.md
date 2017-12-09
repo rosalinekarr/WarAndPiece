@@ -17,7 +17,7 @@ The team used languages and tools including:
 - Heroku
 - Trello
 
-The application can be found at war-and-piece.herokuapp.com
+The application can be found at war-and-piece.herokuapp.com.
 
 Software used:
 - Rails 5.1.4
