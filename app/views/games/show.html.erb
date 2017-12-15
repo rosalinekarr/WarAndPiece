@@ -2,7 +2,7 @@
 
 <script>
 
-  var pusher = new Pusher('aebf9e61c8ccd0443466', {
+  var pusher = new Pusher('b68e4fc2e45855c51948', {
     cluster: 'mt1',
   });
 
@@ -30,9 +30,7 @@
           url: icon.data('update-url'),
           dataType: 'script',
           data: { piece: { rank: sq_rank, file: sq_file } }
-        }).always(function() {
-          location.reload(true);
-        });
+        })
       }
     });
 
