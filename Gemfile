@@ -77,3 +77,5 @@ gem 'jquery-ui-rails'
 gem 'pusher'
 
 gem 'figaro'
+
+gem 'font-awesome-rails'

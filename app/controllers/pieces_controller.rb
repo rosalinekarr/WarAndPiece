@@ -21,9 +21,9 @@ before_action :authenticate_user!, only: :update
     @game = current_piece.game
     if @game.check?(current_piece)
       if @game.checkmate?(current_piece)
-        flash[:alert] = "Checkmate!"
+        @check_alert = "Checkmate!"
       else
-        flash[:alert] = "Check!"
+        @check_alert = "Check!"
       end
     end
 
