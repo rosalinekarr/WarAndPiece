@@ -74,4 +74,8 @@ gem 'faker'
 
 gem 'jquery-ui-rails'
 
-gem "font-awesome-rails"
+gem 'pusher'
+
+gem 'figaro'
+
+gem 'font-awesome-rails'
