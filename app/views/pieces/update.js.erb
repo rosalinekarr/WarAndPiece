@@ -2,4 +2,8 @@ $('.grid').html("<%= j render partial: "games/grid", locals: {game: Game.find(cu
 
 $('.captured-display').html("<%= j render partial: "games/captured-display", locals: {game: Game.find(current_piece.game.id)} %>")
 
+if ("<%= @check_alert %>") {
+  alert("<%= @check_alert %>")
+  };
+
 setup()
