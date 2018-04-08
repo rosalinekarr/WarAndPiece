@@ -1,36 +1,48 @@
+<script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+
 <script>
 
-function setup () {
-  $('.player-pieces').draggable({
-    snap: '.square'
+  var pusher = new Pusher('b68e4fc2e45855c51948', {
+    cluster: 'mt1',
   });
 
-  $('.square').droppable({
-    drop: function( event, ui ) {
-      const square = this
-      const icon = ui.draggable
-      const sq_rank = $(square).data('rank')
-      const sq_file = $(square).data('file')
-      $.ajax({
-        type: 'PUT',
-        url: icon.data('update-url'),
-        dataType: 'script',
-        data: { piece: { rank: sq_rank, file: sq_file } }
-      }).always(function() {
-        location.reload()
-      });
-    }
+  let myChannel = location.href;
+  myChannel = myChannel.replace(/(.+)(games\/)(\d{1,})/, "$3");
+  var channel = pusher.subscribe(myChannel);
+
+  channel.bind('player-moved', function(data) {
+    location.reload(true);
   });
 
-  $('.piece-icon').each( function() {
-    var o = $(this);
-    if( ! o.attr('title') && o.attr('alt') ) o.attr('title', o.attr('alt') );
-  });
-}
+  function setup () {
+    $('.player-pieces').draggable({
+      snap: '.square'
+    });
 
-$(function() {
-  setup()
-});
+    $('.square').droppable({
+      drop: function( event, ui ) {
+        const square = this
+        const icon = ui.draggable
+        const sq_rank = $(square).data('rank')
+        const sq_file = $(square).data('file')
+        $.ajax({
+          type: 'PUT',
+          url: icon.data('update-url'),
+          dataType: 'script',
+          data: { piece: { rank: sq_rank, file: sq_file } }
+        })
+      }
+    });
+
+    $('.piece-icon').each( function() {
+      var o = $(this);
+      if( ! o.attr('title') && o.attr('alt') ) o.attr('title', o.attr('alt') );
+    });
+  }
+
+  $(function() {
+    setup()
+  });
   
 </script>
 

@@ -5,7 +5,6 @@ class StaticPagesController < ApplicationController
   end
 
   def lobby
-    @inprogress_games = Game.inprogress
     @pending_games = Game.available
   end
 

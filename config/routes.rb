@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   root 'static_pages#index'
   get 'team', to: 'static_pages#team'
   get 'contact', to: 'static_pages#contact'
-
   get 'terms', to: 'static_pages#terms'
   get 'challenge', to: 'static_pages#challenge'
   get 'lobby', to: 'static_pages#lobby'

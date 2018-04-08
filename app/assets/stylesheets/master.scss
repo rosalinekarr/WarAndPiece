@@ -1,6 +1,7 @@
 @import "bootstrap";
 @import url(https://fonts.googleapis.com/css?family=VT323);
 @import url(https://fonts.googleapis.com/css?family=Press+Start+2P);
+@import "font-awesome";
 
 body {
   background: image_url('grass-pattern.png');
@@ -156,4 +157,10 @@ a:hover {
 .navbar-toggler {
   border: 1px solid #404040;
   margin-top: 5px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
 }

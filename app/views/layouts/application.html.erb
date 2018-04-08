@@ -87,11 +87,14 @@
     </div>
 
   <div id="footer">
-    <div class="container">
-      <%= link_to 'About Our Team', team_path %>
-      <%= link_to 'Contact Us', contact_path %>
-      <%= link_to 'Terms and Conditions', terms_path %>
+
+    <div class="container footer-grid">
+
+      <%= link_to 'Team', team_path %>
       <%= link_to 'Privacy Policy', privacy_path %>
+      <%= link_to 'https://github.com/rosalinekarr/WarAndPiece', target: :_blank do %>
+        <i class="fa fa-github-square fa-2x"></i>
+      <% end %>
 
     </div>
   </div>

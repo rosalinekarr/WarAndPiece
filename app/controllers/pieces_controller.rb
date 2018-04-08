@@ -21,11 +21,19 @@ before_action :authenticate_user!, only: :update
     @game = current_piece.game
     if @game.check?(current_piece)
       if @game.checkmate?(current_piece)
-        flash[:alert] = "Checkmate!"
+        @check_alert = "Checkmate!"
       else
-        flash[:alert] = "Check!"
+        @check_alert = "Check!"
       end
     end
+
+    ## => WebSocket for realtime screen update for both players:
+    ## Pusher.trigger(channels, event, data)
+    Pusher.trigger(@game.id, 'player-moved', {
+      ## method requires 3 (or 4) arguments, though in this case
+      ## we have no use of data
+      ## ex: `location: game_path(@game)`   
+    })
 
   end
 
