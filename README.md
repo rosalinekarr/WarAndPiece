@@ -17,4 +17,14 @@ The team used languages and tools including:
 - Heroku
 - Trello
 
+
 The live application can be found at <a href="https://war-and-piece.herokuapp.com">War & Piece</a>
+
+Software used:
+- Rails 5.1.4
+- Ruby 2.3.1
+- PostgreSQL 9.3.11
+
+Design:
+- Piece sprites (i.e. chess pieces) are closely based on characters from the video game Final Fantasy VI, but none are identical.
+
